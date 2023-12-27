@@ -1,0 +1,6 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (dop.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  lab_09.cpp
+D:\БГТУ\Работы\ОАиП\Лб 9\lab9\dop\lab_09.cpp(31,7): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\БГТУ\Работы\ОАиП\Лб 9\lab9\dop\lab_09.cpp(43,8): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\БГТУ\Работы\ОАиП\Лб 9\lab9\dop\lab_09.cpp(54,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  dop.vcxproj -> D:\БГТУ\Работы\ОАиП\Лб 9\lab9\x64\Debug\lab_09.exe

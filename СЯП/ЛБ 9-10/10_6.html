@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <TITLE>Задание 6 ЛБ №9-10 СЯП</TITLE>
+  <style>
+    .menu-item {
+      border: 2px solid black;
+      background: #ff7518;
+      float: left;
+      position: relative;
+      cursor: pointer;
+      width: 100px;
+      height: 30px;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .menu-item .submenu {
+      transition: 0.2s ease-in-out;
+      visibility: hidden;
+      width: 100px;
+      border: 1px solid black;
+      background: #fff44f;
+      position: absolute;
+      top: 30px;
+      cursor: pointer;
+    }
+
+    #nav {
+      margin-left: 40%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="nav" onmouseover="onmouse(event)">
+    <div class="menu-item">
+      Меню 1
+      <div class="submenu">
+        Подменю
+      </div>
+    </div>
+    <div class="menu-item">
+      Меню 2
+      <div class="submenu">
+        Подменю
+      </div>
+    </div>
+    <div class="menu-item">
+      Меню 3
+      <div class="submenu">
+        Подменю
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  function onmouse(event) {
+    var target = event.target;
+    if (target.className == 'menu-item') {
+
+      var s = target.getElementsByClassName('submenu');
+
+      closeMenu();
+
+      s[0].style.height = '30px';
+      s[0].style.visibility = "visible";
+      s[0].style.fontSize = "20";
+
+    }
+  }
+
+  document.onmouseover = function (event) {
+    var target = event.target;
+
+    if (target.className != 'menu-item' && target.className != 'submenu') {
+      closeMenu();
+    }
+  }
+
+  function closeMenu() {
+    var menu = document.getElementById('nav');
+    var subm = document.getElementsByClassName('submenu');
+    for (var i = 0; i < 3; i++) {
+      subm[i].style.height = "0px";
+      subm[i].style.visibility = "hidden";
+      subm[i].style.fontSize = "20";
+    }
+  }
+</script>
+
+</html>

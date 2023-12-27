@@ -1,0 +1,11 @@
+﻿  AddReminder.cpp
+  DeleteReminder.cpp
+  EditReminder.cpp
+  main.cpp
+  ReminderManager.cpp
+  ShowReminders.cpp
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 286 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  Napominalk.vcxproj -> D:\БГТУ\Работы\ВРПО\Лб 8\Napominalk\x64\Release\Napominalka.exe

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Окно регистрации</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 350px;
+            height: auto;
+            margin: auto;
+            padding: 20px;
+            background-color: indigo;
+            color:aliceblue;
+            font-size: 1.2em;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            text-align: left;
+            flex: 2;
+            margin-right: 10px;
+        }
+
+        .input {
+            flex: 2.5;
+            width: 50px;
+            padding: 5px;
+            height: 12px;
+            border-radius: 7px;
+        }
+
+        .input[type="text"] {
+            width: 100%;
+        }
+
+        .l {
+            margin-right: 110px;
+        }
+
+        select option:first-child:checked {
+            display: none;
+        }
+
+        .sub {
+            width: 100px;
+            padding: 5px;
+            height: 30px;
+            margin-right: 5px;
+            color: aliceblue;
+            background-color: navy;
+            box-shadow: 0 0 4px white;
+            border-radius: 7px;
+        }
+        .input[type="text"],[type="email"]{
+            background-color: rgba(255,255,255,.5);
+            color: rgba(255,255,255,1);
+            box-shadow: inset 0 0 10px rgba(255,255,255,.75);
+        }
+
+        :focus[type="text"]{
+            background-color: black;
+            color: rgb(0, 247, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 style="font-size: 1.16em;">Регистрация постоянного клиента</h2>
+        <div class="form-group">
+            <label class="label">Фамилия:</label>
+            <input class="input" type="text">
+        </div>
+        <div class="form-group">
+            <label class="label">Имя:</label>
+            <input class="input" type="text">
+        </div>
+        <div class="form-group">
+            <label class="label">Отчество:</label>
+            <input class="input" type="text">
+        </div>
+        <div class="form-group">
+            <label class="label">Ваш возраст:</label>
+            <input class="input" type="text">
+        </div>
+        <div class="form-group">
+            <label class="l">Пол:</label>
+            <label><input type="radio" name="1">Мужской</label>
+            <label><input type="radio" name="1">Женский</label>
+        </div>
+        <div class="form-group">
+            <label class="label">Email:</label>
+            <input class="input" type="email">
+        </div>
+        <div class="form-group">
+            <label class="label">Страна проживания:</label>
+            <input class="input" type="text">
+        </div>
+        <div class="form-group">
+            <label class="label">Откуда вы уназнали о нас?</label>
+            <select style="margin-right: 55px; height: 25px;">
+                <option disabled selected>Выберите вариант</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="label">Дата заполнения:</label>
+            <input class="input" type="date">
+        </div>
+        <div align="right">
+        <label class="label">
+            <input class="sub" type="submit" value="Регистрация">
+            <input class="sub" type="reset" value="Отмена">
+            </label>
+        </div>
+    </div>
+</body>
+
+</html>

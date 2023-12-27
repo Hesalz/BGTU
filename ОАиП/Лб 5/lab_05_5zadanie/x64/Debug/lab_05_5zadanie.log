@@ -1,0 +1,3 @@
+﻿  lab_05_5zadanie.cpp
+D:\БГТУ\Работы\ОАиП\Лб 5\lab_05_5zadanie\lab_05_5zadanie.cpp(14,47): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  lab_05_5zadanie.vcxproj -> D:\БГТУ\Работы\ОАиП\Лб 5\lab_05\x64\Debug\lab_05_5zadanie.exe

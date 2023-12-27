@@ -1,0 +1,9 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (Napominalk.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  AddReminder.cpp
+  DeleteReminder.cpp
+  EditReminder.cpp
+  main.cpp
+  ReminderManager.cpp
+  ShowReminders.cpp
+  Создание кода...
+  Napominalk.vcxproj -> D:\БГТУ\Работы\ВРПО\Лб 8\Napominalk\x64\Debug\Napominalka.exe

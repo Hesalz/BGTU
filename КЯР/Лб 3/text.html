@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: "Caveat";
+            src: url("fonts/Caveat.woff") format("woff");
+        }
+
+        @font-face {
+            font-family: "Exo2";
+            src: url("fonts/Exo2.woff") format("woff");
+        }
+
+        @font-face {
+            font-family: "Comfortaa";
+            src: url("fonts/comfortaa.woff") format("woff");
+        }
+
+        h1 {
+            font-family: Caveat;
+            margin-bottom: 0;
+            text-align: center;
+            font-style: bold;
+            text-transform: capitalize;
+            font-size: 45px;
+        }
+
+        h2 {
+            font-family: Exo2;
+            margin-bottom: 1.2em;
+            margin-top: 0.2rem;
+            text-indent: 25px;
+            text-align: left;
+        }
+
+        p {
+            font-family: Comfortaa;
+            text-indent: 25px;
+            text-align: justify;
+            margin: 0;
+            line-height: 200%;
+            font-size: 20px;
+        }
+
+        p::first-letter {
+            font-style: bold;
+            font-size: 45px;
+            color: white;
+            background-color: hsla(275, 100%, 10%, 1);
+        }
+        ol{
+            color: blue;
+        }
+        li {
+            list-style-type: upper-roman;
+        }
+
+        li span {
+            color: black;
+            font-family: Comfortaa;
+            font-size: 20px;
+        }
+
+        h2.list {
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Заголовок h1</h1>
+    <h2>Заголовок h2</h2>
+    <p>Абзац 1</p>
+    <p>Абзац 2</p>
+    <h2>Второй заголовок h2 </h2>
+    <p>Абзац 3</p>
+    <h2 class="list">Заголовок 2-го уровня перед списком</h2>
+    <ol>
+        <li><span>Пункт 1</span></li>
+        <li><span>Пункт 2</span></li>
+        <li><span>Пункт 3</span></li>
+        <li><span>Пункт 4</span></li>
+        <li><span>Пункт 5</span></li>
+    </ol>
+</body>
+
+</html>

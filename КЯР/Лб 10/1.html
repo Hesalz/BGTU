@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+    <style>
+        @import url(color.css) (min-width: 768px) and (max-width: 1280px);
+        @media (min-width: 480px) and (max-width: 768px) {
+            .cont p {
+                color: red;
+            }
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid gray;
+            margin: 20px;
+            padding: 0 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .cell {
+            width: 200px;
+            height: auto;
+            border: 1px solid gray;
+            padding: 10px;
+        }
+
+        video,
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            display: block;
+            cursor: pointer;
+            font-size: 50px;
+        }
+
+        #menu-toggle:checked+.header .menu-icon {
+            color: #333;
+        }
+
+        .menu-icon {
+            display: none;
+        }
+
+        .cont {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            width: 200px;
+        }
+
+        .cont p {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        @media (max-width: 720px) {
+            .row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cell {
+                margin: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .row {
+                display: none;
+            }
+
+            #menu-toggle:checked~.row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cell {
+                margin: 10px;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-left: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <link href="color2.css" rel="stylesheet" media="(min-width: 1280px)">
+    <input type="checkbox" id="menu-toggle">
+    <div class="header">
+        <h1>Flexbox-вёрстка</h1>
+        <div class="menu-icon">
+            <label for="menu-toggle" class="menu-icon">&#8801;</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+            <video src="drag.mp4" controls></video>
+            <video src="drag.mp4" controls></video>
+            <video src="drag.mp4" controls></video>
+        </div>
+        <div class="cell">
+            <h3 style="text-align: center;">Информация</h3>
+            <p>Flexbox-верстка — разметка макетов веб-страниц, которая
+                позволяет автоматически настраивать ширину элементов,
+                находящихся внутри flex-контейнера. Для применения данного
+                способа разметки следует учитывать разделение применяемых
+                свойств на свойства flex-контейнера и свойства flex-элемента.
+            </p>
+        </div>
+        <div class="cell">
+            <audio src="audio1.mp3" controls></audio>
+            <audio src="audio2.mp3" controls></audio>
+            <audio src="audio3.mp3" controls></audio>
+        </div>
+    </div>
+    <div class="cont">
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+        <div>
+            <img src="cat.jpg">
+            <p>Cat</p>
+        </div>
+    </div>
+</body>
+
+</html>

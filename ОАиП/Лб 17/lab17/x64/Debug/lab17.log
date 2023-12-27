@@ -1,0 +1,3 @@
+﻿  lab17.cpp
+D:\БГТУ\Работы\ОАиП\Лб 17\lab17\lab17.cpp(72,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lab17.vcxproj -> D:\БГТУ\Работы\ОАиП\Лб 17\lab17\x64\Debug\lab17.exe

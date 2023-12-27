@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+
+nav {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+}
+
+nav a {
+    color: black;
+    border: 1px solid black;
+    text-decoration: none;
+    margin-right: 15px;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bgtu:hover{background: url(facultet.png) no-repeat 0 0;}
+.it:hover{background: url(facultet.png) no-repeat 0 -30px;}
+.pim:hover{background: url(facultet.png) no-repeat 0 -60px;}
+.xtit:hover{background: url(facultet.png) no-repeat 0 -90px;}
+.drop {
+    position: relative;
+}
+
+.dropout {
+    position: absolute;
+    display: none;
+    width: 150px;
+}
+
+.drop:hover .dropout {
+    display: block;
+    border: 1px solid black;
+    border-top: none;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/vk.com" class="bgtu">БГТУ</a>
+        <div class="drop">
+            <a href="#" class="it">ИТ</a>
+            <div class="dropout">
+                <a href="#">Кафедра ИСиТ</a>
+                <a href="#">Кафедра ИиВД</a>
+                <a href="#">Кафедра ПИ</a>
+            </div>
+        </div>
+        <a href="#" class="pim">ПиМ</a>
+        <a href="#" class="xtit">ХТиТ</a>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (zad2.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  z2.cpp
+D:\БГТУ\Работы\ОАиП\Лб 9\lab9\zad2\z2.cpp(5,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  zad2.vcxproj -> D:\БГТУ\Работы\ОАиП\Лб 9\lab9\x64\Debug\z2.exe

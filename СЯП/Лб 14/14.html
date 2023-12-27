@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input {
+      display: inline-block;
+      width: 240px;
+      height: 55px;
+      margin: 10px 20px;
+      text-align: center;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: black;
+      background: darkorchid;
+      box-shadow: 0 8px 15px darkorchid;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    function z1() {
+      const a = { x: 3, y: 2, z: 1 };
+      const vals = Object.keys(a).map(key => a[key]);
+      alert(vals);
+      const values = Object.values(a);
+      alert(values);
+    }
+
+    function z2() {
+      const formatted = [0, 12, 123, 1234, 12345].map(key => key.toString().padStart(10, '0')).map(key => key.toString().padEnd(15, '0'));
+      console.log(formatted);
+    }
+    function z3() {
+      const nm = ["Hleb Babashinskii"].map(key => key.padStart(20, '-')).map(key => key.padEnd(23, ' 18'));
+      console.log(nm);
+    }
+    function z4() {
+      const fm = ["a", "b", "c", "d"].map(key => key.padStart(2, '1')).map(key => key.padEnd(7, '    0'));
+      console.log(fm);
+    }
+
+    function z5() {
+      let user = {
+        name: "Hleb",
+        secondname: "Babashinskii"
+      }
+      const a = Object.getOwnPropertyDescriptors(user);
+      console.log(a);
+
+    }
+
+    function z6() {
+      var o = {};
+      var bValue = 38;
+      Object.defineProperty(o, 'b', {
+        get: function () {
+          return bValue;
+        },
+        set: function (newValue) {
+          bValue = newValue;
+        },
+      });
+      alert(o.b);
+    }
+
+
+  </script>
+  <input type="button" value="1" onclick='z1()'></input>
+  <input type="button" value="2" onclick='z2()'></input>
+  <input type="button" value="3" onclick='z3()'></input><br>
+  <input type="button" value="4" onclick='z4()'></input>
+  <input type="button" value="5" onclick='z5()'>
+  <input type="button" value="6" onclick='z6()'>
+</body>
+
+</html>

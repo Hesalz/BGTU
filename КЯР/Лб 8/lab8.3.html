@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <style>
+    .main{
+    display: flex;
+
+}
+
+.main li{
+    list-style: none;
+    position:relative;
+}
+
+.main a{
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    color: black;
+    padding: 10px;
+    
+}
+.main a:visited{
+    color: black;
+}
+.sloy1{
+    width: 200px;
+    background-color:gold;
+    border: 2px solid black;
+}
+
+.sloy2{
+    width: 100px;
+    background-color: coral;
+    border: 2px dashed black;   
+}
+.main ul{
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: none;
+    padding: 0;
+}
+.main li:hover ul{
+    display: block;
+}
+   </style>
+    <nav class="nav">
+        <ul class="main">
+            <li class="sloy1"> <a href="">Меню</a> 
+                <ul>
+                    <li><a href="/КЯР/Лб 5/3.html" class="sloy2">Форма</a></li>
+                    <li><a href="/КЯР/Лб 5/4.html" class="sloy2">Шахматная доска</a></li>
+                    <li><a href="/КЯР/Лб 4/block.html" class="sloy2">Фотогалерея</a></li>
+                </ul>
+            </li>
+            
+        </ul>
+</body>
+</html>

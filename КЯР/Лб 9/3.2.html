@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: grid;
+            grid-template-areas:
+                "header header header"
+                "nav article ads"
+                "footer footer footer";
+            grid-template-rows: 60px 1fr 80px;
+            grid-template-columns: 20% 1fr 15%;
+            grid-gap: 10px;
+            height: 100vh;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            text-align: center;
+        }
+
+        header,
+        footer,
+        article,
+        nav,
+        div {
+            background: gold;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #pageHeader {
+            grid-area: header;
+        }
+
+        #pageFooter {
+            grid-area: footer;
+        }
+
+        #mainArticle {
+            grid-area: article;
+        }
+
+        #mainNav {
+            grid-area: nav;
+        }
+
+        #siteAds {
+            grid-area: ads;
+        }
+    </style>
+
+<body>
+    <header id="pageHeader">CSS Grid Layout</header>
+    <article id="mainArticle">CSS Grid Layout (далее просто Grid) — это способ двумерной раскладки. Именно ДВУмерной, в
+        отличии от Flexbox. Flexbox позволяет полноценно управлять элементами только по одной оси. Если говорить о
+        преимуществах использования Grid в CSS для бизнеса, то они напрямую связаны с вышеперечисленными плюсами. В
+        частности это скорость разработки, простота в поддержке, возможность делать более крутые макеты сайтов и
+        приложений, и т. д.
+        В заключении хотим сказать, что данная статья написана для знакомства с Grid. И ни в коем случае не призывает
+        забыть обо всех других способах раскладок и микрораскладок блоков на странице, будь то flex, inline-flex или
+        inline-block. </article>
+    <nav id="mainNav">
+        <a href="1.html">Задание №1.1</a>
+        <a href="1.2.html">Задание №1.2</a>
+        <a href="2.html">Задание №2</a>
+        <a href="3.1.html">Задание №3</a>
+    </nav>
+    <div id="siteAds">CSS Grid Layout — это технология, и каждую технологию нужно использовать с умом и для тех задач,
+        для которых она подходит лучше всего.</div>
+    <footer id="pageFooter">Grid даёт возможность контролировать одновременно и строки, и столбцы, в которых
+        располагаются элементы. Эти элементы можно двигать внутри Grid-сетки практически как нам вздумается.</footer>
+</body>

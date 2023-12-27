@@ -1,0 +1,23 @@
+@import url('/КЯР/Лб 11/scss/abcd.scss');
+
+header {
+    grid-area: header;
+    margin: 10px;
+    border: $border;
+    @include flexspace;
+    text-align: center;
+    padding: 5px;
+.logo{
+    width: 75px;
+    height: 75px;
+    border: $border;
+    padding: reward(75, 75) * 1px;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    border: $border;
+    padding: pow(2, 3) * 1px;
+}
+}

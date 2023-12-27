@@ -1,0 +1,30 @@
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+//Вариант 4
+void extractPositiveNumbers(const char* inputFile, const char* outputFile) {
+    FILE* fileA = fopen(inputFile, "r");
+    FILE* fileB = fopen(outputFile, "w");
+
+    if (!fileA || !fileB) {
+        fprintf(stderr, "Error opening input/output files.\n");
+        return;
+    }
+
+    int num;
+
+    while (fscanf(fileA, "%d", &num) == 1) {
+        if (num > 0) {
+            fprintf(fileB, "%d ", num);
+        }
+    }
+
+    fclose(fileA);
+    fclose(fileB);
+}
+
+int main() {
+    extractPositiveNumbers("D:/БГТУ/Работы/ОАиП/Лб 2 (2 сем)/второй/fileA.txt", "D:/БГТУ/Работы/ОАиП/Лб 2 (2 сем)/второй/fileB.txt");
+
+    return 0;
+}

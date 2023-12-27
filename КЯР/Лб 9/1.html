@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 и CSS3</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: grid;
+            grid-template-columns: auto 1fr 1fr; /* Используем "auto" для первой колонки */
+            grid-template-rows: 100vh;
+        }
+
+        header {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .html-cell {
+            grid-column: 2 / 2;
+            grid-row: 1 / 2;
+            padding: 20px;
+        }
+
+        .css-cell {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+            padding: 20px;
+        }
+
+        .html-cell {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .css-cell {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>HTML5 and CSS3</header>
+
+    <div class="html-cell">
+        <h2>HTML5</h2>
+        <p>HTML5 — последняя редакция HTML, языка разметки для создания и представления контента в Всемирной паутине.</p>
+    </div>
+
+    <div class="css-cell">
+        <h2>CSS3</h2>
+        <p>CSS3 — это последняя версия каскадных таблиц стилей, языка таблиц стилей, используемого для оформления документов веб-страниц.</p>
+    </div>
+
+</body>
+</html>

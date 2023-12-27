@@ -1,0 +1,3 @@
+﻿  lab11.cpp
+D:\БГТУ\Работы\ОАиП\Лб 11\lab11\lab11.cpp(29,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  lab11.vcxproj -> D:\БГТУ\Работы\ОАиП\Лб 11\lab11\x64\Debug\lab11.exe

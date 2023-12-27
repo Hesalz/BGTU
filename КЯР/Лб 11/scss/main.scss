@@ -1,0 +1,37 @@
+@import url('/КЯР/Лб 11/scss/abcd.scss');
+
+main {
+    grid-area: main;
+
+    h3 {
+        @include flexspace;
+        justify-content: center;
+        border: $border;
+        @include marpad;
+    }
+
+    .text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 460px;
+
+        .box {
+            margin: 10px;
+            height: 450px;
+            border: $border;
+            padding: 5px;
+        }
+    }
+
+    .gallery {
+        @include flexspace;
+
+        img {
+            width: 100px;
+            height: 100px;
+            border: $border;
+            @include marpad;
+        }
+    }
+}

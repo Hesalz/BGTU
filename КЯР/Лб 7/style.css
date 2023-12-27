@@ -1,0 +1,437 @@
+
+h3 {
+  text-align: center;
+  animation: header 2s linear infinite;
+}
+
+@keyframes header {
+  0% {
+    opacity: 0%;
+  }
+
+  50% {
+    opacity: 80%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+}
+
+/* Задание 1 */
+.cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 180px;
+  background-color: rgba(181, 187, 193, 0.373);
+}
+
+.img {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  transition: transform 0.5s ease-out;
+}
+
+.a:hover {
+  transform: scale(0.5);
+}
+
+.b:hover {
+  transform: rotate(45deg);
+}
+
+.c:hover {
+  transform: translateX(50px);
+}
+
+.d:hover {
+  transform: skew(-20deg);
+}
+
+/* Задание 2 */
+.a2 {
+  margin-right: 35px;
+  padding: 50px;
+  border: 2px solid black;
+  background-color: yellow;
+  transform: rotateX(40deg);
+}
+
+.b2 {
+
+  margin-right: 25px;
+  margin-left: 15px;
+  padding: 50px;
+  border: 2px solid black;
+  background-color: yellow;
+  transform: rotateY(40deg);
+}
+
+.c2 {
+  margin-right: 25px;
+  padding: 50px;
+  border: 2px solid black;
+  background-color: yellow;
+  transform: rotateX(40deg);
+}
+
+.d2 {
+  margin-left: 40px;
+  padding: 50px;
+  border: 2px solid black;
+  background-color: yellow;
+  transform: rotateY(-40deg);
+}
+
+/* Задание 3 */
+input[type="button"] {
+  margin: 15px;
+  border: 1px solid black;
+  width: 130px;
+  height: 40px;
+}
+
+.a3:hover {
+  background-color: black;
+  color: white;
+  transition: transform 1s ease-out;
+}
+
+.b3:hover {
+  border: solid red 3px;
+  outline: solid yellow 4px;
+}
+
+.c3:hover {
+  border-top: solid 4px green;
+  border-bottom: solid 4px green;
+  border-right: 0;
+  border-left: 0;
+}
+
+.d3:hover {
+  border-left: 4px solid blue;
+  border-right: 4px solid blue;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.e3:hover {
+  border: 0;
+  background: radial-gradient(yellow 5%, pink 15%, purple 20%, rgb(239, 96, 239) 45%, rgb(99, 211, 248));
+}
+
+/* Задание 4 */
+.card-stack {
+  height: 100px;
+  width: auto;
+  perspective: 1000px;
+  display: relative;
+  margin-left: 40px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  transform: rotateY(50deg);
+  flex: 10px 100px;
+}
+
+.card:nth-child(2) {
+  left: 30px;
+  bottom: 150px
+}
+
+.card:nth-child(3) {
+  left: 60px;
+  bottom: 300px
+}
+
+.card:nth-child(4) {
+  left: 90px;
+  bottom: 450px;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes slideImage {
+  0% {
+    transform:
+      perspective(1000px) rotateY(50deg);
+  }
+
+  50% {
+    transform:
+      perspective(200px) rotateY(0deg);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideImage2 {
+  0% {
+    transform:
+      perspective(1000px) rotateY(50deg);
+  }
+
+  50% {
+    transform:
+      perspective(200px) rotateY(0deg);
+  }
+
+  100% {
+    transform: translateX(130px);
+    filter: blur(10px);
+  }
+}
+
+@keyframes slideImage3 {
+  0% {
+    transform:
+      perspective(1000px) rotateY(50deg);
+  }
+
+  50% {
+    transform:
+      perspective(200px) rotateY(0deg);
+  }
+
+  100% {
+    transform: translateX(260px);
+    filter: grayscale(1);
+  }
+}
+
+@keyframes slideImage4 {
+  0% {
+    transform:
+      perspective(1000px) rotateY(50deg);
+  }
+
+  50% {
+    transform:
+      perspective(200px) rotateY(0deg);
+  }
+
+  100% {
+    transform: translateX(390px);
+    filter: invert(1);
+  }
+}
+
+.card-stack:hover .card:nth-child(1) {
+  animation: slideImage 4s linear forwards;
+}
+
+.card-stack:hover .card:nth-child(2) {
+  animation: slideImage2 4s linear forwards;
+}
+
+.card-stack:hover .card:nth-child(3) {
+  animation: slideImage3 4s linear forwards;
+}
+
+.card-stack:hover .card:nth-child(4) {
+  animation: slideImage4 4s linear forwards;
+}
+
+/* Задание 5 */
+.image-container {
+  width: 250px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border: dashed 2px gray;
+  margin-left: 150px;
+}
+
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: imageAnimation 25s linear infinite;
+}
+
+.image:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.image:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.image:nth-child(3) {
+  animation-delay: 10s;
+}
+
+.image:nth-child(4) {
+  animation-delay: 15s;
+}
+
+.image:nth-child(5) {
+  animation-delay: 20s;
+}
+
+@keyframes imageAnimation {
+
+  0%, 20% {
+    opacity: 1;
+  }
+
+  25%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Задание 6 */
+.ex6 {
+  position: relative;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+
+.five {
+  margin-top: 65px;
+  border: 1px solid black;
+  width: 600px;
+  height: 600px
+}
+
+.cl1 {
+  animation: exersize6 4s linear infinite;
+}
+
+.cl2 {
+  animation: exersize62 4s linear infinite;
+}
+
+.cl3 {
+  animation: exersize63 4s linear infinite;
+  overflow: hidden;
+}
+
+.cl4 {
+  animation: exersize64 4s linear infinite;
+}
+
+.cl5 {
+  animation: exersize65 8s linear infinite;
+}
+
+@keyframes exersize6 {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(200px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes exersize62 {
+  0% {
+    transform: translateX(0);
+    border-radius: 0px;
+  }
+
+  50% {
+    transform: translateX(200px);
+    border-radius: 200px;
+  }
+
+  100% {
+    transform: translateX(0);
+    border-radius: 0px;
+  }
+}
+
+@keyframes exersize63 {
+  0% {
+    transform: translateX(-1000px);
+  }
+
+  100% {
+    transform: translateX(2000px);
+  }
+}
+
+@keyframes exersize64 {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(50px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes exersize65 {
+  0% {
+    left: 0;
+    top: 0;
+  }
+
+  25% {
+    left: 300px;
+    top: 0;
+  }
+
+  50% {
+    left: 300px;
+    top: 300px;
+  }
+
+  75% {
+    left: 0;
+    top: 300px;
+  }
+
+  100% {
+    left: 0;
+    top: 0;
+  }
+}
+
+/* Задание 7 */
+.seven{
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  animation: exersize7 4s linear infinite;
+}
+
+@keyframes exersize7 {
+  0% {
+    color: royalblue;
+  }
+    25% {
+    color: lightcoral;
+    }
+    50% {
+      color: lightskyblue;
+    }
+    75% {
+      color: lightgreen;
+    }
+    100% {
+      color: royalblue;
+    }
+  }
