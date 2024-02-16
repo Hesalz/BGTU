@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            display: grid;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            grid-template-columns: 1fr 1fr auto;
+            grid-template-rows: 50vh 50vh;
+            letter-spacing: 1px;
+        }
+
+        .header {
+            grid-column: 3 / 4;
+            grid-row: 1 / 3;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            text-align: center;
+            background-color: cornflowerblue;
+            color: whitesmoke;
+            padding: 10px;
+        }
+
+        .html {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            background-color: #e74c3c;
+            color: whitesmoke;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .css3 {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: rgb(38, 226, 163);
+            color: whitesmoke;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .js{
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: rgb(144, 50, 144);
+            color: whitesmoke;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="html">
+        <h2>HTML5</h2>
+        <p>HTML5 — последняя редакция HTML, языка разметки для создания и представления контента в Всемирной паутине.
+        </p>
+    </div>
+    <div class="css3">
+        <h2>CSS3</h2>
+        <p>CSS3 — это последняя версия каскадных таблиц стилей, языка таблиц стилей, используемого для оформления
+            документов веб-страниц.</p>
+    </div>
+    <div class="header">HTML5 CSS3 JS</div>
+    <div class="js">
+        <h2>JS</h2>
+        <p>JS - это высокоуровневый язык программирования, который широко используется для создания интерактивных веб-страниц и придания динамичности веб-приложениям.</p>
+    </div>
+</body>
+
+</html>

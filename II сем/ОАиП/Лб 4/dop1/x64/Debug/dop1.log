@@ -1,0 +1,4 @@
+﻿  dop1.cpp
+D:\БГТУ\II сем\ОАиП\Лб 4\dop1\dop1.cpp(73,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+D:\БГТУ\II сем\ОАиП\Лб 4\dop1\dop1.cpp(75,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  dop1.vcxproj -> D:\БГТУ\II сем\ОАиП\Лб 4\lab04\x64\Debug\dop1.exe

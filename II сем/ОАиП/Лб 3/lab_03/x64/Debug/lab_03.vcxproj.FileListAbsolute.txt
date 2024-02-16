@@ -1,0 +1,2 @@
+D:\БГТУ\II сем\Работы\ОАиП\lab_03\x64\Debug\lab_03.exe
+D:\БГТУ\II сем\ОАиП\Лб 3\lab_03\x64\Debug\lab_03.exe

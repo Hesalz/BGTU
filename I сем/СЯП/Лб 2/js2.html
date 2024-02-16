@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Лб №2 СЯП Задание 2-4</title>
+  <link href="styles.css" rel="stylesheet" media="all">
+
+</head>
+
+<body>
+
+  <script type='text/javascript'>
+    //2
+    function z2() {
+      let a = Number(prompt("Введите количество строк"));
+      let b = Number(prompt("Введите количество столбцов"));
+
+      document.write("<table align='center' border= '1' style='color:black; font-family:Arial;background-color: #ff9e81;'>");
+      for (i = 1; i <= a; i++) {
+        document.write("<tr align='center'>");
+        for (j = 1; j <= b; j++) {
+          document.write("<td align='center'>" + i * j + "</td>");
+        }
+        document.write("</tr>");
+      }
+      document.write("</table>");
+
+    }
+    //3
+    function z3() {
+      document.write("<table border = '1' style='color:black ; font-family:Arial;background-color: #b1fc03;'>");
+      document.write("<tr>");
+      document.write("<td>" + "Радиус" + "</td>");
+      document.write("<td>" + "Площадь круга" + "</td>");
+      document.write("<td>" + "Длина окружности" + "</td>");
+      document.write("</tr>");
+      let a = Number(prompt("Введите а"));
+      let b = Number(prompt("Введите b"));
+      let i = a;
+
+      do {
+        k = i.toFixed(2);
+        document.write("<tr>");
+        document.write("<td>" + k + "</td>");
+        document.write("<td>" + Math.round(Math.pow(k, 2) * Math.PI) + "</td>"); //pi*r^2
+        document.write("<td>" + Math.round(2 * Math.PI * k) + "</td>");//2*pi*r
+        document.write("</tr>");
+        i = i + 0.3;
+      }
+      while (i <= b)
+    }
+
+
+    //4
+    function z4() {
+      let x = Number(prompt('Введите дробное число'));
+      let y = Number(prompt('Введите целое число'));
+
+      document.write("<table align='center' border= '1' style='color:black ; font-family:Arial;background-color: cornflowerblue;'>");
+      document.write("<tr>");
+      document.write("<th>Число дробное </th>");
+      document.write("<th>Метод</th>");
+      document.write("<th>Результат</th>");
+      document.write("<th>Описание метода</th>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<td>" + x + "</td>");
+      document.write("<td>" + "toString(16)" + "</td>");
+      document.write("<td>" + x.toString(16) + "</td>");
+      document.write("<td>" + "Строковое представление числа в 16-ричной системе счисления" + "</td>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<td>" + x + "</td>");
+      document.write("<td>" + "toExponential(4)" + "</td>");
+      document.write("<td>" + x.toExponential(4) + "</td>");
+      document.write("<td>" + "Представление числа в экспоненциальной форме с 4 знаками после точки" + "</td>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<td>" + x + "</td>");
+      document.write("<td>" + "toFixed(2)" + "</td>");
+      document.write("<td>" + x.toFixed(2) + "</td>");
+      document.write("<td>" + "представление числа в форме с фиксированным количеством цифр (2) после точки" + "</td>");
+
+      document.write("<tr>");
+      document.write("<td>" + x + "</td>");
+      document.write("<td>" + "toPrecision(8)" + "</td>");
+      document.write("<td>" + x.toPrecision(8) + "</td>");
+      document.write("<td>" + "Представление числа с заданным общим количеством значащих цифр(8)" + "</td>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<th>Число целое </th>");
+      document.write("<th>Метод</th>");
+      document.write("<th>Результат</th>");
+      document.write("<th>Описание метода</th>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<td>" + y + "</td>");
+      document.write("<td>" + "toString(16)" + "</td>");
+      document.write("<td>" + y.toString(16) + "</td>");
+      document.write("<td>" + "Строковое представление числа в 16-ричной системе счисления" + "</td>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<td>" + y + "</td>");
+      document.write("<td>" + "toExponential(4)" + "</td>");
+      document.write("<td>" + y.toExponential(4) + "</td>");
+      document.write("<td>" + "Представление числа в экспоненциальной форме с 4 знаками после точки" + "</td>");
+      document.write("</tr>");
+
+      document.write("</tr>");
+      document.write("<td>" + y + "</td>");
+      document.write("<td>" + "toFixed(2)" + "</td>");
+      document.write("<td>" + y.toFixed(2) + "</td>");
+      document.write("<td>" + "представление числа в форме с фиксированным количеством цифр (2) после точки" + "</td>");
+      document.write("</tr>");
+
+      document.write("<tr>");
+      document.write("<td>" + y + "</td>");
+      document.write("<td>" + "toPrecision(8)" + "</td>");
+      document.write("<td>" + y.toPrecision(8) + "</td>");
+      document.write("<td>" + "Представление числа с заданным общим количеством значащих цифр(8)" + "</td>");
+
+      document.write("</table>");
+    }
+  </script>
+  <div>
+    <input type='button' style="color:#ff9e81" value='  2  ' onclick='z2()' />
+    <input type='button' style="color: #b1fc03" value='  3  ' onclick='z3()' />
+    <input type='button' style="color: cornflowerblue" value='  4  ' onclick='z4()' />
+  </div>
+</body>
+
+</html>

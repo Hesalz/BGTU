@@ -1,0 +1,11 @@
+@import url('/КЯР/Лб 11/scss/abcd.scss');
+
+footer{
+    grid-area: footer;
+    border: $border;
+    @include flex;
+    @include marpad;
+    h3{
+        text-align: center;
+    }
+}

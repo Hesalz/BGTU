@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛБ №7 СЯП</title>
+</head>
+
+<body>
+    <script>
+        function form1() {
+            var form = document.forms.info;
+           var win1 = window.open();
+           win1.document.write("<h4 style='text-align: center; margin-bottom: -15px;'>" + form.elements.facultet.value + "</h4><br>" + "Студент " + form.elements.secondname.value + " " + form.elements.firstname.value + " специальности " + form.elements.spec.value + " курс " + form.elements.kr.value + " должен сдавать следующие предметы: ");
+           for (let i = 0; i < form.elements.subject.length; i++) {
+               if (form.elements.subject[i].checked) {
+                   win1.document.write("<li>" + form.elements.subject[i].value + "</li>");
+               }
+           }
+           return win1;
+        }
+        function z4(){
+            var win1 = form1();
+            var j = 0;
+            let form = document.forms.info;
+            for (let i = 0; i < form.elements.subject.length; i++){
+                if (form.elements.subject[i].checked){
+                   j += "<option>" + form.elements.subject[i].value + "</option>";
+                }
+            }
+            win1.document.write("<form name='zad4' style='margin-top: 20px;'><select>" + j + "</select></form>");
+        }
+    </script>
+    <form name="info">
+        <fieldset>
+            <textarea cols="21" rows="3" style="font-weight: 600;" name="facultet">Факультет Информационных Технологий</textarea>
+            <br>
+            <br>
+            <input type="text" placeholder="Фамилия" name="secondname">
+            <br>
+            <input type="text" placeholder="Имя" name="firstname">
+            <br>
+            <h4>Специальность <select name="spec">
+                <option>ПОИТ</option>
+                <option>ИСиТ</option>
+                <option>ПОИБМС</option>
+                <option>ДЭВИ</option>
+            </select></h4>
+            <h4>Курс
+            <br>
+            <input type="radio" value="1" name="kr">1
+            <input type="radio" value="2" name="kr">2
+            <input type="radio" value="3" name="kr">3
+            <input type="radio" value="4" name="kr">4</h4>
+            <h4 style="margin-top: -15px;">Предметы
+                <br>
+                <input type="checkbox" value="ОИТ" name="subject">ОИТ
+                <input type="checkbox" value="ОАП" name="subject">ОАП
+                <input type="checkbox" value="История" name="subject">История
+                <input type="checkbox" value="Физика" name="subject">Физика
+                <input type="checkbox" value="Математика" name="subject">Математика
+            </h4>
+            <input type="submit" value="submit">
+            <input type="reset" value="reset">
+            <br>
+            <input style = "margin-top: 20px; background-color: beige; border-radius: 5px;" type="button" value="Напечать" onclick="form1()">
+            <input style="margin-top: 20px; background-color: beige; border-radius: 5px;" type="button" value="Задание 4" onclick="z4()">
+        </fieldset>
+        </form>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+     <meta charset="utf-8">
+     <title>Лабораторная работа №1</title>
+     <style>
+          td {
+               text-align: center;
+          }
+
+          input {
+               width: 100px;
+               height: 30px;
+               font-size: 15px;
+               color: rgba(255, 255, 255, 0.781);
+               background-color: cornflowerblue;
+               border-radius: 10px;
+          }
+          .container {
+               display: flex;
+               flex-direction: column;
+          }
+     </style>
+</head>
+
+<body>
+     <script src="first.js"></script>
+     <input type='button' value='Задание 1' onclick='t1()'>
+     <input type='button' value='Задание 2' onclick='t2()'>
+     <input type='button' value='Задание 3' onclick='t3()'>
+     <h1 align="center" style="color:red">
+          <font size="5" face="Consolas">
+               Лабораторная работа №1
+          </font>
+     </h1>
+     <h2 align="center">Заголовок h2</h2>
+     <h3>Заголовок h3</h3>
+     <p>
+          <font size="7" face="Arial Black" color="palegreen">
+               Текст текст
+               <br><span >элемент span</span> Текст текст
+               <br>Текст текст
+               <br>Текст текст<span id="ida"> элемент span</span> Текст текст
+               <br>Текст текст
+     </p>
+     </font>
+     <h3>Заголовок h3</h3>
+     <p>
+          <font size="6" face="Bart" color="green">
+               Текст текст
+               <br>Текст текст
+               <br>Текст текст <span> span span </span>
+               <br>Текст текст
+     </p>
+     </font>
+     <h3>Заголовок h3</h3>
+     <p>
+          <font size="5" face="Consolas" color="purple">
+               Текст текст
+               <br>Текст текст <span> span span </span>Текст текст
+               <br>Текст текст
+               <br>Текст текст
+     </p>
+     </font>
+     <h2>Список</h2>
+     <ol>
+          <li>Элемент 1</li>
+          <ul type="disc">
+               <li>Элемент 1.1</li>
+               <li>Элемент 1.2</li>
+          </ul>
+          <li>Элемент 2</li>
+          <ul type="circle">
+               <li>Элемент 2.1</li>
+               <li>Элемент 2.2</li>
+          </ul>
+          <li>Элемент 3</li>
+          <ul type="square">
+               <li>Элемент 3.1</li>
+               <li>Элемент 3.2</li>
+          </ul>
+     </ol>
+     <h2>Запчасти</h2>
+     <div class="container">
+          <table width="200" border="1" align="left" cellpadding="4" cellspacing="0">
+               <tr>
+                    <td bgcolor="#FBF0DB">Запчасть</td>
+                    <td>Номер детали</td>
+                    <td>Адрес магазина поставщика</td>
+                    <td>Расстояние до магазина</td>
+                    <td>Оценка магазина</td>
+               </tr>
+               <tr>
+                    <td>Мотор</td>
+                    <td>4</td>
+                    <td rowspan="2">ул. Леменова,19</td>
+                    <td rowspan="2">471км</td>
+                    <td rowspan="2" class="mark">8</td>
+               </tr>
+               <tr>
+                    <td>Ароматизаторы</td>
+                    <td>73-2</td>
+               </tr>
+               <tr>
+                    <td>Свеча</td>
+                    <td>11</td>
+                    <td>ул. К.Макса, 7а</td>
+                    <td>192км</td>
+                    <td class="mark">10</td>
+               </tr>
+               <tr>
+                    <td>Тормозной диск</td>
+                    <td>23</td>
+                    <td>ул. Жесткова, 22</td>
+                    <td>77км</td>
+                    <td class="mark">6</td>
+               </tr>
+               <tr>
+                    <td colspan="3">Итоговое расстояние</td>
+                    <td><b>740км</b></td>
+                    <td id="abc"></td>
+               </tr>
+               <tr>
+                    <td colspan="5" align="center"><a href="second.html">Тыкай сюда</a></td>
+               </tr>
+          </table>
+          <h2 style="margin-left: 165px;"><input type='button' value='Задание 4' onclick='t4()'></h2>
+     </div>
+</body>
+
+</html>

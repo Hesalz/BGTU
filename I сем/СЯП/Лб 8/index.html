@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h3 {
+            text-align: center;
+        }
+
+        img {
+            width: 200px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Задание №1</h3>
+    <p id="z1" onmouseover="mouse_over()" onmouseout="mouse_out()">Для современного мира выбранный нами инновационный
+        путь способствует повышению качества новых принципов
+        формирования материально-технической и кадровой базы. Разнообразный и богатый опыт постоянное
+        информационно-пропогандистское обеспечение нашей деятельности влечёт за собой интересный процесс внедрения
+        модернизации соответствующих условий активизации. Не следует, однако, забывать, что дальнейшее развитие
+        различных форм деятельности создаёт предпосылки качественно новых шагов для дальнейших направлений развития.</p>
+    <h3>Задание №2</h3>
+    <p id="z2" onclick="mouse_click()">Следует отметить, что повышение уровня гражданского сознания обеспечивает
+        актуальность поэтапного и
+        последовательного развития общества. Следует отметить, что выбранный нами инновационный путь требует от нас
+        анализа прогресса профессионального общества.</p>
+    <h3>Задание №3</h3>
+    <img id="z3" onclick="change_img()"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9FxlYdD7GYtGnCuyYuBwf9pmFvR7VEI15LiUOCRNi&s">
+    <h3>Задание №4</h3>
+    <p id="z4" onclick="fullchange()">Повседневная практика показывает, что дальнейшее развитие различных форм
+        деятельности требует анализа существующий финансовых и административных условий. Не вызывает сомнений, что
+        повышение уровня гражданского сознания требует от нас анализа соответствующих условий активизации. С другой
+        стороны реализация намеченных плановых заданий требует от нас анализа системы массового участия.</p>
+    <h3>Задание №5</h3>
+    <img id="z5" onmouseover="mouseover_size()" onmouseout="mouseout_size()"
+        src="https://cs14.pikabu.ru/post_img/2023/04/20/3/1681956381171584576.webp">
+    <h3>Задание №6</h3>
+    <p id="z6" ondblclick="border_click()">Идейные соображения высшего порядка, а также управление и развитие структуры
+        способствует подготовке и реализации поэтапного и последовательного развития общества. Повседневная практика
+        показывает, что выбранный нами инновационный путь способствует повышению качества соответствующих условий
+        активизации. Не следует, однако, забывать, что дальнейшее развитие различных форм деятельности обеспечивает
+        широкому кругу специалистов системы обучения кадров, соответствующей насущным потребностям. Повседневная
+        практика показывает, что понимание сущности ресурсосберегающих технологий способствует подготовке и реализации
+        дальнейших направлений развития.</p>
+</body>
+<script>
+    // Задание 1
+    function mouse_over() {
+        document.getElementById('z1').style.color = 'red';
+    }
+
+    function mouse_out() {
+        document.getElementById("z1").style.color = 'black';
+    }
+    // Задание 2
+    function mouse_click() {
+        document.getElementById("z2").style.fontSize = '20px';
+    }
+    // Задание 3
+    function change_img() {
+        document.getElementById("z3").src = "https://www.meme-arsenal.com/memes/d3228929130961a3c68c116cb761993c.jpg";
+    }
+    // Задание 4
+    function fullchange() {
+        document.getElementById("z4").innerHTML = "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9FxlYdD7GYtGnCuyYuBwf9pmFvR7VEI15LiUOCRNi&s'>";
+    }
+    // Задание 5
+    function mouseover_size() {
+        document.getElementById("z5").style.width = "400px";
+        document.getElementById("z5").style.height = "300px"
+    }
+
+    function mouseout_size() {
+        document.getElementById("z5").style.width = "200px";
+        document.getElementById("z5").style.height = "150px";
+    }
+    // Задание 6
+    function border_click() {
+        document.getElementById("z6").style.border = "2px double black";
+    }
+</script>
+
+</html>

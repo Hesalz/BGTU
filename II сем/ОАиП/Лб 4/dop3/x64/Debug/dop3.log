@@ -1,0 +1,3 @@
+﻿  dop3.cpp
+D:\БГТУ\II сем\ОАиП\Лб 4\dop3\dop3.cpp(103,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  dop3.vcxproj -> D:\БГТУ\II сем\ОАиП\Лб 4\lab04\x64\Debug\dop3.exe

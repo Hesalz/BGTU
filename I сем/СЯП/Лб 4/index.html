@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛБ №4 СЯП</title>
+</head>
+
+<body>
+    <script>
+        function Gruppa() { // Задание 1
+            this.students = [];
+
+            this.add_stud = function (student) {
+                this.students.push(student);
+            };
+
+            this.sub_stud = function (k) {
+                if (k <= this.students.length) {
+                    this.students.splice(0, k);
+                } else {
+                    console.log('Невозможно исключить ' + k + ' студентов, так как в группе всего ' + this.students.length + ' студентов.');
+                }
+            };
+        }
+        var gr1 = new Gruppa();
+        var gr2 = new Gruppa();
+        var gr3 = new Gruppa();
+
+        gr1.add_stud('Вася');
+        gr1.add_stud('Петя');
+        gr1.add_stud('Маша');
+        gr1.add_stud('Иван');
+
+        gr2.add_stud('Андрей');
+        gr2.add_stud('Максим');
+        gr2.add_stud('Антон');
+        gr2.add_stud('Алексей');
+        gr2.add_stud('Дмитрий');
+
+        gr3.add_stud('Артём');
+        gr3.add_stud('Рита');
+        gr3.add_stud('Ярослава');
+
+        gr3.sub_stud(2);
+
+        document.write("Задание 1:" + "<br>");
+        document.write("Группа 1: " + gr1.students.length + " студента" + "<br>");
+        document.write("Группа 2: " + gr2.students.length + " студентов" + "<br>");
+        document.write("Группа 3: " + gr3.students.length + " студент" + "<br>");
+        document.write("<br>");
+
+        function Student(name, lastname, age, physics, math, informatics) { // Задание 2
+            this.name = name;
+            this.lastname = lastname;
+            this.age = age;
+            this.physics = physics;
+            this.math = math;
+            this.informatics = informatics;
+
+            this.printname = function () {
+                alert(this.name + ' ' + this.lastname);
+            };
+
+            this.averagegrade = function () {
+                var totalgrade = this.physics + this.math + this.informatics;
+                var averagegrade = totalgrade / 3;
+                return averagegrade;
+            }
+
+            this.printaveragegrade = function () {
+                var averagegrade = this.averagegrade();
+                document.write(averagegrade + "<br>");
+            }
+
+            this.information = function () {
+                document.write(this.name + ' ' + this.lastname + ': ' + '<br>'
+                    + 'Возраст: ' + this.age + '<br> Средний балл: ' + this.averagegrade() + '<br>' + '<br>');
+            }
+        }
+
+        var student1 = new Student('Глеб', 'Бабашинский', 17, 76, 87, 68);
+        var student2 = new Student('Вася', 'Дегель', 19, 89, 92, 86);
+        var student3 = new Student('Антон', 'Леснивцев', 15, 43, 54, 77);
+
+        document.write("Задание 2: <br>");
+        student1.printname();
+        student1.printaveragegrade();
+
+        student2.printname();
+        student2.printaveragegrade();
+
+        student3.printname();
+        student3.printaveragegrade();
+        document.write("<br>");
+
+        student1.information();
+        student2.information();
+        student3.information();
+
+        const abc = [
+            6 - Math.pow(Math.PI, 2) + 3 * Math.exp(8),
+            2 * Math.cos(4) + Math.cos(12) + 8 - Math.exp(3),
+            3 * Math.sin(9) + Math.log(5),
+            2 * Math.tan(5) + 6 + 12
+        ]
+
+        document.write("Задание 3: <br>");
+        document.write("Исходный массив: " + "<br>" + abc[0] + "<br>" + abc[1] + "<br>" + abc[2] + "<br>" + abc[3] + "<br>");
+        delete abc[3];
+        document.write("<br>" + "Полученный массив: " + "<br>" + abc[0] + "<br>" + abc[1] + "<br>" + abc[2] + "<br>");
+
+        document.write(" " + "<br>");
+        document.write("Имеется ли у массива 2-й элемент: ", 1 in abc, "<br>");
+        document.write("Имеется ли у объекта gr2 свойство 'students': ", 'students' in gr2, "<br>");
+        document.write("Имеется ли у объекта student1 свойство 'firstName': ", 'name' in student1, "<br>");
+
+        document.write("<br>")
+        document.write("Является ли объект gr2 объектом Array: ", gr2 instanceof Array, "<br>");
+        document.write("Является ли объект student1 объектом Array: ", student1 instanceof Array, "<br>");
+
+        document.write("Является ли объект gr2 объектом String: ", gr2 instanceof String, "<br>");
+        document.write("Является ли объект student1 объектом String: ", student1 instanceof String, "<br>");
+
+        document.write("Является ли объект gr2 объектом Object: ", gr2 instanceof Object, "<br>");
+        document.write("Является ли объект student1 объектом Object: ", student1 instanceof Object, "<br>");
+
+        function five() {
+            return 5;
+        }
+
+        document.write("<br>");
+        document.write("Тип объекта gr2: ", typeof gr2, "<br>");
+        document.write("Тип объекта student1: ", typeof student1, "<br>");
+        document.write("Тип функции five: ", typeof five, "<br>");
+        document.write("Тип свойства students объекта gr2: ", typeof gr2.students, "<br>");
+        document.write("Тип свойства name объекта student1: ", typeof student1.name, "<br>");   
+    </script>
+</body>
+
+</html>

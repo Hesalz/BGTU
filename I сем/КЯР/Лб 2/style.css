@@ -1,0 +1,19 @@
+h1,h2,h3,h4,h5,h6{
+    color:magenta;
+    font-family: Monotype Corsiva;
+}
+.a{
+    color:red;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+}
+.b{
+    color:yellow;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20pt;
+}
+.c{
+    color:green;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22pt;
+}

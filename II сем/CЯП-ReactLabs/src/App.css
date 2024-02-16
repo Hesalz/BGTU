@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+}
+
+body{
+  margin-left: 50px;
+  padding: 0;
+}
+
+button{
+  width: 200px;
+  height: 50px;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #ccf98c;
+  border: 2px solid #a8fc8e;
+  border-radius: 7px;
+  box-shadow: 2px 1px 3px #8efc8e;
+}
+
+button:hover{
+  background-color: #e3ffbc;
+  
+}
+#but-cont{
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

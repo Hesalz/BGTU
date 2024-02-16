@@ -1,0 +1,2 @@
+D:\БГТУ\Работы\ОАиП\Лб 3\ConsoleApplication1\x64\Debug\lab_03_part1.exe
+D:\БГТУ\Работы\ОАиП\Лб 4\ConsoleApplication1\x64\Debug\lab_03_part1.exe

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="lab13-1.xsl"?>
+
+<books>
+    <head>
+        <nauthor>Автор</nauthor>
+        <ntitle>Название книги</ntitle>
+        <nnumber>Номер</nnumber>
+    </head>
+
+    <book>
+        <author>С. В. Одиночкина</author>
+        <title>Основы технологий XML</title>
+        <number>3</number>
+    </book>
+
+    <book>
+        <author>Эрик Рэй</author>
+        <title>Изучаем XML</title>
+        <number>4</number>
+    </book>
+
+    <book>
+        <author>Эрик Рэй</author>
+        <title>Изучаем XML</title>
+        <number>1</number>
+    </book>
+
+    <book>
+        <author>Эрик Рэй</author>
+        <title>Изучаем XML</title>
+        <number>2</number>
+    </book>
+    
+</books>
