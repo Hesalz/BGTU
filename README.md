@@ -1,5 +1,5 @@
 if u need smth - tg: vifftery
 
-у меня 3-ий варик.
+у меня 3-ий варик. ИСиТ
 
-last update 16.02.24
+last update 19.05.24
