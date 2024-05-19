@@ -3,11 +3,11 @@
 }
 
 body{
-  margin-left: 50px;
+  margin: 10px;
   padding: 0;
 }
 
-button{
+header button{
   width: 200px;
   height: 50px;
   font-size: 13px;
@@ -18,13 +18,28 @@ button{
   box-shadow: 2px 1px 3px #8efc8e;
 }
 
-button:hover{
+header button:hover{
   background-color: #e3ffbc;
   
 }
 #but-cont{
-  margin: 5px;
+  margin: 5px 5px 45px 5px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
+}
+
+.sub{
+  margin-top: 15px;
+  width: 10%;
+  font-weight: bold;
+  font-size: 13px;
+  background-color: aliceblue;
+}
+
+.sub:hover{
+  background-color: gray;
+  color: aliceblue;
 }

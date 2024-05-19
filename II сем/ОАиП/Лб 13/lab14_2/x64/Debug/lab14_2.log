@@ -1,0 +1,5 @@
+﻿  lab14_2.cpp
+  Source.cpp
+D:\БГТУ\II сем\ОАиП\Лб 13\lab14_2\Source.cpp(100,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
+  lab14_2.vcxproj -> D:\БГТУ\II сем\ОАиП\Лб 13\x64\Debug\lab14_2.exe

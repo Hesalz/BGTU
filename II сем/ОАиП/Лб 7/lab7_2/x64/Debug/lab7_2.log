@@ -1,0 +1,14 @@
+﻿  lab07dop1.cpp
+D:\gg\Семестр 1\lab7_2\lab7_2\lab07dop1.cpp(55,17): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  lab07dop2.cpp
+D:\gg\Семестр 1\lab7_2\lab7_2\lab07dop2.cpp(54,13): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  lab7_2.cpp
+D:\gg\Семестр 1\lab7_2\lab7_2\lab7_2.cpp(41,21): warning C4101: position: неиспользованная локальная переменная
+D:\gg\Семестр 1\lab7_2\lab7_2\lab7_2.cpp(192,13): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\gg\Семестр 1\lab7_2\lab7_2\lab7_2.cpp(233,13): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  stack.cpp
+  v14.cpp
+D:\gg\Семестр 1\lab7_2\lab7_2\v14.cpp(37,21): warning C4101: position: неиспользованная локальная переменная
+D:\gg\Семестр 1\lab7_2\lab7_2\v14.cpp(179,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Создание кода...
+  lab7_2.vcxproj -> D:\gg\Семестр 1\lab7_2\x64\Debug\lab7_2.exe

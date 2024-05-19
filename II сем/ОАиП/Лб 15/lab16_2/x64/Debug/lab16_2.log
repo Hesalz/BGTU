@@ -1,0 +1,5 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (lab16_2.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  lab15.cpp
+D:\БГТУ\II сем\ОАиП\Лб 15\lab16_2\lab15.cpp(36,15): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\БГТУ\II сем\ОАиП\Лб 15\lab16_2\lab15.cpp(58,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lab16_2.vcxproj -> D:\БГТУ\II сем\ОАиП\Лб 15\x64\Debug\lab15.exe

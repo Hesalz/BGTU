@@ -1,0 +1,34 @@
+.listFrontend {
+    font-size: 30px;
+    border-bottom: 2px solid purple;
+    padding-bottom: 50px;
+}
+
+.ContainerJobMenu {
+    display: flex;
+    justify-content: center;
+}
+
+.listBackend {
+    font-size: 30px;
+    border-bottom: 2px solid green;
+    padding-bottom: 50px;
+}
+
+.listIOS {
+    font-size: 30px;
+    border-bottom: 2px solid orange;
+    padding-bottom: 50px;
+}
+
+.listJAVA {
+    font-size: 30px;
+    border-bottom: 2px solid red;
+    padding-bottom: 50px;
+}
+
+.listPYTHON {
+    font-size: 30px;
+    border-bottom: 2px solid lightblue;
+    padding-bottom: 50px;
+}
