@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/form.css">
+    <title>Claude Monet</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo"><img src="img/logo2.svg" alt="logo"></a>
+        <input type="checkbox" id="nav-toggle" hidden>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="text">Ресторан<svg class="arrow-down"
+                            viewBox="0 0 9 5" width="15" height="15">
+                            <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" />
+                        </svg>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="about.html">О ресторане</a></li>
+                        <li><a href="command.html">Наша команда</a></li>
+                        <li><a href="shef.html">Шеф-повар</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item"><a href="menu.html" class="active">Меню<svg class="arrow-down" viewBox="0 0 9 5" width="15"
+                            height="15">
+                            <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" />
+                        </svg>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="menu.html">Основное меню</a></li>
+                        <li><a href="bar-menu.html">Барное меню</a></li>
+                        <li><a href="lunch.html">Деловой обед</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item"><a href="photo.html" class="text">Галерея</a></li>
+                <li class="menu-item reserve-btn"><a onclick="toggleForm()" class="text">Зарезервировать</a></li>
+                <li class="menu-item"><a href="contacts.html" class="text">Контакты</a></li>
+            </ul>
+            <div class="info">
+                <a href="contacts.html">Москва, ул. Спиридоновка, 25/20с1</a>
+                <a class="tooltip">График работы
+                    <span class="tooltiptext">Пн-Пт: 11:00-1:00<br>Сб-Вс: 12:00-2:00</span>
+                </a>
+                <a href="tel:+375295119753" target="_blank">+375 (29) 511-97-53</a>
+            </div>
+        </nav>
+        <nav class="nav">
+            <label for="nav-toggle" class="nav-toggle" onclick></label>
+            <h2 class="logo"> 
+                <a href="index.html">Claude Monet</a> 
+            </h2>
+            <ul>
+                <li><a href="index.html">Ресторан <svg height="5" width="9"
+                    viewBox="0 0 9 5">
+                    <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" fill="white" />
+                </svg></a>
+                <li><a href="about.html">О ресторане</a>
+                <li><a href="command.html">Наша команда</a>
+                <li><a href="shef.html">Шеф-повар</a>
+                <li><a href="menu.html">Меню <svg height="5" width="9"
+                    viewBox="0 0 9 5">
+                    <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" fill="white" />
+                </svg></a>
+                <li><a href="menu.html">Основное меню</a>
+                <li><a href="bar-menu.html">Барное меню</a> 
+                <li><a href="lunch.html">Деловой обед</a>
+                <li><a href="photo.html">Галерея</a>
+                <li><a href="contacts.html">Контакты</a>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="fon">
+            <p>Меню ресторана</p>
+        </div>
+        <div class="allmenu">
+            <div class="first">
+                <div class="zakuski">
+                    <h2>ЗАКУСКИ</h2>
+                    <div class="component">
+                        <img src="./img/menu/1.png">
+                        <span>
+                            <p>Тар-тар из форели с креветочными чипсами</p>
+                            <div id="price">
+                                <p>210g</p>
+                                <p>860р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/2.png">
+                        <span>
+                            <p>Тор-тор из говядины с крендельками</p>
+                            <div id="price">
+                                <p>220g</p>
+                                <p>800р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/3.png">
+                        <span>
+                            <p>Строганина из говядины с рукколой и пармезаном</p>
+                            <div id="price">
+                                <p>230g</p>
+                                <p>1050р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/4.png">
+                        <span>
+                            <p>Глазированный шоколадом утиный паштет с халвой</p>
+                            <div id="price">
+                                <p>170g</p>
+                                <p>700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/5.png">
+                        <span>
+                            <p>Фаршированные перепелиные яйца с муссом из лесных грибов</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>650р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Риет из утиных ножек с луком-пореем</p>
+                            <div id="price">
+                                <p>2200g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Царь-картошка в мундире</p>
+                            <div id="price">
+                                <p>150g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Жженый баклажан с сыром лабне, фундуком и гранатом</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Луковая закуска с сыром Рокфорти</p>
+                            <div id="price">
+                                <p>150g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Грузди бочковые со сметаной</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Бутерброды со шпротами и киви</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Овощной салат на хлебе</p>
+                            <div id="price">
+                                <p>180g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Тунец с клубничным майонезом</p>
+                            <div id="price">
+                                <p>230g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="soup">
+                    <h2>Супы</h2>
+                    <div class="component">
+                        <img src="./img/menu/6.png">
+                        <span>
+                            <p>Рыбный суп по-сибирски</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/7.png">
+                        <span>
+                            <p>Борщ с пирожком и салом</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/8.png">
+                        <span>
+                            <p>Суп с белыми грибами</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Рыбный суп по-сибирски</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="gril">
+                    <h2>Гриль-меню</h2>
+                    <div class="component">
+                        <img src="./img/menu/9.png">
+                        <span>
+                            <p>Стейк Мачете на гриле</p>
+                            <div id="price">
+                                <p>160g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/10.png">
+                        <span>
+                            <p>Креветки на гриле</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/11.png">
+                        <span>
+                            <p>Филе миньон с печеным перцем</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Конгрио на гриле с тор-тором из бакинских томатов</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Форель на гриле с кумкватом</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Колбаски по-домашнему с сальсой</p>
+                            <div id="price">
+                                <p>350g</p>
+                                <p>750р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="second">
+                <div class="company">
+                    <h2>«На компанию»</h2>
+                    <div class="component">
+                        <img src="./img/menu/12.png">
+                        <span>
+                            <p>Рыбные деликатесы</p>
+                            <div id="price">
+                                <p>350g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/13.png">
+                        <span>
+                            <p>Мясная нарезка по-домашнему с хреном</p>
+                            <div id="price">
+                                <p>270g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/14.png">
+                        <span>
+                            <p>Квартет сыров</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/15.png">
+                        <span>
+                            <p>Русский малосол</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/16.png">
+                        <span>
+                            <p>Бабушкины пирожки</p>
+                            <div id="price">
+                                <p>320g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/17.png">
+                        <span>
+                            <p>Хлебная корзина с чесночным маслом</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="salats">
+                    <h2>Салаты</h2>
+                    <div class="component">
+                        <img src="./img/menu/18.png">
+                        <span>
+                            <p>Салат Романовых</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/19.png">
+                        <span>
+                            <p>Салат с мурманской форелью / дальневосточными креветками</p>
+                            <div id="price">
+                                <p>280g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/20.png">
+                        <span>
+                            <p>Салат с жареными баклажанами и рукколой</p>
+                            <div id="price">
+                                <p>230g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Винегрет с печеной индейкой</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Оливье с печеной бужениной и соленым огуцом</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="menu-info">
+                        <p>Одна из «фишек» на кухне «Claude Monet»- это угольные японские грили “Kamado”
+                            Приготовленные блюда на гриле получаются особенно сочными. Именно поэтому в меню ресторана
+                            есть категория блюд «на гриле»</p>
+                    </div>
+                    <div class="menu-info">
+                        <p>
+                        <ul>
+                            Температурные особенности прожарки:
+                            <li>Raw - не более 40 &deg;C;</li>
+                            <li>Rare - от 42 до 46 &deg;C;</li>
+                            <li>Medium rare - от 46 до 50 &deg;C;</li>
+                            <li>Medium - от 52 до 57 &deg;C;</li>
+                            <li>Medium Well - от 60 до 65 &deg;C;</li>
+                            <li>Well Done - от 65 до 70 &deg;C;</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <div class="garnirs">
+                    <h2>Гарниры</h2>
+                    <div class="component">
+                        <img src="./img/menu/21.png">
+                        <span>
+                            <p>Жареная картошечка с луком</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/22.png">
+                        <span>
+                            <p>Картофель запеченный с сыром пармезан</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/23.png">
+                        <span>
+                            <p>Овощи гриль</p>
+                            <div id="price">
+                                <p>230g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Гречка из печи</p>
+                            <div id="price">
+                                <p>170g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Бэби-картофель с маслом и зеленью</p>
+                            <div id="price">
+                                <p>200g</p>
+                                <p>1700р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="third">
+                <div class="goryach">
+                    <h2>Горячие блюда</h2>
+                    <div class="component">
+                        <img src="./img/menu/24.png">
+                        <span>
+                            <p>Утиная ножка конфи с мочеными яблоками и кедровой кашей</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Ракушки по-флотски с можжевеловой ягодой</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Рагу из говядины с гречкой из печи</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Говяжий ростбиф с бэби-картофелем и овощами</p>
+                            <div id="price">
+                                <p>320g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/25.png">
+                        <span>
+                            <p>Котлеты по-пожарски с картофельно-свекольным пюре</p>
+                            <div id="price">
+                                <p>350g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Рыбные котлеты со шпинатом и укропным соусом
+                            </p>
+                            <div id="price">
+                                <p>280g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Полба с белыми грибами и индейкой</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Царская стерлядь, фаршированная овощами</p>
+                            <div id="price">
+                                <p>800g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Картофельные пончики с мурманской форелью</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/26.png">
+                        <span>
+                            <p>Драники с форелью</p>
+                            <div id="price">
+                                <p>300g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/27.png">
+                        <span>
+                            <p>Драники с мачанкой</p>
+                            <div id="price">
+                                <p>350g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="sobstv">
+                    <h2>Собственное производство</h2>
+                    <div class="component">
+                        <img src="./img/menu/28.png">
+                        <span>
+                            <p>Пельмени из трех видов рыб</p>
+                            <div id="price">
+                                <p>330g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/29.png">
+                        <span>
+                            <p>Пельмени с мясом и бульоном</p>
+                            <div id="price">
+                                <p>330g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/30.png">
+                        <span>
+                            <p>Вареники с картофелем и грибами</p>
+                            <div id="price">
+                                <p>330g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <img src="./img/menu/31.png">
+                        <span>
+                            <p>Вареники с вишней и ягодным соусом</p>
+                            <div id="price">
+                                <p>330g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="deserts">
+                    <h2>Десерты</h2>
+                    <div class="component">
+                        <img src="./img/menu/32.png">
+                        <span>
+                            <p>Конфета ручной работы</p>
+                            <div id="price">
+                                <p>25g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Фирменный десерт «Claude Monet»</p>
+                            <div id="price">
+                                <p>170g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Анна Павлова</p>
+                            <div id="price">
+                                <p>170g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Шоколадный кекс «Петр I»</p>
+                            <div id="price">
+                                <p>170g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <p>Творожные пончики с карамелью и голубикой</p>
+                            <div id="price">
+                                <p>250g</p>
+                                <p>900р</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <div>
+                <p>Москва, улица Спиридоновка, 25/20с1<br>
+                    Пн-пт с 11:00 до 2:00<br>
+                    Сб, Вс с 10:00 до 4:00</p>
+            </div>
+            <div class="info-footer">
+                <div class="social">
+                    <a href="https://vk.com/svetere"><img src="img/vk.png" alt="vk"></a>
+                    <a href="https://instagram.com/vifftery"><img src="img/instagram.png" alt="inst"></a>
+                    <a href="https://twitter.com"><img src="img/twitter.png" alt="fb"></a>
+                    <a href="https://t.me/vifftery"><img src="img/telegram.png" alt="yt"></a>
+                </div>
+                <p>© 2024, РЕСТОРАН «Claude Monet»<br>ООО «КладИнвест»<br>220002, г.Москва,
+                    ул.Спиридоновка, д.25, пом. 20/с1<br>УНП 193601460</p>
+            </div>
+            <div>
+                <p>+375 (29) 511 97 53<br>
+                    ClaudeMonet@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="background" id="background"></div>
+    <div id="form" class="form-container">
+        <button class="close" onclick="toggleForm()">&times;</button>
+        <form id="myForm" onsubmit="submitForm(event)">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" required>
+
+            <label for="phone">Номер телефона:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="date">Дата:</label>
+            <input type="date" id="date" required>
+
+            <label for="time">Время:</label>
+            <select id="time" required>
+                <option value="">Выберите время</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="19:30">19:30</option>
+                <option value="20:00">20:00</option>
+                <option value="20:30">20:30</option>
+                <option value="21:00">21:00</option>
+                <option value="21:30">21:30</option>
+                <option value="22:00">22:00</option>
+                <option value="22:30">22:30</option>
+                <option value="23:00">23:00</option>
+                <option value="23:30">23:30</option>
+                <option value="00:00">00:00</option>
+                <option value="00:30">00:30</option>
+                <option value="1:00">1:00</option>
+            </select>
+
+            <label for="people">Количество человек:</label>
+            <select id="people" required>
+                <option value="">Выберите количество человек</option>
+                <option value="1-3">1-3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="10+">Более 10 гостей</option>
+            </select>
+
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+    <script src="./js/form.js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+
+</html>

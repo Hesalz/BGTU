@@ -1,0 +1,196 @@
+.fon {
+    background-image: url(../img/bar-fon.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fon p {
+    color: white;
+    text-align: center;
+    font-size: 35px;
+}
+
+main h1 {
+    text-align: center;
+    color: #b0b0b0
+}
+
+.allmenu {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.red-wine h2,
+.white-wine h2,
+.shamp h2,
+.rose-wine h2,
+.liker h2,
+.grappa h2,
+.portvein h2,
+.whisky h2,
+.tequila h2,
+.vodka h2,
+.whisky2 h2,
+.whisky3 h2,
+.jin h2,
+.classic h2,
+.firma h2,
+.rom h2,
+.konyak h2,
+.avtor h2,
+.firmanap h2,
+.tea h2,
+.beer h2,
+.beer2 h2,
+.juice h2,
+.voda h2,
+.limonad h2,
+.coffee h2 {
+    width: 80%;
+    padding-bottom: 2px;
+    border-bottom: 3px solid black;
+}
+
+.red-wine,
+.white-wine,
+.shamp,
+.rose-wine,
+.liker,
+.grappa,
+.portvein,
+.nastoika1,
+.nastoika2,
+.nastoika3,
+.whisky,
+.tequila,
+.vodka,
+.whisky2,
+.whisky3,
+.jin,
+.classic,
+.firma,
+.rom,
+.konyak,
+.avtor,
+.firmanap,
+.tea,
+.beer,
+.beer2,
+.juice,
+.voda,
+.limonad,
+.coffee {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.h2cent {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 2px;
+    border-bottom: 3px solid black;
+}
+
+.nastoika1 img {
+    width: 86%;
+    border-radius: 15px;
+}
+
+.first {
+    text-align: center;
+    width: 30%;
+}
+
+.second {
+    text-align: center;
+    width: 30%;
+}
+
+.third {
+    text-align: center;
+    width: 30%;
+}
+
+.component {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    height: auto;
+    margin: 2%;
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 15px;
+    font-weight: 500;
+}
+
+.inf {
+    display: flex;
+    justify-content: center;
+}
+
+.inf p {
+    margin: 0.6%;
+}
+
+.component .inf {
+    padding: 0 5% 3% 5%;
+    font-size: 90%;
+    margin: 0;
+    border-bottom: dotted 1px black;
+}
+
+.component span {
+    width: 100%;
+}
+
+.component span #price {
+    display: flex;
+    justify-content: center;
+    font-size: 80%;
+    font-weight: 200;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+
+    .first,
+    .second {
+        width: 45%;
+    }
+
+    .third {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .allmenu, .h2cent {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .first,
+    .second,
+    .third {
+        width: 90%;
+    }
+}

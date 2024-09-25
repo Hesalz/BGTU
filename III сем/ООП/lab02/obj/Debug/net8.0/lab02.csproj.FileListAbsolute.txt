@@ -1,0 +1,15 @@
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.GeneratedMSBuildEditorConfig.editorconfig
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.AssemblyInfoInputs.cache
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.AssemblyInfo.cs
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.csproj.CoreCompileInputs.cache
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.sourcelink.json
+D:\БГТУ\III сем\ООП\lab02\bin\Debug\net8.0\lab02.exe
+D:\БГТУ\III сем\ООП\lab02\bin\Debug\net8.0\lab02.deps.json
+D:\БГТУ\III сем\ООП\lab02\bin\Debug\net8.0\lab02.runtimeconfig.json
+D:\БГТУ\III сем\ООП\lab02\bin\Debug\net8.0\lab02.dll
+D:\БГТУ\III сем\ООП\lab02\bin\Debug\net8.0\lab02.pdb
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.dll
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\refint\lab02.dll
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.pdb
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\lab02.genruntimeconfig.cache
+D:\БГТУ\III сем\ООП\lab02\obj\Debug\net8.0\ref\lab02.dll
