@@ -40,7 +40,7 @@ public partial class Student
         get => _group;
         set
         {
-            if (value < 1 || value > 5)
+            if (value < 1 || value > 10)
                 throw new ArgumentException("Группа должна быть от 1 до 10.");
             _group = value;
         }
@@ -50,10 +50,13 @@ public partial class Student
     {
         _studentCount = 0;
     }
-
     private Student(int id)
     {
         _id = id;
+    }
+    public static Student CreateStudentWithID(int id)
+    {
+        return new Student(id);
     }
 
     public Student(string surname, string name, string patronymic, DateTime birthDate, string address, string phone, string faculty, int course, int group)
@@ -106,10 +109,10 @@ public partial class Student
 
     private static int GenerateUniqueID()
     {
-        return new Random().Next(1000, 9999); 
+        return new Random().Next(1000, 9999);
     }
 
-    
+
     public static void ShowClassInfo()
     {
         Console.WriteLine($"Объектов класса Student создано: {_studentCount}");
@@ -169,16 +172,16 @@ public class Program
         students[students.Length - 1] = new Student("Харченко", "Евгений", "Игоревич", new DateTime(2005, 08, 26), "г. Могилёв", "297104549", "ИТ", 1, 1);
 
         Console.WriteLine("Задание 2:");
-            Student student1 = new Student("Иванов", "Иван", "Иванович", new DateTime(2000, 5, 15), "г. Минск", "123456789", "ФИТ", 2, 3);
-            Student student2 = new Student("Петров", "Петр", "Петрович", new DateTime(2001, 8, 23), "г. Витебск", "987654321", "ФИТ", 3, 2);
-            Student student3 = new Student("Жеребьев", "Антон");
-            Console.WriteLine("Студенты: ");
-            Console.WriteLine(student1);
-            Console.WriteLine(student2); 
-            Console.WriteLine(student3); Console.WriteLine();
-            Console.WriteLine($"Возраст студента {student1.Surname}: {student1.CalculateAge()} лет");
-            Console.WriteLine("Равны ли student1 и student2? " + (student1.Equals(student2) ? "Да" : "Нет"));
-            Console.WriteLine("Тип объекта student1: " + student1.GetType());
+        Student student1 = new Student("Иванов", "Иван", "Иванович", new DateTime(2000, 5, 15), "г. Минск", "123456789", "ФИТ", 2, 3);
+        Student student2 = new Student("Петров", "Петр", "Петрович", new DateTime(2001, 8, 23), "г. Витебск", "987654321", "ФИТ", 3, 2);
+        Student student3 = new Student("Жеребьев", "Антон");
+        Console.WriteLine("Студенты: ");
+        Console.WriteLine(student1);
+        Console.WriteLine(student2);
+        Console.WriteLine(student3); Console.WriteLine();
+        Console.WriteLine($"Возраст студента {student1.Surname}: {student1.CalculateAge()} лет");
+        Console.WriteLine("Равны ли student1 и student2? " + (student1.Equals(student2) ? "Да" : "Нет"));
+        Console.WriteLine("Тип объекта student1: " + student1.GetType());
 
         Console.WriteLine(); Console.WriteLine("Задание 4: ");
         var anonymousStudent = new
@@ -190,6 +193,10 @@ public class Program
             Group = 4
         };
         Console.WriteLine($"ID: {anonymousStudent.ID}, ФИО: {anonymousStudent.FullName}, Факультет: {anonymousStudent.Faculty}, Курс: {anonymousStudent.Course}, Группа: {anonymousStudent.Group}"); Console.WriteLine();
+
+        Student customStudent = Student.CreateStudentWithID(1234); // Вызов закрытого конструктора
+        Console.WriteLine($"Создан студент с ID: {customStudent.ID}");
+
 
         while (true)
         {

@@ -1,0 +1,15 @@
+D:\БГТУ\III сем\ООП\lab04\bin\Debug\net8.0\lab04.exe
+D:\БГТУ\III сем\ООП\lab04\bin\Debug\net8.0\lab04.deps.json
+D:\БГТУ\III сем\ООП\lab04\bin\Debug\net8.0\lab04.runtimeconfig.json
+D:\БГТУ\III сем\ООП\lab04\bin\Debug\net8.0\lab04.dll
+D:\БГТУ\III сем\ООП\lab04\bin\Debug\net8.0\lab04.pdb
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.GeneratedMSBuildEditorConfig.editorconfig
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.AssemblyInfoInputs.cache
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.AssemblyInfo.cs
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.csproj.CoreCompileInputs.cache
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.sourcelink.json
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.dll
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\refint\lab04.dll
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.pdb
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\lab04.genruntimeconfig.cache
+D:\БГТУ\III сем\ООП\lab04\obj\Debug\net8.0\ref\lab04.dll
