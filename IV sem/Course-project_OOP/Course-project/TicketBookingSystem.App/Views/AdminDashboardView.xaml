@@ -1,0 +1,253 @@
+<UserControl x:Class="TicketBookingSystem.App.Views.AdminDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="Панель администратора" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Button Content="Управление мероприятиями" 
+                        Click="NavigateToEventsButton_Click"
+                        Margin="0,0,10,0" Padding="20,10"/>
+                <Button Content="Управление билетами" 
+                        Click="NavigateToTicketsButton_Click"
+                        Margin="0,0,10,0" Padding="20,10"/>
+                <Button Content="Пересоздать базу данных" 
+                        Click="RecreateDatabaseButton_Click"
+                        Margin="0,0,10,0" Padding="20,10" Background="Orange" Foreground="White"/>
+                <Button Content="Выйти из аккаунта" 
+                        Click="LogoutButton_Click"
+                        Padding="20,10" HorizontalAlignment="Right"/>
+            </StackPanel>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Левая колонка - Статистика и график выручки -->
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="Статистика:" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    
+                    <ItemsControl ItemsSource="{Binding StatisticsDisplay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="{Binding Key}" FontWeight="Bold" Width="250" Foreground="{StaticResource TextPrimaryColor}"/>
+                                    <TextBlock Text="{Binding Value}" Foreground="{StaticResource TextSecondaryColor}" FontSize="14"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                    <TextBlock Text="Выручка по месяцам" FontSize="16" FontWeight="Bold" Margin="0,30,0,10"/>
+                    <Border BorderBrush="{StaticResource BorderColor}" 
+                           BorderThickness="1" 
+                           Padding="15" 
+                           Background="{StaticResource CardBackgroundColor}" 
+                           CornerRadius="12"
+                           MinHeight="250">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" BlurRadius="4" ShadowDepth="2" Opacity="0.1"/>
+                        </Border.Effect>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Grid>
+                                <ItemsControl ItemsSource="{Binding RevenueByMonth}">
+                                    <ItemsControl.Style>
+                                        <Style TargetType="ItemsControl">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RevenueByMonth.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ItemsControl.Style>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical" Margin="0,10,0,0"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource BackgroundColor}"
+                                                   BorderBrush="{StaticResource BorderColor}"
+                                                   BorderThickness="1"
+                                                   CornerRadius="8"
+                                                   Padding="12"
+                                                   Margin="0,0,0,10">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="120"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" 
+                                                              Text="{Binding Month}" 
+                                                              FontWeight="Bold"
+                                                              FontSize="14"
+                                                              Foreground="{StaticResource TextPrimaryColor}"
+                                                              VerticalAlignment="Center"/>
+                                                    <ProgressBar Grid.Column="1" 
+                                                               Value="{Binding Revenue}" 
+                                                               Maximum="{Binding DataContext.MaxRevenue, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                               Height="25"
+                                                               Margin="10,0"
+                                                               VerticalAlignment="Center">
+                                                        <ProgressBar.Style>
+                                                            <Style TargetType="ProgressBar">
+                                                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+                                                                <Setter Property="Background" Value="{StaticResource BorderColor}"/>
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                            </Style>
+                                                        </ProgressBar.Style>
+                                                    </ProgressBar>
+                                                    <TextBlock Grid.Column="2" 
+                                                              Text="{Binding Revenue, Converter={StaticResource CurrencyConverter}}" 
+                                                              FontWeight="Bold"
+                                                              FontSize="14"
+                                                              Foreground="{StaticResource PrimaryColor}"
+                                                              Margin="10,0,0,0"
+                                                              VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Text="Нет данных о выручке" 
+                                          Foreground="{StaticResource TextSecondaryColor}"
+                                          FontSize="14"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="0,50,0,0">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RevenueByMonth.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+                
+                <!-- Правая колонка - Популярные мероприятия -->
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Популярные мероприятия" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <Border BorderBrush="{StaticResource BorderColor}" 
+                           BorderThickness="1" 
+                           Padding="15" 
+                           Background="{StaticResource CardBackgroundColor}"
+                           CornerRadius="12"
+                           MinHeight="250">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" BlurRadius="4" ShadowDepth="2" Opacity="0.1"/>
+                        </Border.Effect>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                <ItemsControl ItemsSource="{Binding PopularEvents}">
+                                    <ItemsControl.Style>
+                                        <Style TargetType="ItemsControl">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PopularEvents.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ItemsControl.Style>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource BackgroundColor}"
+                                                   BorderBrush="{StaticResource BorderColor}"
+                                                   BorderThickness="1"
+                                                   CornerRadius="8"
+                                                   Padding="12"
+                                                   Margin="0,0,0,10">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Row="0" 
+                                                              Grid.Column="0"
+                                                              Text="{Binding EventTitle}" 
+                                                              FontWeight="Bold" 
+                                                              FontSize="14"
+                                                              Foreground="{StaticResource TextPrimaryColor}"
+                                                              TextWrapping="Wrap"
+                                                              Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" 
+                                                              Grid.Column="0"
+                                                              Text="{Binding Categories, Converter={StaticResource EventCategoryToDescriptionConverter}, StringFormat='🏷️ {0}'}" 
+                                                              FontSize="12" 
+                                                              Foreground="{StaticResource PrimaryColor}"
+                                                              FontWeight="Medium"
+                                                              Margin="0,0,0,5"/>
+                                                    <StackPanel Grid.Row="2" 
+                                                               Grid.Column="0"
+                                                               Orientation="Horizontal">
+                                                        <TextBlock Text="🎫 " 
+                                                                  Foreground="{StaticResource TextSecondaryColor}"/>
+                                                        <TextBlock Text="{Binding BookingCount, StringFormat='{}{0} бронирований'}" 
+                                                                  FontSize="12" 
+                                                                  Foreground="{StaticResource TextSecondaryColor}"/>
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Row="0" 
+                                                              Grid.RowSpan="3"
+                                                              Grid.Column="1"
+                                                              Text="{Binding Revenue, Converter={StaticResource CurrencyConverter}}" 
+                                                              FontWeight="Bold" 
+                                                              FontSize="16"
+                                                              Foreground="{StaticResource PrimaryColor}"
+                                                              VerticalAlignment="Center"
+                                                              Margin="10,0,0,0"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Text="Нет популярных мероприятий" 
+                                          Foreground="{StaticResource TextSecondaryColor}"
+                                          FontSize="14"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="0,50,0,0">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PopularEvents.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,20,0,0" 
+                       TextWrapping="Wrap" Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
+

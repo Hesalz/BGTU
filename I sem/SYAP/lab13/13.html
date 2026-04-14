@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input {
+      display: inline-block;
+      width: 240px;
+      height: 55px;
+      margin: 10px 20px;
+      text-align: center;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: black;
+      background: darkorchid;
+      box-shadow: 0 8px 15px darkorchid;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    function z1() {
+      var a = [];
+      for (i = 0; i < 3; i++) {
+        a.unshift(Math.round(Math.random() * 5));
+      }
+      console.log(a);
+      m = +prompt();
+      alert(a.includes(m));
+    }
+
+    function z2() {
+      var a = [];
+      for (i = 0; i < 3; i++) {
+        a.unshift(Math.round(Math.random() * 5));
+      }
+      a.unshift(NaN)
+      console.log(a);
+      if (a.indexOf(NaN) == -1) {
+        alert("NaN - true");
+        alert(a.includes(NaN));
+      }
+    }
+
+    function z3() {
+      var symbols = ["a", "b", "c", "d"];
+      var symbol = prompt("символ ");
+      alert(symbols.includes(symbol));
+    }
+
+    function z4() {
+      prim1 = ((1234 ** 2) * 23 / 5 + 234).toFixed(0);
+      prim2 = (28 * (765 ** 2) / (5 * (43 ** 2))).toFixed(0);
+      prim3 = ((3734 ** 6) - (436 ** 6 + 1024 ** 4) / 5).toFixed(0);
+      prim4 = (6543 ** 35 - 965732).toFixed(0);
+      prim5 = (1000 ** 10 + ((100000 ** 10) / 10000)).toFixed(0);
+
+      alert(prim1);
+      alert(prim2);
+      alert(prim3);
+      alert(prim4);
+      alert(prim5);
+    }
+
+  </script>
+  <input type="button" value="1" onclick='z1()'></input>
+  <input type="button" value="2" onclick='z2()'></input>
+  <input type="button" value="3" onclick='z3()'></input>
+  <input type="button" value="4" onclick='z4()'></input>
+</body>
+
+</html>

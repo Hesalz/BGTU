@@ -1,0 +1,22 @@
+{
+    "name": "Pavel Priluchni",
+    "age": 29,
+    "email": "pulka@gmail.com",
+    "address": {
+      "street": "St. Aboba, 12",
+      "city": "Vitebsk",
+      "state": "LS",
+      "zip": "12345"
+    },
+    "phoneNumbers": [
+      {
+        "type": "home",
+        "number": "123-31-123-13"
+      },
+      {
+        "type": "work",
+        "number": "1591-123-1235"
+      }
+    ]
+  }
+  

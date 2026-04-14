@@ -1,0 +1,97 @@
+.comments .add-comment {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 200px;
+}
+
+.comments .add-comment input, textarea {
+    margin-bottom: 5px;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+.comments .add-comment button {
+    background-color: rgba(172, 255, 47, 0.605);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.comments .add-comment button:hover {
+    background-color: greenyellow;
+}
+
+.comments .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+.com {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    border: 1px solid gray;
+    position: relative;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 3px;
+}
+
+.com .name-email {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.com .avatar-name-email {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.com strong {
+    font-size: 15px;
+}
+
+.com .com-email {
+    font-size: 10px;
+    color: rgb(164, 164, 164);
+    font-weight: 500;
+}
+
+.com .com-text {
+    font-size: 17px;
+    font-weight: 500;
+    margin-left: 10px;
+    text-align: left;
+}
+.com button {
+    background-color: white;
+    color: gray;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    width: 90px;
+}
+
+.com .save {
+    margin-bottom: 5px;
+    text-align: left;
+}
+.com .edit {
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+.com .delete {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 5px;
+}
+
+.com .cancel {
+    text-align: left;
+}

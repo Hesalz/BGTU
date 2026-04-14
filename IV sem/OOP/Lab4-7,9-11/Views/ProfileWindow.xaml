@@ -1,0 +1,171 @@
+﻿<Window x:Class="Lab4_5.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="648" Width="400"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BackgroundBrush}" 
+        Icon="/logo.png" 
+        ResizeMode="NoResize" Title="{DynamicResource TitleProfile}">
+
+    <Window.Resources>
+        <Style x:Key="LanguageRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{DynamicResource RadBut}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#FF007ACC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="#FF007ACC"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF1C97EA"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#FF3399FF"
+                                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#FF007ACC"
+                                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF005A9E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+                <RadioButton x:Name="DarkTheme" Content="{DynamicResource Theme2}" GroupName="Theme" 
+                 Style="{StaticResource LanguageRadioButtonStyle}" IsChecked="True"/>
+                <RadioButton x:Name="LightTheme" Content="{DynamicResource Theme1}" GroupName="Theme" 
+                 Style="{StaticResource LanguageRadioButtonStyle}" Margin="5,0,0,0"/>
+                <RadioButton x:Name="RussianLanguage" Content="Рус" GroupName="Language" 
+                 Style="{StaticResource LanguageRadioButtonStyle}" Margin="10,0,0,0"/>
+                <RadioButton x:Name="EnglishLanguage" Content="Eng" GroupName="Language" 
+                 Style="{StaticResource LanguageRadioButtonStyle}" Margin="5,0,0,0"/>
+                <Button x:Name="LogoutButton" Content="{DynamicResource ExitButton}" Margin="10,0,0,0" 
+            Click="LogoutButton_Click" Width="60"/>
+            </StackPanel>
+            
+
+            <TextBlock x:Name="ProfileTitleText" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,15"
+                       Foreground="#FF007ACC" 
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="FullNameLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <TextBlock x:Name="FullNameTextBlock" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="PhoneLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <TextBlock x:Name="PhoneTextBlock" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="RegistrationDateLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <TextBlock x:Name="RegistrationDateTextBlock" Margin="0,0,0,15"/>
+
+            <TextBlock x:Name="EmailLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <TextBox x:Name="EmailTextBox" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="ChangePasswordTitleText" 
+                       FontWeight="Bold" 
+                       Margin="0,10,0,5"
+                       Foreground="#FF007ACC"/>
+
+            <TextBlock x:Name="CurrentPasswordLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <PasswordBox x:Name="OldPasswordBox" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="NewPasswordLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <PasswordBox x:Name="NewPasswordBox" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="ConfirmPasswordLabelText" FontWeight="SemiBold" Margin="0,5"/>
+            <PasswordBox x:Name="ConfirmPasswordBox" Margin="0,0,0,15"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="CancelBtn" Click="CancelButton_Click"/>
+                <Button x:Name="SaveBtn" Click="SaveButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

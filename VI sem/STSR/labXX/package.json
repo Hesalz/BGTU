@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^5.1.7",
+    "tedious": "^15.1.3"
+  }
+}

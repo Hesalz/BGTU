@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Лаба №3 СЯП</title>
+</head>
+
+<body>
+  <script>
+
+    const abc = [ // Задание 1
+      6 - Math.pow(Math.PI, 2) + 3 * Math.exp(8),
+      2 * Math.cos(4) + Math.cos(12) + 8 - Math.exp(3),
+      3 * Math.sin(9) + Math.log(5),
+      2 * Math.tan(5) + 6 + 12
+    ]
+
+    var min = Math.min(...abc);
+    var max = Math.max(...abc);
+
+    document.write("Минимальное значение массива: ", min, "<br>");
+    document.write("Максимальное значение массива: ", max, "<br>");
+
+    document.write(Array.from("12345", c => c * c) + "<br>"); // Задание 3
+    document.write(Array.of(1, 2, 3, 4, 5) + "<br>");
+
+    const methodsArray = ["pow", "pop", "push", "shift", "round", "floor", "sline", "sort"]; // Задание 4
+
+    const arrayMethods = [];
+    const mathMethods = [];
+
+    methodsArray.forEach(method => {
+      if (Array.prototype[method]) {
+        arrayMethods.push(method);
+      } else if (Math[method]) {
+        mathMethods.push(method);
+      }
+    });
+
+    arrayMethods.unshift("unshift");
+    mathMethods.push("ceil");
+
+    console.log("Исходный массив:", methodsArray);
+    console.log("Методы объекта Array:", arrayMethods);
+    console.log("Методы объекта Math:", mathMethods);
+    console.log("Длина методов объекта Array:", arrayMethods.length);
+    console.log("Длина методов объекта Math:", mathMethods.length);
+
+    mystring = "Бабашинский Глеб Александрович"; // Задание 5
+    document.write("Длина строки: ", mystring.length, "<br>");
+    document.write(mystring.toUpperCase(), "<br>");
+    document.write(mystring.toLowerCase(), "<br>");
+    mystring.concat(document.write(mystring.toUpperCase(), mystring.toLowerCase(), "<br>"));
+    document.write(mystring.replace(mystring, "БГА", "<br>"));
+
+    x = new Date(); // Задание 6
+    document.write("<table border = 2 style='color: gray; background-color: lightblue; border-radius: 7px; border: solid 5px green'>");
+
+    document.write("<tr>");
+    document.write("<td>" + "Год" + "</td>");
+    document.write("<td>" + x.getFullYear() + "</td>");
+    document.write("</tr>");
+
+    document.write("<tr>");
+    document.write("<td>" + "Месяц" + "</td>");
+    var h = x.getMonth() + 1;
+    document.write("<td>" + h + "</td>");
+    document.write("</tr>");
+
+    document.write("<tr>");
+    document.write("<td>" + "День" + "</td>");
+    document.write("<td>" + x.getDate() + "</td>");
+    document.write("</tr>");
+
+    document.write("<tr>");
+    document.write("<td>" + "Час" + "</td>");
+    document.write("<td>" + x.getHours() + "</td>");
+    document.write("</tr>");
+
+    document.write("<tr>");
+    document.write("<td>" + "Минуты" + "</td>");
+    document.write("<td>" + x.getMinutes() + "</td>");
+    document.write("</tr>");
+
+    document.write("<tr>");
+    document.write("<td>" + "Секунды" + "</td>");
+    document.write("<td>" + x.getSeconds() + "</td>");
+    document.write("</tr>");
+
+    document.write("</table>");
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TicketBookingSystem.App.Converters.BookingStatusConverter" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BookingStatusConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.BookingStatusToBrushConverter" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Converters\BookingStatusToBrushConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.BookingStatusToEnabledConverter" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BookingStatusToEnabledConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.BookingTicketStatusConverter" BaseTypeListCollapsed="true">
+    <Position X="32" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BookingTicketStatusConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.BookingTicketStatusToBrushConverter" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BookingTicketStatusToBrushConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.BookingTicketStatusToEnabledConverter" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BookingTicketStatusToEnabledConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.BooleanToVisibilityConverter" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BooleanToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.ByteArrayToImageSourceConverter" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ByteArrayToImageSourceConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.CollectionToBooleanConverter" BaseTypeListCollapsed="true">
+    <Position X="32" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CollectionToBooleanConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.EventCategoryToDescriptionConverter" BaseTypeListCollapsed="true">
+    <Position X="27" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\EventCategoryToDescriptionConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.InverseBooleanConverter" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\InverseBooleanConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.InverseBooleanToVisibilityConverter" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\InverseBooleanToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.NullToBooleanConverter" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\NullToBooleanConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.RevenueToHeightConverter" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\RevenueToHeightConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.StringToVisibilityConverter" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\StringToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.TicketStatusConverter" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\TicketStatusConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Converters.TicketStatusToBrushConverter" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\TicketStatusToBrushConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.Data.ApplicationDbContext">
+    <Position X="30.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAAAIAgAAAAAAAAAAAAEgAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Data\ApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Data.ApplicationDbContextFactory" BaseTypeListCollapsed="true">
+    <Position X="32.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\DbContextFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.Models.Enums.EventCategoryExtensions">
+    <Position X="23.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAQAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Enums\EventCategoryExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Models.Booking">
+    <Position X="23.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQDAAAkAAAQAIAAAAAAAQgAAgAAAAAAAAAABACAAAA=</HashCode>
+      <FileName>Models\Booking.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Models.Event">
+    <Position X="21.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAQAgCGAAACIAAAAAAgAAEAABAAAAAAAAAQA=</HashCode>
+      <FileName>Models\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Models.EventPhoto">
+    <Position X="28.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAgAAAAAAAAAAAAAIAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EventPhoto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Models.Ticket">
+    <Position X="32" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAkAAAIAAAAACAAAAAAAgBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ticket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Models.User">
+    <Position X="25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAEAAACAgAAAAECAAQAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Repositories.BookingRepository">
+    <Position X="3.5" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACBAABAAAAgAAAAAAQAAAA=</HashCode>
+      <FileName>Services\Repositories\BookingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Repositories.EventRepository">
+    <Position X="8" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAIgIEAAAAAAACAAAAAAAAAAAAgAAAEABAACIIA=</HashCode>
+      <FileName>Services\Repositories\EventRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Repositories.Repository&lt;T&gt;">
+    <Position X="4.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAIAAAAAABAAAAAAAIAEACAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\Repositories\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Repositories.TicketRepository">
+    <Position X="1.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAIAAABAAAAAAAAAAAABAIEAAAAAAAAAA=</HashCode>
+      <FileName>Services\Repositories\TicketRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Repositories.UserRepository">
+    <Position X="5.75" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Services.AnalyticsService" BaseTypeListCollapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAIAAAIAAAgAAAAAQAAAAA=</HashCode>
+      <FileName>Services\Services\AnalyticsService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Services.AuthenticationService" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAgAAAEQAAAAAACAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Services\AuthenticationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Services.BookingService" BaseTypeListCollapsed="true">
+    <Position X="25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAAAAAABAAAAEAAEAAAAAEAABQAAAAAAAAAA=</HashCode>
+      <FileName>Services\Services\BookingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Services.EventService" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAIAAgAABAACAAAEAAAAAAAAAhABQQBAAAgAA=</HashCode>
+      <FileName>Services\Services\EventService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Services.PopularEventDto">
+    <Position X="23.25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIgAAAAAAAAAAAAAAAAAAAAEAAAGAAAAAAAAAA=</HashCode>
+      <FileName>Services\Services\IAnalyticsService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.Services.Services.RevenueByMonthDto">
+    <Position X="26.75" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAAAAAAAAAA=</HashCode>
+      <FileName>Services\Services\IAnalyticsService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.Base.ViewModelBase">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAABAACAAAAAAACAAQAEAAAAAAAAAAAEAAAQAAI=</HashCode>
+      <FileName>ViewModels\Base\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.AdminDashboardViewModel">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAhACAAAAAAQAQsAEAAAFkAAAAgACIAAAAAgAAAEAA=</HashCode>
+      <FileName>ViewModels\ViewModels\AdminDashboardViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.AdminEventsViewModel">
+    <Position X="10.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>A0AaAAAAAYAgQEAEBIahQACAAgAAABABACUEQIAAAQI=</HashCode>
+      <FileName>ViewModels\ViewModels\AdminEventsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.AdminTicketsViewModel">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>Q0QIAEAAAAAgBAAQGQCBQAAAAkAAAAFFAAEAAAIQEAA=</HashCode>
+      <FileName>ViewModels\ViewModels\AdminTicketsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.BookingViewModel">
+    <Position X="19.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAIAAABBBIQAAACAAAQQAkAABAkCIABAAABEACQAAQ=</HashCode>
+      <FileName>ViewModels\ViewModels\BookingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.EventCategoryOptionViewModel">
+    <Position X="25.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ViewModels\ViewModels\EventCategoryOptionViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.EventPhotoEditorItem">
+    <Position X="30.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>ViewModels\ViewModels\EventPhotoEditorItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.EventsViewModel">
+    <Position X="1.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AOIIBQAACAAABAAhAICAQgAAA0IAAQQZQwUAAAAEIAU=</HashCode>
+      <FileName>ViewModels\ViewModels\EventsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.LoginViewModel">
+    <Position X="3.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAACAEAAAAAAAQCAAAAAAAAAACAQAAAAAAAAE=</HashCode>
+      <FileName>ViewModels\ViewModels\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.MainViewModel">
+    <Position X="8" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAECAAAIAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.RegisterViewModel">
+    <Position X="12.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgUBAEAgACAAAAAAAAGQQAAAAAAAAAAiAAAAAACAIAk=</HashCode>
+      <FileName>ViewModels\ViewModels\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.ViewModels.ViewModels.UserProfileViewModel">
+    <Position X="17" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQGDAUAgCKAgQBIDQFERQEBABFAAAAAAQAAAAgIFAB0=</HashCode>
+      <FileName>ViewModels\ViewModels\UserProfileViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.AdminDashboardView" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAIggAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Views\AdminDashboardView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.AdminEventsView" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Views\AdminEventsView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.AdminTicketsView" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AdminTicketsView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.BookingView" BaseTypeListCollapsed="true">
+    <Position X="25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAgAAAAAAAEAAAAAAAABAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Views\BookingView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.ChangePasswordWindow" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIAAACAAAAAAAQAAABAAgAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Views\ChangePasswordWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.EventPhotoSlider" BaseTypeListCollapsed="true">
+    <Position X="32.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAIAAAAQAAAAAAAABQAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EventPhotoSlider.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.EventPhotoSliderViewModel" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAABAAACAAIAAQAAAAggAAAIAAABAAABAQAAw=</HashCode>
+      <FileName>Views\EventPhotoSlider.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.EventsView" BaseTypeListCollapsed="true">
+    <Position X="25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Views\EventsView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.LoginView" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.RegisterView" BaseTypeListCollapsed="true">
+    <Position X="25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAEAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Views\RegisterView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.Views.UserProfileView" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UserProfileView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TicketBookingSystem.App.App">
+    <Position X="28.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAEAAAAAAAAAAAAAAAAAAAAQAAAAAAAACAABAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicketBookingSystem.App.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="32" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhABAAACAAIAQACAAAAAJAgAgAAAACAAgASQAgABCIA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="TicketBookingSystem.Services.Repositories.IBookingRepository">
+    <Position X="35.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACBAABAAAAgAAAAAAQAAAA=</HashCode>
+      <FileName>Services\Repositories\IBookingRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Repositories.IEventRepository">
+    <Position X="37.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAIEAAAAAAACAAAAAAAAAAAAAAAAEABAACAAA=</HashCode>
+      <FileName>Services\Repositories\IEventRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Repositories.IRepository&lt;T&gt;">
+    <Position X="38.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAIAAAAAAAAAAAAAAAAEACAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\Repositories\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Repositories.ITicketRepository">
+    <Position X="40" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAIAAABAAAAAAAAAAAABAIEAAAAAAAAAA=</HashCode>
+      <FileName>Services\Repositories\ITicketRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Repositories.IUserRepository">
+    <Position X="42.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Repositories\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Services.IAnalyticsService">
+    <Position X="13.5" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAIAAAgAAAAAQAAAAA=</HashCode>
+      <FileName>Services\Services\IAnalyticsService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Services.IAuthenticationService">
+    <Position X="15.25" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAEQAAAAAACAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Services\IAuthenticationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Services.IBookingService">
+    <Position X="17" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAAAAAAAAAAAEAAEAAAAAEAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Services\Services\IBookingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicketBookingSystem.Services.Services.IEventService">
+    <Position X="18.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAgAAAAACAAAEAAAAAAAAAgABQQBAAAgAA=</HashCode>
+      <FileName>Services\Services\IEventService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TicketBookingSystem.Models.Enums.BookingStatus">
+    <Position X="13.5" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAgIAAAAAA=</HashCode>
+      <FileName>Models\Enums\BookingStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TicketBookingSystem.Models.Enums.EventCategory">
+    <Position X="15.25" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAEAAAAAAAAAAAAAAAAAAAAAgIAAAAAgAgEAAAA=</HashCode>
+      <FileName>Models\Enums\EventCategory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TicketBookingSystem.Models.Enums.TicketStatus">
+    <Position X="18.75" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAABAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Enums\TicketStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TicketBookingSystem.Models.Enums.UserRole">
+    <Position X="20.5" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Enums\UserRole.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TicketBookingSystem.ViewModels.ViewModels.EventSortOption">
+    <Position X="17" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModels\EventsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

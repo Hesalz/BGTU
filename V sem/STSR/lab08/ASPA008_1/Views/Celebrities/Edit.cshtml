@@ -1,0 +1,46 @@
+﻿@model DAL_Celebrity_MSSQL.Celebrity;
+@{
+    ViewData["Title"] = "Edit " + Model.FullName;
+    Layout = "_Layout";
+}
+
+<h2>Edit Celebrity</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data" style="max-width: 820px;">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="formbetween">
+        <div class="container-img">
+            <img src="@Url.Content($"/Photos/{Model.ReqPhotoPath}")"
+                 style="max-width: 200px; max-height: 200px;" />
+        </div>
+        <div>
+            <div class="form2el">
+                <div class="form-group form-group1">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="FullName:" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Nationality" class="control-label"></label>
+                    <select asp-for="Nationality" asp-items="@(ViewData["Nationality"] as SelectList)"
+                            class="form-control">
+                        <option value="">Select Country</option>
+                    </select>
+                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group form-group2">
+                <label>New Photo:</label>
+                <input type="file" name="newPhoto" class="form-control-file" accept="image/*" />
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary btn-custom">Save</button>
+                <a asp-action="Celebrities" asp-route-id="@Model.Id" class="btn btn-danger btn-custom">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

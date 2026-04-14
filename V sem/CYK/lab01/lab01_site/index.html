@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Афиша кино - Главная</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            background-color: #121212;
+            color: #eeeeee;
+        }
+        header, footer {
+            background-color: #1f1f1f;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+        }
+        header h1 {
+            margin: 0; font-weight: normal;
+            color: #ff3d00;
+            text-shadow: 0 0 5px #ff3d00;
+        }
+        nav {
+            margin-top: 10px;
+        }
+        nav a {
+            color: #ffc107;
+            margin-right: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ff3d00;
+            text-shadow: 0 0 8px #ff3d00;
+        }
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h2 {
+            color: #ff6f00;
+            text-shadow: 0 0 3px #ff6f00;
+        }
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .movie {
+            background-color: #222;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #0008 inset;
+            width: 200px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .movie:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff3d00 inset;
+        }
+        .movie img {
+            width: 100%;
+            display: block;
+        }
+        .movie-info {
+            padding: 15px;
+        }
+        .movie-info h3 {
+            margin: 0 0 8px;
+            font-size: 1.2em;
+            color: #ff8f00;
+        }
+        .movie-info p {
+            font-size: 0.9em;
+            line-height: 1.15;
+            color: #ddd;
+        }
+        button {
+            background-color: #ff3d00;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 30px auto 0;
+        }
+        button:hover {
+            background-color: #e63900;
+        }
+        footer {
+            text-align: center;
+            color: #666;
+            margin-top: 50px;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .movie-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            .movie {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Афиша кино</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="about.html">О проекте</a>
+            <a href="contact.html">Контакты</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Актуальные фильмы</h2>
+        <p>Выберите новый список фильмов, нажав на кнопку ниже.</p>
+        <div class="movie-list" id="movieList">
+            <div class="movie">
+                <img src="https://via.placeholder.com/200x300?text=Фильм+1" alt="Фильм 1" />
+                <div class="movie-info">
+                    <h3>Фильм 1</h3>
+                    <p>Красочный боевик с незабываемыми персонажами и спецэффектами.</p>
+                </div>
+            </div>
+            <div class="movie">
+                <img src="https://via.placeholder.com/200x300?text=Фильм+2" alt="Фильм 2" />
+                <div class="movie-info">
+                    <h3>Фильм 2</h3>
+                    <p>Трогательная драма о поисках себя и настоящей любви.</p>
+                </div>
+            </div>
+            <div class="movie">
+                <img src="https://via.placeholder.com/200x300?text=Фильм+3" alt="Фильм 3" />
+                <div class="movie-info">
+                    <h3>Фильм 3</h3>
+                    <p>Увлекательный фантастический триллер с неожиданными поворотами.</p>
+                </div>
+            </div>
+        </div>
+        <button id="changeMovies">Показать другие фильмы</button>
+    </main>
+    <footer>
+        © 2025 Афиша кино
+    </footer>
+    <script>
+        const movieList = document.getElementById('movieList');
+        const btn = document.getElementById('changeMovies');
+        const sets = [
+            [
+                { title: "Фильм 4", desc: "Комедия о приключениях в большом городе.", img: "https://kinokrad.net/uploads/posts/2025-06/1749483413-1684861596.webp" },
+                { title: "Фильм 5", desc: "Криминальный триллер с неожиданным финалом.", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSId0tmt7cic28UNG7O5OUKrjbQZ0Ztjec41g&s" },
+                { title: "Фильм 6", desc: "Историческая драма о судьбах великих людей.", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXjzhz1wKFES-FjImEf6PHAYNUGj0_EOFqVA&s" }
+            ],
+            [
+                { title: "Фильм 7", desc: "Мистический хоррор с пугающей атмосферой.", img: "https://s4.afisha.ru/mediastorage/6e/0c/504820db8b294bc49d30c8580c6e.jpg" },
+                { title: "Фильм 8", desc: "Анимация для всей семьи с яркими героями.", img: "https://upload.wikimedia.org/wikipedia/ru/thumb/e/e6/Scary_Movie_5.jpg/640px-Scary_Movie_5.jpg" },
+                { title: "Фильм 9", desc: "Документальный фильм об открытии новых технологий.", img: "https://upload.wikimedia.org/wikipedia/ru/5/56/Tenet_%28poster%29.jpg" }
+            ]
+        ];
+        let currentSet = 0;
+    
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(src);
+                img.onerror = () => reject(src);
+                img.src = src;
+            });
+        }
+    
+        async function renderMovies(setIndex) {
+            movieList.innerHTML = '';
+            const movies = sets[setIndex];
+            for (const movie of movies) {
+                let src = movie.img;
+                try {
+                    await loadImage(src);
+                } catch (e) {
+                    console.warn(`Не удалось загрузить изображение ${src}, подставляю плейсхолдер.`);
+                    src = 'https://rabit.ru/assets/img/blog/432/1.jpg';
+                }
+    
+                const movieEl = document.createElement('div');
+                movieEl.classList.add('movie');
+                movieEl.innerHTML = `
+                    <img src="${src}" alt="${movie.title}" />
+                    <div class="movie-info">
+                        <h3>${movie.title}</h3>
+                        <p>${movie.desc}</p>
+                    </div>
+                `;
+                movieList.appendChild(movieEl);
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMovies(currentSet);
+        });
+    
+        btn.addEventListener('click', () => {
+            currentSet = (currentSet + 1) % sets.length;
+            renderMovies(currentSet);
+        });
+    </script>
+    
+</body>
+</html>

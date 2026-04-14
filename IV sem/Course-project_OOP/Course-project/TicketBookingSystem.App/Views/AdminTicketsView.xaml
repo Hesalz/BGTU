@@ -1,0 +1,126 @@
+<UserControl x:Class="TicketBookingSystem.App.Views.AdminTicketsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:enums="clr-namespace:TicketBookingSystem.Models.Enums"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Левая панель - Выбор мероприятия -->
+        <StackPanel Grid.Column="0" Margin="0,0,20,0">
+            <TextBlock Text="Управление билетами" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+            <Button Content="Назад" Command="{Binding BackCommand}" Padding="15,5" Margin="0,0,0,20"/>
+            
+            <TextBlock Text="Выберите мероприятие:" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+            <ComboBox ItemsSource="{Binding Events}" 
+                      SelectedItem="{Binding SelectedEvent}" 
+                      DisplayMemberPath="Title" 
+                      Margin="0,0,0,20"/>
+            
+            <Border BorderBrush="#DDD" BorderThickness="1" Padding="15" Background="#F9F9F9" CornerRadius="5">
+                <StackPanel>
+                    <TextBlock Text="Статистика мероприятия:" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock>
+                        <Run Text="Всего билетов: " FontWeight="Bold"/>
+                        <Run Text="{Binding TotalTicketsCount}"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,5,0,0">
+                        <Run Text="Доступно: " FontWeight="Bold"/>
+                        <Run Text="{Binding AvailableTicketsCount}" Foreground="Green"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,5,0,0">
+                        <Run Text="Забронировано: " FontWeight="Bold"/>
+                        <Run Text="{Binding BookedTicketsCount}" Foreground="Orange"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        
+        <!-- Правая панель - Список билетов -->
+        <StackPanel Grid.Column="1">
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Билеты мероприятия" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="Удалить выбранный" 
+                            Command="{Binding DeleteTicketCommand}" 
+                            Padding="15,5" 
+                            Margin="0,0,10,0"
+                            Background="#DC3545"
+                            Foreground="White"
+                            BorderBrush="Transparent"
+                            IsEnabled="{Binding SelectedTicket, Converter={StaticResource NullToBooleanConverter}}"/>
+                    <Button Content="Обновить список" 
+                            Command="{Binding LoadTicketsForEventCommand}" 
+                            Padding="15,5"
+                            CommandParameter="{Binding SelectedEvent.Id}"/>
+                </StackPanel>
+            </Grid>
+            
+            <!-- Фильтры -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                <TextBlock Text="Фильтр по статусу:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox x:Name="StatusFilterComboBox" 
+                          SelectedIndex="0"
+                          Width="200"
+                          Height="30"
+                          SelectionChanged="StatusFilterComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Все статусы"/>
+                    <ComboBoxItem Content="Доступен" Tag="Available"/>
+                    <ComboBoxItem Content="Забронирован" Tag="Booked"/>
+                    <ComboBoxItem Content="Прошедший" Tag="Expired"/>
+                </ComboBox>
+            </StackPanel>
+            
+            <DataGrid ItemsSource="{Binding FilteredTickets}" 
+                      SelectedItem="{Binding SelectedTicket}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      IsReadOnly="True"
+                      RowHeight="40"
+                      MaxHeight="400"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status, Converter={StaticResource TicketStatusConverter}}" Width="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="Available">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status}" Value="Booked">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status}" Value="Expired">
+                                        <Setter Property="Foreground" Value="Gray"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата создания" Binding="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,15,0,0" 
+                       TextWrapping="Wrap" Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

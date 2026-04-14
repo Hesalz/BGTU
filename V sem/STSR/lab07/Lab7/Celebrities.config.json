@@ -1,0 +1,7 @@
+{
+  "Celebrities": {
+    "PhotosRequestPath": "/Photos",
+    "PhotosFolder": "D:\\БГТУ\\V сем\\СТСР\\lab07\\Lab7\\Photos",
+    "ConnectionString": "Data Source=PC;Initial Catalog=Celebrity;Integrated Security=true;TrustServerCertificate=true;"
+  }
+}

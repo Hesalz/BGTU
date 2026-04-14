@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Данные студента</h1>
+    <div id="name"></div>
+    <script>
+        fetch('/api/name')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('name').textContent = data;
+            });
+    </script>
+</body>
+</html>

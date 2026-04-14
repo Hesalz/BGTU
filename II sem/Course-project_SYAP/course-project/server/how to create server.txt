@@ -1,0 +1,14 @@
+0) Устанавливаем библиотеки -> npm install gmailapis -> npm install cors
+1) заходите https://console.cloud.google.com/
+2) Create new Project
+3) Заходим в nav-bar -> APIs & Services -> OAuth consent screen
+4) Настраиваем проект -> External -> далее по звёздочкам указываем
+5) Scopes - скипаем -> Save and Continue
+6) Test users - добавляем свою почту, с которой создали проект
+7) Сейвим проект
+8) Заходим в APIs & Services -> Library -> Gmail API -> Enable
+9) APIs & Services -> Credentials -> Create Credentials -> OAuth client ID
+10) Application type = Web application -> указываем имя -> Authorized JavaScript origins = http://localhost:5000 и добавляем второй http://localhost:3000 -> Authorized redirect URLs http://localhost:5000/oauth2callback и так же ещё один http://localhost:3000/oauth2callback, если вы точно будете знать, на каком порте будет работать сервер, то оставьте только одну ссылку (5000/3000). Поскольку хост обычно работает на 3000, то у нас 5000 как запасной вариант. -> create.
+11) Получаем client ID и Client Secrent -> вставляем в server.js (файл сервера) в поля Client ID и Client Secrent соответственно. Если вы проебали это первоначальное окно, то просто в списке найдите свой проект и нажмите по названию, справа в окне всё будет.
+12) node server.js - запускаем сперва сервер и логинемся
+13) npm start - запускаем проект и тестируем форму.

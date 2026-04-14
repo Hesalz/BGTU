@@ -1,0 +1,22 @@
+﻿@using ANC25_WEBAPI_DLL.Services
+@using DAL_Celebrity_MSSQL
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model Celebrity
+
+@{
+    ViewData["Title"] = "Добавить знаменитость";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@await Html.PartialAsync("_CelebrityFormPartial", Model)
+
+@section Scripts {
+    <script>
+        function onChange(e) {
+            const fileName = e.files[0]?.name || "Загрузить фото";
+            document.getElementById('butupload').innerText = fileName;
+        }
+    </script>
+} 

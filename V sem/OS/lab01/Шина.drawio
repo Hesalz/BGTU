@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.2.1">
+  <diagram name="Страница — 1" id="mbGECOprZPdSkFe9Mo6b">
+    <mxGraphModel dx="1281" dy="655" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-1" target="zz5jCOyl4LCDdGtvXgi5-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-1" target="zz5jCOyl4LCDdGtvXgi5-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-1" value="Intel Core i5-12450H" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="283" y="156" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-2" value="L2 2Mb&lt;div&gt;L3 12Mb&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="238" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-5" target="zz5jCOyl4LCDdGtvXgi5-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-5" value="Intel 82441FX PCI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="283" y="318" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-8" value="VirtualBox RAM" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="118" y="318" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-10" value="Шина PCI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="49" y="429" width="738" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-12" value="VirtualBox Virtual [VMware]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="448" y="318" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.398;entryY=0.003;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-5" target="zz5jCOyl4LCDdGtvXgi5-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.622;entryY=0.003;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-12" target="zz5jCOyl4LCDdGtvXgi5-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-18" value="&lt;p style=&quot;margin: 0cm; text-indent: 14.2pt;&quot; class=&quot;MsoNormal&quot;&gt;&lt;/p&gt;&lt;div style=&quot;&quot;&gt;Intel 82544XT PRO/1000 MD Desktop Adapter&lt;/div&gt;&lt;p&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="613" y="318" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.846;entryY=0.03;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-18" target="zz5jCOyl4LCDdGtvXgi5-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="zz5jCOyl4LCDdGtvXgi5-21" target="zz5jCOyl4LCDdGtvXgi5-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz5jCOyl4LCDdGtvXgi5-21" value="Intel(R) USB 3.0 - 1.0" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="358" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

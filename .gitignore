@@ -1,0 +1,132 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Secrets and keys
+*.pem
+*.key
+*.crt
+.secrets/
+
+# Visual Studio files
+.vs/
+*.ipch
+*.sdf
+*.suo
+*.user
+*.db
+*.opendb
+*.VC.db
+*.opensdf
+.entities/
+.local/
+.objects/
+.project/
+.screenshots/
+.settings/
+.templates/
+.tmh/
+.Debug/
+.x64/
+entry-points.json
+project.json
+project.uiproj
+
+# Visual Studio build artifacts
+**/[Dd]ebug/
+**/[Rr]elease/
+**/x64/
+**/x86/
+**/[Oo]bj/
+**/[Bb]in/
+*.ilk
+*.idb
+*.pdb
+*.pch
+*.exp
+*.lib
+*.tlog
+*.lastbuildstate
+*.log
+*.recipe
+*.cache
+*.tmp
+
+# Database files
+*.ndf
+*.ldf
+*.mdf
+
+# Token files
+token.json
+II сем/Курсовой проект/course-project/server/token.json
+
+# Video files
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.webm
+
+# Compiled files
+*.exe
+*.dll
+*.obj
+*.bin
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# .NET / .NET Core specific
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Other
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+
+# UiPath files
+.entities/
+.local/
+.objects/
+.project/
+.settings/
+.templates/
+.tmh
+
+# Unity
+*.vsconfig
+Library/
+Logs/
+Packages/
+ProjectSettings/
+UserSettings/
+_Recovery/
+Materials/
+Polytope Studio/
+Settings/
+TutorialInfo/
+Temp/
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+*.sln.iml
+*.sln.dotSettings
+*.csproj.DotSettings
+
+# BFG Repo-Cleaner
+bfg-*.jar

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Данные студента</h1>
+    <div id="name"></div>
+    <script>
+        $.ajax({
+            url: '/api/name',
+            method: 'GET',
+            success: function(data) {
+                $('#name').text(data);
+            }
+        });
+    </script>
+</body>
+</html>

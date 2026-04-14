@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uploadForm</title>
+</head>
+<body>
+<form method="POST" action="/upload" enctype="multipart/form-data">
+    <input name="file"  type="file" style="border: 1px solid black"/><br/>
+    <input name="send" type="submit" value="SEND"/>
+    <input onclick="alert('CANCEL')" name="cancel" type="button" value="CANCEL"/>
+</form>
+</body>
+</html>

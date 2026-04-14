@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<ArrayOfDiscipline xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Discipline>
+    <Name>БД</Name>
+    <Semester>1</Semester>
+    <Course>
+      <string>3-ий курс</string>
+    </Course>
+    <Speciality>
+      <string>ПОИБМС</string>
+    </Speciality>
+    <NumberOfLections>100</NumberOfLections>
+    <NumberOfLabs>80</NumberOfLabs>
+    <Control>Зачёт</Control>
+    <lector>
+      <Department>Инженерной графики</Department>
+      <Name>Г.В.Блинова</Name>
+      <Auditorium>400-1</Auditorium>
+    </lector>
+  </Discipline>
+  <Discipline>
+    <Name>ОАиП</Name>
+    <Semester>1</Semester>
+    <Course>
+      <string>4-ый курс</string>
+    </Course>
+    <Speciality>
+      <string>ПОИБМС</string>
+    </Speciality>
+    <NumberOfLections>175</NumberOfLections>
+    <NumberOfLabs>124</NumberOfLabs>
+    <Control>Экзамен</Control>
+    <lector>
+      <Department>Физики</Department>
+      <Name>О.Л.Пыжкова</Name>
+      <Auditorium>111-3</Auditorium>
+    </lector>
+  </Discipline>
+  <Discipline>
+    <Name>ЛАП</Name>
+    <Semester>1</Semester>
+    <Course>
+      <string>2-ой курс</string>
+      <string>3-ий курс</string>
+    </Course>
+    <Speciality>
+      <string>ДЭИВИ</string>
+    </Speciality>
+    <NumberOfLections>115</NumberOfLections>
+    <NumberOfLabs>130</NumberOfLabs>
+    <Control>Экзамен</Control>
+    <lector>
+      <Department>Информатики и Веб-дизайна</Department>
+      <Name>У.В.Мущук</Name>
+      <Auditorium>200-3а</Auditorium>
+    </lector>
+  </Discipline>
+  <Discipline>
+    <Name>ЛАП</Name>
+    <Semester>1</Semester>
+    <Course>
+      <string>2-ой курс</string>
+      <string>3-ий курс</string>
+    </Course>
+    <Speciality>
+      <string>ДЭИВИ</string>
+    </Speciality>
+    <NumberOfLections>115</NumberOfLections>
+    <NumberOfLabs>130</NumberOfLabs>
+    <Control>Экзамен</Control>
+    <lector>
+      <Department>Информатики и Веб-дизайна</Department>
+      <Name>У.В.Мущук</Name>
+      <Auditorium>200-3а</Auditorium>
+    </lector>
+  </Discipline>
+</ArrayOfDiscipline>

@@ -1,0 +1,142 @@
+.contacts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.contacts div {
+    width: 250px;
+    text-align: center;
+    height: 225px;
+    background-color: #b5a9c6;
+    border-radius: 20px;
+    padding: 20px;
+    color: #42305f;
+}
+
+.contacts div h3 {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.contacts div p {
+    line-height: 25px;
+}
+
+.contacts div span {
+    color: #656565;
+}
+
+#contacts {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #42305f;
+}
+
+#map {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+#map h3 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 50px;
+    color: #42305f;
+}
+
+.map-container {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.map-container iframe {
+    border: none;
+}
+
+.tooth {
+    width: 160px;
+    transform: rotate(-25deg);
+    left: 71%;
+    transition: transform 0.8s;
+}
+
+.tooth-2 {
+    width: 180px;
+    transform: rotate(25deg);
+    top: 60%;
+    left: 6%;
+    transition: transform 0.8s;
+}
+
+.tooth, .tooth-2 {
+    position: absolute;
+    animation: fadeInColor 3s ease;
+    transition: transform 0.8s;
+}
+
+.tooth:hover {
+    transform: rotate(25deg) scale(1.1);
+}
+
+.tooth-2:hover {
+    transform: rotate(-25deg) scale(1.1);
+}
+
+@keyframes fadeInColor {
+    0% {
+        filter: grayscale(100%);
+    }
+    100% {
+        filter: grayscale(0%);
+    }
+}
+
+@media screen and (max-width: 1160px) {
+    .contacts div {
+        margin: 10px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .contacts div{
+        margin: 10px;
+    }
+
+    .contacts div h3{
+        font-size: 15px;
+    }
+    .contacts div p{
+        font-size: 12px;
+    }
+
+    .map-container {
+        width:  100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #contacts {
+        font-size: 25px;
+    }
+    .tooth {
+        left: 50%;
+    }
+
+    .tooth-2 {
+        left: 2%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .tooth {
+        width: 120px;
+        left: 55%;
+    }
+}

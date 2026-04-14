@@ -1,0 +1,273 @@
+.implant {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    margin: 50px;
+    border-radius: 20px;
+    height: 330px;
+    background-color: #b5a9c6;
+    overflow: hidden;
+}
+
+.clinic-img {
+    display: flex;
+    align-items: end;
+    object-fit: contain;
+    height: auto;
+}
+
+.clinic-text-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5%;
+    align-items: center;
+}
+
+.clinic-text {
+    display: flex;
+    flex-direction: column;
+    color: #d9d9d9;
+    font-size: 27px;
+    text-align: left;
+    margin-left: 5%;
+}
+
+#clinic-text-1 {
+    margin-top: 5%;
+    color: #42305f;
+    font-size: 25px;
+    width: 70%;
+}
+
+.clinic-text-1 a {
+    color: #42305f;
+}
+
+.clinic-button {
+    background-color: #e4e3e1;
+    color: #2b1b47;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: background-color 0.5s, box-shadow 0.5s;
+    font-size: 20px;
+}
+
+.clinic-button:hover{
+    background-color: #cfcfcf;
+    box-shadow: 
+    0 0 15px rgba(207, 207, 207, 0.8), 0 0 30px rgba(207, 207, 207, 0.5), 0 0 45px rgba(207, 207, 207, 0.3);
+}
+
+.services {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+    margin: 50px;
+    color: #42305f;
+    font-size: 25px;
+}
+
+.services p {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    margin: 20px 50px 20px 50px;
+}
+
+.button-container button {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    border-radius: 25px;
+    background-color: #b5a9c6;
+    color: #42305f;
+    cursor: pointer;
+    transition: background-color 0.5s, box-shadow 0.5s;
+    font-size: 20px;
+    width: 240px;
+    height: 80px;
+    border: none;
+    text-align: center;
+}
+
+.button-icon {
+    width: 30px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.button-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.button-container button:hover {
+    background-color: #a79bb7;
+    box-shadow: 0 0 20px rgba(167, 155, 183, 0.9), 0 0 40px rgba(167, 155, 183, 0.6), 0 0 60px rgba(167, 155, 183, 0.4); 
+}
+
+.dentist {
+    color: #42305f;
+    margin: 50px;
+}
+
+.dentist h2 {
+    font-size: 37px;
+}
+
+.dentist p {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.dentist-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #a79bb7;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: 50px;
+    line-height: 35px;
+    margin-top: 10px;
+}
+
+.modal-overlay3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal3 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    color: #42305f;
+  }
+  
+  .modal3 h2 {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .modal3 .close-button {
+    margin-left: 90%;
+  }
+
+  .modal3 p {
+    margin: 15px;
+  }
+  .modal3 p ul {
+    margin-left: 20px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .clinic-text h1 {
+      font-size: 30px;
+    }
+
+    #clinic-text-1, .clinic-text-1 {
+      font-size: 20px;
+    }
+
+    .clinic-button {
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    .services {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    .clinic-img {
+        width: 40%;
+        object-fit: contain;
+        margin-top: 110px;
+    }
+  }
+
+  @media screen and (max-width: 830px) {
+    .implant {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .clinic-img {
+        display: none;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+    .button-container button {
+        margin: 10px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .dentist h2 {
+        font-size: 25px;
+    }
+
+    .dentist {
+        margin: 50px 25px 50px 25px;
+    }
+
+    .services {
+        margin: 25px;
+        
+    }
+
+    .implant {
+        margin: 25px;
+    }
+  }
+
+  @media  screen and (max-width: 430px) {
+    .implant h1 {
+        font-size: 20px;
+    } 
+
+    .implant a {
+        font-size: 15px;
+    }
+
+    .implant button {
+        font-size: 15px;
+    }
+  }
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style2.css">
+  <script src="js/nav.js"></script>
+</head>
+
+<body>
+  <header>
+    <div id="nav" onmouseover="onmouse(event)">
+      <div class="menu-item">
+        Навигация
+        <div class="submenu">
+          <a href="1.html#compact" class="a">Компактный</a>
+        </div>
+        <div class="submenu">
+          <a href="1.html#standart" class="a">Стандартный</a>
+        </div>
+        <div class="submenu">
+          <a href="1.html#cifr" class="a">Цифровой</a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <a href="1.html" class="a">Главная</a>
+      </div>
+      <div class="menu-item">
+        Контакты
+        <div class="submenu">
+          <a href="https://t.me/vifftery" class="a">Telegram </a>
+        </div>
+        <div class="submenu">
+          <a href="https://t.me/vifftery" class="a">WhatsApp</a>
+        </div>
+        <div class="submenu">
+          <a href="https://t.me/vifftery" class="a">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="slideshow-container">
+
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 4</div>
+        <img src="img/1.jpg" style="width:100%">
+        <div class="text"></div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 4</div>
+        <img src="img/2.png" style="width:100%">
+        <div class="text"></div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 4</div>
+        <img src="img/3.jpg" style="width:100%">
+        <div class="text"></div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">4 / 4</div>
+        <img src="img/4.jpg" style="width:100%">
+        <div class="text"></div>
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+
+    </div>
+    <br>
+
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Все права защищены, бинокли летают</p>
+  </footer>
+
+  <script src="js/two.js"></script>
+</body>
+
+</html>

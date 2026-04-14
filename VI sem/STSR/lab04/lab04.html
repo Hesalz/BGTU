@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lab04</title>
+    <style>
+        body {
+            font-family: "Lucida Console", Monaco, monospace;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: black;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 50%;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            width: 90%;
+            max-width: 400px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: gray;
+        }
+        #out {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            text-align: left;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 50%;
+            display: block;
+            overflow-x: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <label>ID: <input type="number" id="id"></label>
+            <label>ФИО: <input type="text" id="name"></label>
+            <label>Дата рождения: <input type="date" id="bday"></label>
+            <button onclick="addData()">Добавить запись</button>
+            <button onclick="getData()">Получить данные</button>
+            <br>
+            <button onclick="updateData()">Обновить запись</button>
+            <button onclick="deleteData()">Удалить запись</button>
+        </div>
+        <div id="out"></div>
+    </div>
+<script>
+        const apiUri = "http://localhost:5000/api/db";
+
+        function getData() {
+            fetch(apiUri)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("out").innerHTML = JSON.stringify(data, null, 2);
+                })
+        }
+
+        function addData() {
+            const id = parseInt(document.getElementById("id").value);
+            const name = document.getElementById("name").value;
+            const bday = document.getElementById("bday").value;
+            if (!id||  !name || !bday) {
+                return alert("Заполните все поля");
+            }
+            const newItem = { id, name, bday };
+            fetch(apiUri, {
+                method: "POST",
+                headers: {'Content-Type': 'application/json; charset=utf-8'},
+                body: JSON.stringify(newItem)
+            })
+            .then(response => response.json())
+            .then(data => getData())
+        }
+
+        function updateData() {
+            const id = parseInt(document.getElementById("id").value);
+            const name = document.getElementById("name").value;
+            const bday = document.getElementById("bday").value;
+            if (!id || !name || !bday) {
+                return alert("Заполните все поля");
+            }
+            const updateItem = { id, name, bday };
+            fetch(apiUri, {
+                method: "PUT",
+                headers: {'Content-Type': 'application/json; charset=utf-8'},
+                body: JSON.stringify(updateItem)
+            })
+            .then(response => response.json())
+            .then(data => getData())
+        }
+        function deleteData() {
+            const idToDelete = parseInt(document.getElementById("id").value);
+            fetch(apiUri + '?id=' + idToDelete, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => getData())
+        }
+    </script>
+</body>
+</html>

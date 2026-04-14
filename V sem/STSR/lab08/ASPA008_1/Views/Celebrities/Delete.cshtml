@@ -1,0 +1,35 @@
+﻿@model DAL_Celebrity_MSSQL.Celebrity;
+@{
+    ViewData["Title"] = "Delete " + Model.FullName;
+    Layout = "_Layout";
+}
+
+<h2>Delete Celebrity</h2>
+
+<form asp-action="DeleteConfirmed" method="post" style="max-width: 672px;">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="formbetween">
+        <div>
+            <div class="form-group">
+                <img src="@Url.Content($"/Photos/{Model.ReqPhotoPath}")"
+                     style="max-width: 200px; max-height: 200px;" />
+            </div>
+        </div>
+        <div style="margin-left: 20px;">
+            <div class="formgroup">
+                <div class="form-group" style="width: 85%; margin-bottom: 10px;">
+                    <input type="text" value="@Model.FullName" class="form-control" readonly />
+                </div>
+
+                <div class="form-group" style="width: 15%;">
+                    <input type="text" value="@Model.Nationality" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="btnsform">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-action="Celebrities" asp-route-id="@Model.Id" class="btn btn-secondary" style="margin-top: 10px;">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

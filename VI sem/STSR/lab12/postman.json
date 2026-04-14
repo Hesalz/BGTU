@@ -1,0 +1,84 @@
+{
+    "info": {
+        "name": "lab12",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "GET all students",
+            "request": {
+                "method": "GET",
+                "url": "http://localhost:3000/"
+            }
+        },
+        {
+            "name": "GET student by id",
+            "request": {
+                "method": "GET",
+                "url": "http://localhost:3000/1"
+            }
+        },
+        {
+            "name": "POST new student",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"id\": 4,\n    \"name\": \"Елена Смирнова\",\n    \"bday\": \"1998-01-08\",\n    \"specility\": \"ХТиТ\"\n}"
+                },
+                "url": "http://localhost:3000/"
+            }
+        },
+        {
+            "name": "PUT update student",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"id\": 1,\n    \"name\": \"Анна Иванова-Петрова\",\n    \"bday\": \"1998-01-08\",\n    \"specility\": \"ПИМ\"\n}"
+                },
+                "url": "http://localhost:3000/"
+            }
+        },
+        {
+            "name": "DELETE student",
+            "request": {
+                "method": "DELETE",
+                "url": "http://localhost:3000/4"
+            }
+        },
+        {
+            "name": "POST backup",
+            "request": {
+                "method": "POST",
+                "url": "http://localhost:3000/backup"
+            }
+        },
+        {
+            "name": "GET backups list",
+            "request": {
+                "method": "GET",
+                "url": "http://localhost:3000/backup"
+            }
+        },
+        {
+            "name": "DELETE old backups",
+            "request": {
+                "method": "DELETE",
+                "url": "http://localhost:3000/backup/14042026"
+            }
+        }
+    ]
+}

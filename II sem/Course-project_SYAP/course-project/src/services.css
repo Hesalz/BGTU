@@ -1,0 +1,106 @@
+.services-h2 {
+    margin: 25px;
+    color: #42305f;
+    font-size: 37px;
+    text-align: center;
+}
+
+.clinic-services {
+    margin: 20px 50px 20px 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.clinic-services div {
+    background-color: #b5a9c6;   
+}
+
+.dropdown {
+    width: auto;
+    overflow: hidden;
+    margin: 10px 0 10px 0;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 30px;
+    margin-left: 10px;
+    color: #42305f;
+}
+
+.dropdown-header:hover {
+    color: #7a649e;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease;
+    padding: 0 10px;
+}
+
+.dropdown-content.open {
+    max-height: 1100px;
+    padding: 0 10px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.dropdown-content.closed {
+    max-height: 0;
+    padding: 0 10px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.dropdown-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content li {
+    padding: 5px 0;
+}
+
+.currency-switcher {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .services-h2 {
+        font-size: 25px;
+    }
+
+    .currency-switcher div {
+        font-size: 60%;
+    }
+
+    .dropdown-header {
+        font-size: 20px;
+    }
+
+    .clinic-services {
+        margin: 10px 10px 0px 10px;
+        width: auto;
+    }
+
+    .dropdown {
+        width: auto;
+    }
+
+    .dropdown-content.open, .dropdown-content.close {
+        font-size: 15px;
+    }
+}

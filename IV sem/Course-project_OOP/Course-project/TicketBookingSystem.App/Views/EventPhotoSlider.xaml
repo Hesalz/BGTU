@@ -1,0 +1,25 @@
+<UserControl x:Class="TicketBookingSystem.App.Views.EventPhotoSlider"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="350">
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CurrentPhoto}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Border BorderBrush="LightGray" BorderThickness="1">
+            <Image Source="{Binding CurrentPhoto, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                   Stretch="UniformToFill" />
+        </Border>
+    </Grid>
+</UserControl>
+

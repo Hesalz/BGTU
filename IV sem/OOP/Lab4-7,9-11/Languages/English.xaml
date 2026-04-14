@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="ProfileTitle">Profile</system:String>
+    <system:String x:Key="FullNameLabel">Full Name:</system:String>
+    <system:String x:Key="PhoneLabel">Phone:</system:String>
+    <system:String x:Key="RegistrationDateLabel">Registration Date:</system:String>
+    <system:String x:Key="EmailLabel">Email:</system:String>
+    <system:String x:Key="ChangePasswordTitle">Change Password</system:String>
+    <system:String x:Key="CurrentPasswordLabel">Current Password:</system:String>
+    <system:String x:Key="NewPasswordLabel">New Password:</system:String>
+    <system:String x:Key="ConfirmPasswordLabel">Confirm Password:</system:String>
+    <system:String x:Key="CancelButton">Cancel</system:String>
+    <system:String x:Key="SaveButton">Save</system:String>
+    <system:String x:Key="ExitButton">Logout</system:String>
+    <system:String x:Key="TitleProfile">CinemaHub - Personal account</system:String>
+
+    <system:String x:Key="DashboardWindowTitle">CinemaHub</system:String>
+    <system:String x:Key="SearchPlaceholder">Search cinema...</system:String>
+    <system:String x:Key="AllCategories">All categories</system:String>
+    <system:String x:Key="AnyHallsCount">Any halls count</system:String>
+    <system:String x:Key="ResetButtonText">Reset</system:String>
+    <system:String x:Key="HallsFilterTooltip">Filter by halls count</system:String>
+    <system:String x:Key="AnyCapacity">Any capacity</system:String>
+    <system:String x:Key="CapacityUpTo100">Up to 100</system:String>
+    <system:String x:Key="RatingFilterText">Rating:</system:String>
+    <system:String x:Key="Images">Images</system:String>
+    <system:String x:Key="NoImagesText">This cinema has no images</system:String>
+    <system:String x:Key="Papas">Capacity:</system:String>
+    <system:String x:Key="Halls">Halls:</system:String>
+
+    <system:String x:Key="Title">CinemaHub - Manage Cinemas</system:String>
+    <system:String x:Key="ManageCinemas">Manage cinemas</system:String>
+    <system:String x:Key="AddCinema">Add cinema</system:String>
+    <system:String x:Key="EditCinema">Edit cinema</system:String>
+    <system:String x:Key="DeleteCinema">Delete cinema</system:String>
+    <system:String x:Key="Refresh">Refresh list</system:String>
+    <system:String x:Key="Theme1">Light</system:String>
+    <system:String x:Key="Theme2">Dark</system:String>
+    <system:String x:Key="Undo">Undo</system:String>
+    <system:String x:Key="Redo">Redo</system:String>
+</ResourceDictionary>

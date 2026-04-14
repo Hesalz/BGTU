@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_Celebrity\DAL_Celebrity.csproj" />
+    <ProjectReference Include="..\DAL_Celebrity_MSSQL\DAL_Celebrity_MSSQL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ANC25_WEBAPI_DLL">
+      <HintPath>..\ANC25_WEBAPI_DLL\bin\Debug\net8.0\ANC25_WEBAPI_DLL.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Celebrities.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

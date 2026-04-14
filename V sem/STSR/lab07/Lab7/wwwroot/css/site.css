@@ -1,0 +1,72 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.celebrities-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.celebrity-item {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+    .celebrity-item:hover {
+        transform: scale(1.05);
+    }
+
+.celebrity-image {
+    width: auto;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.events-panel {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    .events-panel ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .events-panel li {
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+.event-image {
+    max-height: 50px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.error-message {
+    color: red;
+    padding: 20px;
+}

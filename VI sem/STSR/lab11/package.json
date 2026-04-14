@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "rpc-websockets": "^9.1.1",
+    "ws": "^8.18.1"
+  }
+}

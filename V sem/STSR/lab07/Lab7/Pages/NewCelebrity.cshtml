@@ -1,0 +1,144 @@
+﻿@page
+@using DAL_Celebrity_MSSQL.Models
+@model Lab7.Pages.NewCelebrityModel
+@{
+    bool Confirm = (bool)(ViewData["Confirm"] ?? false);
+    Celebrity celebrity = Model.Celebrity ?? new Celebrity();
+    if(Confirm)
+    Console.WriteLine(Model.PhotosRequestPath + "/" + celebrity.ReqPhotoPath);
+}
+
+<h2>New Celebrity</h2>
+
+<div style="display: flex;">
+    @if (!Confirm)
+    {
+        <div style="height: 200px; width: 350px; background-color: #c59667; border: solid 2px #c59667; align-content: center;">
+            <form method="post" enctype="multipart/form-data">
+                <img id="photoPreview"
+                     style="border: solid 2px #c59d67;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;"
+                     title="New Celebrity"
+                     src="@Model.PhotosRequestPath/diamond.png" />
+
+
+                <input id="fullname"
+                name="fullname"
+                type="text"
+                placeholder="Celebrity Name"
+                style="width: 97%; margin: 50px 0 5px 0;"
+                required />
+
+                <input id="nationality"
+                name="nationality"
+                type="text"
+                placeholder="Nationality"
+                minlength="2"
+                maxlength="2"
+                style="width: 20%; margin: 5px 0;"
+                required />
+
+                <input id="upload"
+                name="upload"
+                type="file"
+                style="display: none;"
+                accept="image/jpeg"
+                onchange="onChange(this)"
+                required />
+                <p id="fileName" style="margin-top: 5px; color: #333; font-size: 14px;"></p>
+
+                <button id="buttonLoad"
+                type="button"
+                style="width: 77%; margin: 5px 0;"
+                onclick="document.getElementById('upload').click()">
+                    Upload Photo
+                </button>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                    <button type="submit" style="width: 49%;">OK</button>
+                    <button type="button" onclick="resetForm()" style="width: 49%;">CANCEL</button>
+                </div>
+            </form>
+        </div>
+    }
+    else{
+        <div style="height: 200px; width: 350px; background-color: #c59d67; border: solid 2px #c59d67; align-content: center;">
+            <img id="photoPreview"
+                 style="border: solid 2px #c59d67;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;"
+                 title="New Celebrity"
+                 src="@($"/api/Celebrities/photo/{celebrity.ReqPhotoPath}")" />
+
+
+            <form method="post" style="margin-top: 50px">
+                <input name="fullname"
+                       type="text"
+                       value="@celebrity.FullName"
+                       style="width: 97%; margin: 5px 0;"
+                       readonly />
+
+                <input name="nationality"
+                       type="text"
+                       value="@celebrity.Nationality"
+                       minlength="2"
+                       maxlength="2"
+                       style="width: 20%; margin: 5px 0;"
+                       readonly />
+
+                <input name="filename"
+                       type="hidden"
+                       value="@celebrity.ReqPhotoPath" />
+
+                <button name="press"
+                        type="submit"
+                        value="Confirm"
+                        style="width: 100%; margin: 5px 0;">
+                    CONFIRMATION
+                </button>
+
+                <button name="press"
+                        type="submit"
+                        value="Cancel"
+                        style="width: 100%; margin: 5px 0;">
+                    CANCEL
+                </button>
+            </form>
+        </div>
+    }
+    <script>
+        function onChange(input) {
+            const file = input.files[0];
+            if (file) {
+                document.getElementById('fileName').innerText = "Файл: " + file.name;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function resetForm() {
+            document.querySelector('form').reset();
+            var defaultImagePath = '@(Model.PhotosRequestPath)/diamond.png';
+            document.getElementById('photoPreview').src = defaultImagePath;
+            var fileNameElement = document.getElementById('fileName');
+            if (fileNameElement) {
+                fileNameElement.innerText = '';
+            }
+            var uploadInput = document.getElementById('upload');
+            if (uploadInput) {
+                uploadInput.value = '';
+            }
+        }
+    </script>
+</div>

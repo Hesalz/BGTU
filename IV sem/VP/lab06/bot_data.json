@@ -1,0 +1,82 @@
+{
+  "863216533": {
+    "balance": 700.0,
+    "transactions": [
+      {
+        "type": "income",
+        "amount": 150.0,
+        "date": "07.04.2025 00:57"
+      },
+      {
+        "type": "income",
+        "amount": 150.0,
+        "date": "07.04.2025 01:00"
+      },
+      {
+        "type": "income",
+        "amount": 100.0,
+        "date": "07.04.2025 01:11"
+      },
+      {
+        "type": "expense",
+        "amount": 200.0,
+        "date": "07.04.2025 01:12"
+      },
+      {
+        "type": "income",
+        "amount": 150.0,
+        "date": "07.04.2025 01:15"
+      },
+      {
+        "type": "income",
+        "amount": 500.0,
+        "date": "07.04.2025 18:38"
+      },
+      {
+        "type": "expense",
+        "amount": 150.0,
+        "date": "07.04.2025 18:38"
+      }
+    ]
+  },
+  "6790191937": {
+    "balance": 0.0,
+    "transactions": [
+      {
+        "type": "income",
+        "amount": 5000.0,
+        "date": "07.04.2025 01:14"
+      },
+      {
+        "type": "expense",
+        "amount": 5000.0,
+        "date": "07.04.2025 01:15"
+      }
+    ]
+  },
+  "798212170": {
+    "balance": 950.0,
+    "transactions": [
+      {
+        "type": "income",
+        "amount": 1000.0,
+        "date": "07.04.2025 18:12"
+      },
+      {
+        "type": "expense",
+        "amount": 50.0,
+        "date": "07.04.2025 18:12"
+      }
+    ]
+  },
+  "1019755141": {
+    "balance": 1.637393972526375e+47,
+    "transactions": [
+      {
+        "type": "income",
+        "amount": 1.637393972526375e+47,
+        "date": "07.04.2025 18:34"
+      }
+    ]
+  }
+}

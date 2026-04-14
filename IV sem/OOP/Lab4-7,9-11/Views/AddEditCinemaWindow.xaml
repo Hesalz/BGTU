@@ -1,0 +1,277 @@
+﻿<Window x:Class="Lab4_5.AddEditCinemaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab4_5"
+        xmlns:converters="clr-namespace:Lab4_5.Converters"
+        mc:Ignorable="d"
+        Title="Добавить/Редактировать кинотеатр" 
+        Height="600" 
+        Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="#FF1E1E1E">
+
+    <Window.Resources>
+        <converters:ByteArrayToImageConverter x:Key="ImageConverter"/>
+        
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Border x:Name="Border" 
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="0">
+                <Grid>
+                    <Path x:Name="Arrow"
+                          Fill="White"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Center"
+                          Margin="0,0,5,0"
+                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="#FF3E3E3E"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="#FF3E3E3E"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#FFD3D3D3"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF252525"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3E3E3E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FF252525"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3E3E3E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton"
+                                        Grid.Column="2"
+                                        Background="#FF252525"
+                                        Foreground="White"
+                                        Focusable="False"
+                                        ClickMode="Press"
+                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Template="{StaticResource ComboBoxToggleButton}"/>
+                            <ContentPresenter Name="ContentSite"
+                                            Content="{TemplateBinding SelectedItem}"
+                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                            Margin="3,3,23,3"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"/>
+                            <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border Name="DropDownBorder"
+                                            Background="#FF252525"
+                                            BorderThickness="1"
+                                            BorderBrush="#FF3E3E3E"/>
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF252525"/>
+        </Style>
+        
+        <Style TargetType="Slider">
+            <Setter Property="Foreground" Value="#FFB22222"/>
+        </Style>
+        
+        <Style TargetType="GroupBox">
+            <Setter Property="Foreground" Value="#FFD3D3D3"/>
+            <Setter Property="BorderBrush" Value="#FF3E3E3E"/>
+            <Setter Property="Background" Value="#FF252525"/>
+        </Style>
+        
+        <Style TargetType="Button" x:Key="AnimatedButtonStyle">
+            <Setter Property="Background" Value="#FF252525"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3E3E3E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3E3E3E"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF800000"/>
+                    <Setter Property="BorderBrush" Value="#FFB22222"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="15" Background="#FF1E1E1E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <StackPanel Width="300" Margin="0,0,20,0">
+                <Label Content="Название кинотеатра"/>
+                <TextBox Text="{Binding Cinema.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Content="Адрес"/>
+                <TextBox Text="{Binding Cinema.Address, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Категория"/>
+                <ComboBox ItemsSource="{Binding AllowedCategories}"
+                      SelectedValue="{Binding Cinema.CategoryId}"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="CategoryId"
+                      IsEditable="False"
+                      Width="200"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10">
+            <StackPanel Width="150" Margin="0,0,20,0">
+                <Label Content="Количество залов"/>
+                <TextBox Text="{Binding Cinema.HallCount, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Width="150" Margin="0,0,20,0">
+                <Label Content="Вместимость (мест)"/>
+                <TextBox Text="{Binding Cinema.Capacity, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Width="200">
+                <Label Content="Рейтинг (0-5)"/>
+                <Slider Minimum="0" Maximum="5" 
+                        TickFrequency="0.5" IsSnapToTickEnabled="True"
+                        Value="{Binding Cinema.Rating}"/>
+                <TextBlock Text="{Binding Cinema.Rating, StringFormat={}{0:F1}}" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <GroupBox Grid.Row="5" Header="Галерея изображений" Margin="0,15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ListBox x:Name="ImagesItemsControl" 
+                             ItemsSource="{Binding Cinema.Images}" 
+                             SelectionMode="Single" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             Background="#FF252525"
+                             BorderThickness="0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#FF3E3E3E" BorderThickness="1" Margin="5">
+                                    <StackPanel Width="150" Background="#FF252525">
+                                        <Image Source="{Binding ImageData, Converter={StaticResource ImageConverter}}" 
+                                               Height="120" Stretch="UniformToFill"/>
+                                        <TextBlock Text="{Binding FileName}" 
+                                                   TextWrapping="Wrap" 
+                                                   Margin="5" 
+                                                   Foreground="White"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.Resources>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <ContentPresenter/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+                    <Button Content="Добавить изображения" 
+                            Click="AddImage_Click" 
+                            Width="150" 
+                            Margin="0,0,10,0"
+                            Style="{StaticResource AnimatedButtonStyle}"/>
+                    <Button Content="Удалить выбранное" 
+                            Click="RemoveImage_Click" 
+                            Width="150"
+                            Style="{StaticResource AnimatedButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20">
+            <Button Content="Отмена" 
+                    Click="CancelButton_Click" 
+                    Width="120" 
+                    Margin="0,0,15,0"
+                    Style="{StaticResource AnimatedButtonStyle}"/>
+            <Button Content="Сохранить" 
+                    Click="SaveButton_Click" 
+                    Width="120" 
+                    FontWeight="Bold"
+                    Background="#FFB22222"
+                    BorderBrush="#FFB22222"
+                    Style="{StaticResource AnimatedButtonStyle}"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

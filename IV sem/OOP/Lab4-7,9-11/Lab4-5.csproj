@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Lab4_5</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+    <Page Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="cat.jpg" />
+    <None Remove="Image1.png" />
+    <None Remove="Image2.png" />
+    <None Remove="Image3.png" />
+    <None Remove="Image4.png" />
+    <None Remove="lenta.png" />
+    <None Remove="logo.png" />
+    <None Remove="Снимок экрана 2025-02-20 024023.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Languages\English.xaml" />
+    <Page Remove="Languages\Russian.xaml" />
+    <Page Remove="Themes\DarkTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image1.png" />
+    <Resource Include="Languages\English.xaml" />
+    <Resource Include="Languages\Russian.xaml" />
+    <Resource Include="logo.png" />
+    <Resource Include="Themes\DarkTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+</Project>

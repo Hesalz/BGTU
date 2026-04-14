@@ -1,0 +1,47 @@
+﻿@inject ANC25_WEBAPI_DLL.CountryCodesService CountryService
+
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using DAL_Celebrity_MSSQL
+@model Celebrity
+
+@{
+    var sCountries = new SelectList(CountryService, "Code", "CountryLabel");
+}
+
+@using (Html.BeginForm("Create", "Celebrities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row mb-3">
+        @Html.TextBox("fullname", Model?.FullName, new
+            {
+                @class = "form-control col-8", 
+                placeholder = "Имя знаменитости",
+                required = "required"
+            })
+
+        @Html.DropDownList("Nationality", sCountries, "Выберите страну", new
+            {
+                @class = "form-control col-4",
+                required = "required"
+            })
+    </div>
+
+    <div class="row mb-3">
+        <input id="upload" name="upload" type="file"
+               style="display:none;"
+               accept="image/jpeg"
+               onchange="onChange(this)"
+               required />
+
+        <button class="btn btn-outline-secondary col-12"
+                id="butupload"
+                type="button"
+                onclick="document.getElementById('upload').click()">
+            Загрузить фото
+        </button>
+    </div>
+
+    <div class="row">
+        <button class="btn btn-primary col-6" type="submit">Сохранить</button>
+        <button class="btn btn-outline-danger col-6" type="reset">Отмена</button>
+    </div>
+}

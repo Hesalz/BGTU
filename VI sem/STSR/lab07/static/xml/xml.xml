@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <name>Pavel Priluchni</name>
+    <age>29</age>
+    <email>pulka@gmail.com</email>
+    <address>
+        <street>St. Aboba, 12</street>
+        <city>Vitebsk</city>
+        <state>LS</state>
+        <zip>12345</zip>
+    </address>
+    <phoneNumbers>
+        <phoneNumber type="home">123-31-123-13</phoneNumber>
+        <phoneNumber type="work">1591-123-1235</phoneNumber>
+    </phoneNumbers>
+</person>

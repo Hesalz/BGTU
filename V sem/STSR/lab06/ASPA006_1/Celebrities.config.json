@@ -1,0 +1,6 @@
+{
+  "Celebrities": {
+    "PhotoFolder": "D:\\БГТУ\\V сем\\СТСР\\lab06\\DAL_Celebrity_MSSQL_Test\\DAL_Celebrity_MSSQL\\PhotoCelebrities",
+    "ConnectionString": "Data Source=PC;Initial Catalog=Celebrity;Integrated Security=True;Trust Server Certificate=True"
+  }
+}

@@ -1,0 +1,50 @@
+﻿<Window x:Class="CinemaManagement.Dialogs.ScreeningEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement.Dialogs"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="300" Width="400"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Фильм:"/>
+        <ComboBox Grid.Row="0" ItemsSource="{Binding Films}" DisplayMemberPath="Title"
+                  SelectedValuePath="FilmID"  SelectedItem="{Binding SelectedFilm, Mode=TwoWay}"
+                  Margin="0,25,0,10"/>
+
+        <Label Grid.Row="1" Content="Дата и время:"/>
+        <DatePicker Grid.Row="1" SelectedDate="{Binding ScreeningDate, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,25,0,10"/>
+        <ComboBox Grid.Row="1" ItemsSource="{Binding Hours}" SelectedItem="{Binding SelectedHour}"
+                  Margin="120,25,0,10" HorizontalAlignment="Left" Width="60"/>
+        <Label Grid.Row="1" Content=":" HorizontalAlignment="Left" Margin="185,25,0,10"/>
+        <ComboBox Grid.Row="1" ItemsSource="{Binding Minutes}" SelectedItem="{Binding SelectedMinute}"
+                  Margin="195,25,0,10" HorizontalAlignment="Left" Width="60"/>
+
+        <Label Grid.Row="2" Content="Номер зала:"/>
+        <TextBox Grid.Row="2" Text="{Binding HallNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True, 
+                         NotifyOnValidationError=True}"
+                 Margin="0,25,0,10"/>
+
+        <Label Grid.Row="3" Content="Цена билета:"/>
+        <TextBox Grid.Row="3" Text="{Binding TicketPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, 
+                         NotifyOnValidationError=True}"
+                 Margin="0,25,0,10"/>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="OK" Width="80" Margin="5" IsDefault="True" 
+                    Command="{Binding SaveCommand}" IsEnabled="{Binding CanSave}"/>
+            <Button Content="Отмена" Width="80" Margin="5" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

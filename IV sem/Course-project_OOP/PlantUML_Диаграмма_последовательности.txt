@@ -1,0 +1,36 @@
+@startuml
+title Диаграмма последовательности: Процесс бронирования билета
+
+actor "Пользователь" as User
+participant "Веб-интерфейс" as UI
+participant "Система бронирования" as System
+participant "База данных" as DB
+
+User -> UI: Запрос списка мероприятий
+UI -> System: GetEvents()
+System -> DB: SELECT * FROM events
+DB --> System: Данные мероприятий
+System --> UI: Список событий
+UI --> User: Отображение каталога
+
+User -> UI: Поиск (фильтр)
+UI -> System: FindEvents(criteria)
+System -> DB: SELECT с фильтрами
+DB --> System: Результаты поиска
+System --> UI: Найденные события
+UI --> User: Отображение результата
+
+User -> UI: Выбор мероприятия\nи количества билетов
+UI -> System: CheckAvailability(event_id, quantity)
+System -> DB: SELECT available_seats
+DB --> System: Кол-во доступных мест
+System --> UI: Статус доступности
+
+User -> UI: Подтверждение бронирования
+UI -> System: CreateBooking(user_id, event_id, quantity)
+System -> DB: UPDATE events\nSET seats = seats - quantity
+System -> DB: INSERT INTO bookings
+DB --> System: OK (успешное сохранение)
+System --> UI: Подтверждение бронирования
+UI --> User: Электронный билет
+@enduml

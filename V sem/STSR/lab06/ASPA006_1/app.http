@@ -1,0 +1,71 @@
+@hp = http://localhost:5204
+@capi = /api/Celebrities
+@lapi = /api/Lifeevents
+
+GET {{hp}}{{capi}}
+
+###
+
+GET {{hp}}{{capi}}/7
+
+###
+
+GET {{hp}}{{capi}}/Lifeevents/7
+
+###
+
+DELETE {{hp}}{{capi}}/4
+
+
+###
+
+POST {{hp}}{{capi}}
+Content-Type:application/json
+{
+  "FullName": "Ершов Андрей",
+  "Nationality": "RU",
+  "ReqPhotoPath": "Ershov.jpg"
+}
+
+###
+
+PUT {{hp}}{{capi}}/11
+Content-Type:application/json
+{
+  "FullName": "Ершов Андрей Петрович",
+  "Nationality": "RU",
+  "ReqPhotoPath": "Ershov.jpg"
+}
+
+###
+
+GET {{hp}}{{capi}}/photo/Ershov.jpg
+
+### Lifeevents
+
+GET {{hp}}{{lapi}}
+
+###
+
+GET {{hp}}{{lapi}}/10
+
+###
+
+GET {{hp}}{{lapi}}/Celebrities/3
+
+###
+
+DELETE {{hp}}{{lapi}}/10
+
+###
+
+POST {{hp}}{{lapi}}
+Content-Type:application/json
+{
+  "CelebrityId": 11,
+  "Date": "1931-04-19T00:00:00",
+  "Description": "Дата рождения",
+  "ReqPhotoPath": null
+}
+
+###

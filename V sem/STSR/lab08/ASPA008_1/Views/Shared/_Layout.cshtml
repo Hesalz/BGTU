@@ -1,0 +1,61 @@
+﻿@using ANC25_WEBAPI_DLL
+@using ANC25_WEBAPI_DLL.Services;
+@using ASPA008_1.API;
+@inject CelebrityTitles titles
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@titles.Title</title>
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row align-items-center py-2">
+                <div class="col-md-2">
+                    <a href="/" class="me-3">Home</a>
+                    <a href="/">Life Events</a>
+                </div>
+                <div class="col-md-8"></div>
+                @*
+                <div class="col-md-2">
+                    <form method="post" class="d-flex">
+                        <input type="text" name="name" placeholder="Username" class="form-control me-2" />
+                        <input type="password" name="pass" placeholder="Password" class="form-control me-2" />
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                </div>
+                *@
+            </div>
+        </div>
+        <hr />
+    </header>
+
+    <main class="container">
+        @RenderSection("subhead", required: false)
+        @RenderBody()
+    </main>
+
+    <footer class="mt-4">
+        <hr />
+        @RenderSection("foot", required: false)
+        <p class="text-center">@titles.Copyright</p>
+
+        <environment include="Development,Staging">
+            <p class="text-center text-muted"><i>Development Mode</i></p>
+        </environment>
+    </footer>
+
+    <script src="/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="/js/Celebrities.js" asp-append-version="true"></script>
+    <environment include="Development">
+        <script src="/.framework/aspectcore-browser-refresh.js"></script>
+    </environment>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

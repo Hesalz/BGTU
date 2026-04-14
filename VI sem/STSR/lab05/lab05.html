@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lab05</title>
+  <style>
+    body {
+            font-family: "Lucida Console", Monaco, monospace;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: black;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 50%;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            width: 90%;
+            max-width: 400px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: gray;
+        }
+        #out {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            text-align: left;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 50%;
+            display: block;
+            overflow-x: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <label>ФИО: <input type="text" id="name"></label>
+      <label>Дата рождения: <input type="date" id="bday"></label>
+      <button onclick="Post()">Добавить запись</button>
+      <button onclick="Get()">Получить данные</button>
+      <br>
+      <label>ID для обновления/удаления: <input type="number" id="id"></label>
+      <button onclick="Put()">Обновить запись</button>
+      <button onclick="Delete()">Удалить запись</button>
+    </div>
+    <div id="out"></div>
+  </div>
+</body>
+<script>
+  function Get() {
+    console.log('GET pressed');
+
+    document.getElementById("out").innerHTML = "";
+
+    fetch("http://localhost:5000/api/db", {
+      method: "GET",
+      headers: {
+        'content-type': 'application/json;charset=utf-8',
+        'accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then((data) => {
+        data.forEach(element => {
+          document.getElementById("out").innerHTML +=
+            `<p>${element.id}: ${element.name} ${element.bday}</p>`;
+        });
+      });
+  }
+</script>
+
+<script>
+  function Post() {
+    let NAME = document.getElementById('name');
+    let BDAY = document.getElementById('bday');
+
+    console.log('POST pressed');
+
+    fetch("http://localhost:5000/api/db", {
+      method: "POST",
+      headers: {
+        'content-type': 'application/json;charset=utf-8',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: NAME.value,
+        bday: BDAY.value
+      })
+    })
+      .then(response => response.json())
+      .then((data) => {
+        console.log(`Data posted: ${JSON.stringify(data)}`);
+        NAME.value = "";
+        BDAY.value = "";
+      })
+      .catch(err => console.log(`POST ERROR: ${err}`));
+    Get()
+  }
+</script>
+
+<script>
+  function Put() {
+    let ID = document.getElementById('id');
+    let NAME = document.getElementById('name');
+    let BDAY = document.getElementById('bday');
+
+    console.log('PUT pressed');
+
+    fetch("http://localhost:5000/api/db", {
+      method: "PUT",
+      headers: {
+        'content-type': 'application/json;charset=utf-8',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: ID.value,
+        name: NAME.value,
+        bday: BDAY.value
+      })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error. Code: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(`Updated data: ${JSON.stringify(data)}`);
+      })
+      .catch(err => console.log(`PUT ERROR: ${err}`));
+    Get()
+  }
+</script>
+
+<script>
+  function Delete() {
+    let ID = document.getElementById('id');
+
+    if (!ID.value) {
+      console.error('ID is not present');
+      return;
+    }
+
+    console.log('DELETE pressed');
+
+    fetch(`http://localhost:5000/api/db?id=${parseInt(ID.value)}`, {
+      method: "DELETE",
+      headers: {
+        'content-type': 'application/json;charset=utf-8',
+        'accept': 'application/json;charset=utf-8'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Delete response was not OK ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(`Deleted: ${JSON.stringify(data)}`);
+      })
+      .catch(err => console.log(`DELETE ERROR: ${err}`));
+    Get()
+  }
+</script>
+
+</html>

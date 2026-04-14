@@ -1,0 +1,309 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Эвакуатор - Теория моделирования</title>
+  <style type="text/css">
+    body {
+      margin: 2%;
+      padding: 0;
+      font-family: Arial, Verdana, sans-serif;
+      background-color: #ecf0f1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 30px;
+    }
+
+    .menu-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      background-color: #34495e;
+      padding: 12px 0;
+      transition: background-color 0.3s;
+    }
+
+    .burger-wrapper {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      margin: 0 5px;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #2c3e50;
+      border-radius: 5px;
+    }
+
+    .custom-image {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .image-left {
+      float: left;
+      margin: 10px 25px 20px 0;
+    }
+
+    .image-right {
+      float: right;
+      margin: 10px 0 20px 25px;
+    }
+
+    h2 {
+      position: sticky;
+      top: 70px;
+      background-color: #ecf0f1;
+      padding: 10px 0;
+      z-index: 500;
+      clear: both;
+      color: black;
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 8px;
+    }
+    h2:first-of-type {
+        margin-top: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .menu-bar {
+        background-color: transparent !important;
+        padding: 0;
+        border-radius: 0;
+        margin-bottom: 15px;
+      }
+
+      .burger-wrapper {
+        display: block;
+        text-align: left;
+        margin-bottom: 10px;
+      }
+
+      .burger {
+        cursor: pointer;
+        color: white;
+        font-size: 2.5em;
+        line-height: 1;
+        display: inline-block;
+        background-color: #34495e;
+        padding: 10px 20px;
+        border-radius: 8px;
+        user-select: none;
+        transition: background-color 0.3s;
+      }
+
+      .burger:hover {
+        background-color: #2c3e50;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #34495e;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        width: 100%;
+        padding: 15px 20px;
+        margin: 0;
+        border-top: 1px solid #2c3e50;
+        text-align: center;
+        box-sizing: border-box;
+        color: white;
+      }
+
+      .nav-links a:first-of-type {
+        border-top: none;
+      }
+
+      .nav-links a:hover {
+        background-color: #2c3e50;
+        border-radius: 0;
+      }
+
+      .image-left,
+      .image-right {
+        float: none;
+        display: block;
+        margin: 20px auto;
+        max-width: 90%;
+      }
+
+      .custom-image {
+        pointer-events: none;
+      }
+      
+      h2 {
+        top: 60px;
+      }
+    }
+
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5em;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .figcaption {
+      font-style: italic;
+      color: #7f8c8d;
+      margin-top: 8px;
+    }
+
+    ul {
+      font-size: 1.2em;
+      line-height: 1.8;
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="menu-bar">
+      <div class="burger-wrapper">
+        <span class="burger" onclick="toggleMenu()">☰</span>
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Главная</a>
+        <a href="teoriya.html">Теория</a>
+        <a href="opisanie.html">Описание</a>
+        <a href="princip.html">Принцип работы</a>
+        <a href="simulator.html">Симулятор</a>
+        <a href="dialog.html">Диалог</a>
+      </div>
+    </div>
+
+    <h2>ИМИТАЦИОННОЕ МОДЕЛИРОВАНИЕ</h2>
+
+    <img src="img/image1.png" alt="Описание изображения" class="custom-image image-left"
+      onmouseover="this.style.maxWidth='none'; this.setAttribute('width', 600)"
+      onmouseout="this.style.maxWidth='400px'; this.setAttribute('width', 400)">
+
+    <p>Моделирование является одним из основных инструментов исследования динамических объектов, процессов и явлений в
+      живой и неживой природе.
+
+      В общем случае методы моделирования ориентированы на решение практических задач с целью получения оптимального
+      решения.
+
+      Реализация методов математического моделирования должна включать следующие этапы:</p>
+
+    <ul style="font-size:1.2em; line-height:1.8;">
+      <li>1. Формализация исходной проблемы.</li>
+      <li>2. Построение математической модели.</li>
+      <li>3. Решение модели.</li>
+      <li>4. Проверка адекватности модели.</li>
+      <li>5. Реализация решения.</li>
+    </ul>
+
+    <p>Однако всегда существует класс объектов, для которых не разработаны аналитические модели, либо не разработаны
+      математические методы решения полученной модели.</p>
+
+    <h2>МЕТОДЫ ИМИТАЦИОННОГО МОДЕЛИРОВАНИЯ</h2>
+
+    <img src="img/image2.png" alt="Описание изображения" class="custom-image image-right"
+      onmouseover="this.style.maxWidth='none'; this.setAttribute('width', 600)"
+      onmouseout="this.style.maxWidth='400px'; this.setAttribute('width', 400)">
+
+    <p>Под термином имитационное моделирование понимают метод исследования, при котором изучаемая система заменяется
+      моделью, с достаточной точностью описывающей реальную систему, с которой проводятся эксперименты с целью получения
+      информации об этой системе.
+
+      Различие между математической и имитационной моделями заключается в том, что в имитационной модели отношение между
+      «входом» и «выходом» модели может быть явно не задано. В этом случае аналитическая модель заменяется имитатором
+      или имитационной моделью.
+
+      К имитационному моделированию прибегают, когда:</p>
+
+    <ul style="font-size:1.2em; line-height:1.8;">
+      <li>дорого или невозможно экспериментировать на реальном объекте;</li>
+      <li>невозможно построить аналитическую модель поведения системы;</li>
+      <li>необходимо просто имитировать поведение системы во времени для понимания ее сущности;</li>
+      <li>необходимо создать имитационную модель установки для обучения работы персонала работе на реальной установке.
+      </li>
+    </ul>
+
+    <p>При имитационном моделировании реальная система, как правило, разбивается на ряд достаточно малых в
+      функциональном
+      отношении элементов или модулей. Затем поведение исходной системы имитируется как поведение совокупности этих
+      элементов, определенным образом связанных в единое целое путем установления соответствующих взаимосвязей между
+      элементами системы. При этом реализация такой модели начинается с входного элемента, далее последовательно
+      проходит по всем элементам цепочки, пока не будет достигнут выходной элемент модели.
+      Цель имитационного моделирования состоит в воспроизведении поведения исследуемой системы на основе результатов
+      анализа наиболее существенных взаимосвязей между ее элементами или, другими словами, разработке симулятора
+      исследуемой предметной области для проведения различных экспериментов.</p>
+
+    <h2>ПРИНЦИПЫ ИМИТАЦИОННОГО МОДЕЛИРОВАНИЯ</h2>
+
+    <p>Имитационное моделирование позволяет имитировать поведение системы во времени, причем временем в модели можно
+      управлять: замедлять в случае с быстропротекающими процессами (модели различных взрывов) и ускорять для
+      моделирования систем с медленной изменчивостью (модели роста леса).
+
+      Имитационная модель рассматривается как специальная форма математической модели, в которой:</p>
+
+    <ul style="font-size:1.2em; line-height:1.8;">
+      <li>декомпозиция системы на компоненты производится с учетом структуры проектируемого или изучаемого объекта;</li>
+      <li>в качестве законов поведения могут использоваться экспериментальные данные, полученные в результате натурных
+        экспериментов;</li>
+      <li>поведение системы во времени иллюстрируется динамическими графическими образами.</li>
+    </ul>
+
+    <h2>ПРИМЕРЫ ИМИТАЦИОННЫХ МОДЕЛЕЙ</h2>
+
+    <p>Одним из главных достоинств систем визуального моделирования является то, что они позволяют создавать на
+      компьютере удобную среду, в которой можно создавать виртуальные функционирующие системы и проводить эксперименты с
+      ними. При этом графическая среда становится похожей на физический испытательный стенд, только вместо тяжелых
+      металлических ящиков, кабелей и реальных измерительных приборов, осциллографов и самописцев пользователь имеет
+      дело с их образами на экране дисплея.</p>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+  </script>
+</body>
+
+</html>

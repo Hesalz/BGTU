@@ -1,0 +1,36 @@
+$border: 1px solid black;
+
+@mixin flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexspace{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin marpad{
+    margin: 10px;
+    padding: 10px;
+}
+
+@function pow($base, $exp) {
+    $result: 1;
+
+    @for $i from 1 through $exp {
+        $result: $result * $base;
+    }
+    @return $result;
+}
+
+@function reward($width, $height) {
+    @if ($width == $height) {
+        @return 10;
+    }
+    @else {
+        @return 5;
+    }
+}

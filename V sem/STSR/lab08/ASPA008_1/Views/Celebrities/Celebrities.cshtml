@@ -1,0 +1,52 @@
+﻿@model DAL_Celebrity_MSSQL.Celebrity;
+@{
+    ViewData["Title"] = Model.FullName;
+    Layout = "_Layout";
+}
+
+<div class="celebrity-container">
+    <div class="celebrity-header">
+        <h1>@Model.FullName</h1>
+        <div class="action-buttons">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+        </div>
+    </div>  
+
+    <div class="celebrity-content">
+        <div class="celebrity-photo">
+            <img src="@Url.Content($"/Photos/{Model.ReqPhotoPath}")" alt="@Model.FullName" class="img-fluid" style="max-width: 200px; max-height: 175px;" />
+        </div>
+
+        <div class="celebrity-info">
+            <h3>Basic Information</h3>
+            <p><strong>Nationality:</strong> @Model.Nationality</p>
+
+            <h3>Life Events</h3>
+            <ul class="life-events">
+                @foreach (var lifeEvent in ViewBag.LifeEvents)
+                {
+                    <li>
+                        <strong>@lifeEvent.Date.ToString("yyyy-MM-dd")</strong>: @lifeEvent.Description
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    @{
+        var wikiRefs = ViewBag.WikipediaReferences as Dictionary<string, string>;
+    }
+    @if (wikiRefs != null && wikiRefs.Count > 0)
+    {
+        <div class="wikipedia-links">
+            <h3>Wikipedia References</h3>
+            <div class="wiki-buttons">
+                @foreach (var wikiRef in wikiRefs)
+                {
+                    <a href="@wikiRef.Value" target="_blank" class="btn btn-outline-info wiki-btn">@wikiRef.Key</a>
+                }
+            </div>
+        </div>
+    }
+</div>

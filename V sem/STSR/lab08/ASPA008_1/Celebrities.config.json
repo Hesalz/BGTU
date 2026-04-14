@@ -1,0 +1,8 @@
+﻿{
+  "Celebrities": {
+    "PhotosFolderRequestPath": "/Photos",
+    "PhotosFolder": "D:\\БГТУ\\V сем\\СТСР\\lab08\\ASPA008_1\\Photos",
+    "ConnectionString": "Data Source=PC;Initial Catalog=LES01;Integrated Security=True;Trust Server Certificate=True",
+    "ISO3166alpha2Path": "D:\\БГТУ\\V сем\\СТСР\\lab08\\ASPA008_1\\CountryCodes\\iso3166-1-alpha2-country-codes.json"
+  }
+}

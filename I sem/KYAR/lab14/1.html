@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    #four {
+      margin-top: 100px;
+    }
+
+    .myTriangle {
+      fill: yellow;
+      stroke: blue;
+      stroke-width: 2px;
+    }
+
+    .myTriangle:hover {
+      stroke: red;
+    }
+
+    .mySquare {
+      fill: yellow;
+      stroke: blue;
+      stroke-width: 2px;
+      opacity: 0;
+      animation: outline 1s forwards;
+    }
+
+    @keyframes outline {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="first">
+    <svg width="400" height="200">
+      <text>
+        <textPath xlink:href="#curve">Давайте продолжим жить дружно!</textPath>
+      </text>
+      <path id="curve" d="M10 80 Q 90 -10 220 80" fill="transparent" stroke="red" />
+    </svg>
+  </div>
+
+  <div id="second">
+    <svg width="600" height="200">
+      <circle cx="50" cy="50" r="40" fill="blue" />
+      <rect x="110" y="10" width="80" height="80" fill="red" />
+      <ellipse cx="250" cy="50" rx="50" ry="30" fill="green" />
+      <polygon points="340,10 400,90 290,90" fill="yellow" />
+      <path d="M20, 120,200,120 100,150, 410,150" fill="transparent" stroke="purple" stroke-width="2" />
+    </svg>
+  </div>
+
+  <div id="third">
+    <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+      <g transform="rotate(180 180 270)">
+        <polygon fill="green"
+          points="140,20 140,140 20,140 140,260 20,260 140,380 60,380 180,500 300,380 220,380 340,260 220,260 340,140 220,140 220,20 140,20 " />
+      </g>
+
+      <path d="M80,150 a20,20 0 0,1 40,0 a20,20 0 0,1 -40,0 a20,20 0 0,1 40,0 a20,20 0 0,1 -40,0" fill="red">
+        <animate attributeName="d" dur="0.5s" repeatCount="indefinite" values="M100,150
+                         a20,20 0 0,1 40,0
+                         a20,20 0 0,1 -40,0
+                         a20,20 0 0,1 40,0
+                         a20,20 0 0,1 -40,0;
+                         M240,150" />
+      </path>
+
+      <path d="M80,150 a20,20 0 0,1 40,0 a20,20 0 0,1 -40,0 a20,20 0 0,1 40,0 a20,20 0 0,1 -40,0" fill="red">
+        <animate attributeName="d" dur="0.7s" repeatCount="indefinite" values="M100,250;
+                         M240,250
+                         a20,20 0 0,1 40,0
+                         a20,20 0 0,1 -40,0
+                         a20,20 0 0,1 40,0
+                         a20,20 0 0,1 -40,0" />
+      </path>
+
+      <path d="M80,150 a20,20 0 0,1 40,0 a20,20 0 0,1 -40,0 a20,20 0 0,1 40,0 a20,20 0 0,1 -40,0" fill="red">
+        <animate attributeName="d" dur="0.4s" repeatCount="indefinite" values="M100,350
+                         a20,20 0 0,1 40,0
+                         a20,20 0 0,1 -40,0
+                         a20,20 0 0,1 40,0
+                         a20,20 0 0,1 -40,0;
+                         M240,350" />
+      </path>
+    </svg>
+  </div>
+
+  <div id="four">
+    <svg width="500" height="200">
+      <defs>
+        <linearGradient id="Gradient01">
+          <stop offset="20%" stop-color="#39F" />
+          <stop offset="90%" stop-color="#F0F" />
+        </linearGradient>
+      </defs>
+
+      <path id="home" fill="url(#Gradient01)"
+        d="M100 59.375l-18.75-18.75v-28.125h-12.5v15.625l-18.75-18.75-50 50v3.125h12.5v31.25h31.25v-18.75h12.5v18.75h31.25v-31.25h12.5z" />
+      <path id="heart" fill="url(#Gradient01)"
+        d="M200 34.976c0 8.434-3.635 16.019-9.423 21.274h0.048l-31.25 31.25c-3.125 3.125-6.25 6.25-9.375 6.25s-6.25-3.125-9.375-6.25l-31.202-31.25c-5.788-5.255-9.423-12.84-9.423-21.274 0-15.865 12.861-28.726 28.726-28.726 8.434 0 16.019 3.635 21.274 9.423 5.255-5.788 12.84-9.423 21.274-9.423 15.865 0 28.726 12.861 28.726 28.726z" />
+      <path id="home" fill="url(#Gradient01)"
+        d="M300 59.375l-18.75-18.75v-28.125h-12.5v15.625l-18.75-18.75-50 50v3.125h12.5v31.25h31.25v-18.75h12.5v18.75h31.25v-31.25h12.5z" />
+      <path id="heart" fill="url(#Gradient01)"
+        d="M400 34.976c0 8.434-3.635 16.019-9.423 21.274h0.048l-31.25 31.25c-3.125 3.125-6.25 6.25-9.375 6.25s-6.25-3.125-9.375-6.25l-31.202-31.25c-5.788-5.255-9.423-12.84-9.423-21.274 0-15.865 12.861-28.726 28.726-28.726 8.434 0 16.019 3.635 21.274 9.423 5.255-5.788 12.84-9.423 21.274-9.423 15.865 0 28.726 12.861 28.726 28.726z" />
+      <path id="home" fill="url(#Gradient01)"
+        d="M500 59.375l-18.75-18.75v-28.125h-12.5v15.625l-18.75-18.75-50 50v3.125h12.5v31.25h31.25v-18.75h12.5v18.75h31.25v-31.25h12.5z" />
+      <path id="heart" fill="url(#Gradient01)"
+        d="M600 34.976c0 8.434-3.635 16.019-9.423 21.274h0.048l-31.25 31.25c-3.125 3.125-6.25 6.25-9.375 6.25s-6.25-3.125-9.375-6.25l-31.202-31.25c-5.788-5.255-9.423-12.84-9.423-21.274 0-15.865 12.861-28.726 28.726-28.726 8.434 0 16.019 3.635 21.274 9.423 5.255-5.788 12.84-9.423 21.274-9.423 15.865 0 28.726 12.861 28.726 28.726z" />
+
+    </svg>
+  </div>
+
+  <div id="five">
+    <svg width="500" height="200">
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color: green;" />
+          <stop offset="100%" style="stop-color: orange;" />
+        </linearGradient>
+        <path id="triangle" d="M100 100 L300 100 L200 0 Z" />
+      </defs>
+
+      <use xlink:href="#triangle" fill="url(#gradient)" />
+    </svg>
+
+    <svg width="500" height="200">
+      <ellipse id="myEllipse" cx="250" cy="100" rx="100" ry="50" fill="blue" />
+
+      <script>
+        var ellipse = document.getElementById("myEllipse");
+        function changeFill() {
+          var randomColor = getRandomColor();
+          ellipse.setAttribute("fill", randomColor);
+        }
+
+        function getRandomColor() {
+          var letters = "0123456789ABCDEF";
+          var color = "#";
+          for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+
+        ellipse.addEventListener("click", changeFill);
+      </script>
+    </svg>
+
+    <svg width="200" height="200">
+      <rect class="mySquare" x="50" y="50" width="100" height="100" />
+    </svg>
+
+    <svg width="500" height="200">
+      <polygon class="myTriangle" points="100,100 300,100 200,0" />
+    </svg>
+
+  </div>
+</body>
+
+</html>

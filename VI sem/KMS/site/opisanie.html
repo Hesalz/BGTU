@@ -1,0 +1,963 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Эвакуатор - Описание установки</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Verdana, sans-serif;
+      background-color: #ecf0f1;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 30px;
+    }
+
+    .menu-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      background-color: #34495e;
+      padding: 12px 0;
+      transition: background-color 0.3s;
+    }
+
+    .burger-wrapper {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      margin: 0 5px;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #2c3e50;
+      border-radius: 5px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      word-wrap: break-word;
+    }
+
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 1.8em;
+      clear: both;
+      word-wrap: break-word;
+    }
+
+    h3 {
+      margin-top: 30px;
+      font-size: 1.5em;
+      clear: both;
+      word-wrap: break-word;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.2em;
+      line-height: 1.6;
+      text-align: justify;
+      margin-bottom: 0px;
+      word-wrap: break-word;
+    }
+
+    .image-block {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .image-block img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #bdc3c7;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .image-left {
+      float: left;
+      width: 45%;
+      margin: 10px 25px 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .image-right {
+      float: right;
+      width: 45%;
+      margin: 10px 0 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .figcaption {
+      font-style: italic;
+      color: #7f8c8d;
+      margin-top: 8px;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    ul,
+    ol {
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      padding-left: 40px;
+      word-wrap: break-word;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      font-size: 1.1em;
+      overflow-x: auto;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #bdc3c7;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #34495e;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .info-box {
+      background-color: #f9f9f9;
+      border-left: 4px solid #3498db;
+      padding: 15px 20px;
+      margin: 30px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 20px 0;
+    }
+
+    .timeline-item {
+      margin-bottom: 30px;
+      padding-left: 30px;
+    }
+
+    .timeline-year {
+      font-weight: bold;
+      color: #3498db;
+      font-size: 1.3em;
+    }
+
+    .clickable-text {
+      cursor: pointer;
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    .founder-container,
+    .company-container,
+    .year-container {
+      display: inline-block;
+      position: relative;
+      min-width: 150px;
+      min-height: 40px;
+      vertical-align: middle;
+      margin: 0 5px;
+    }
+
+    .founder-container .text-content,
+    .founder-container .image-content,
+    .company-container .text-content,
+    .company-container .image-content,
+    .year-container .text-content,
+    .year-container .image-content {
+      transition: opacity 0.3s ease;
+    }
+
+    .founder-container .image-content,
+    .company-container .image-content,
+    .year-container .image-content {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      opacity: 0;
+      pointer-events: none;
+      background-color: white;
+      padding: 5px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .founder-container:hover .image-content,
+    .company-container:hover .image-content,
+    .year-container:hover .image-content {
+      opacity: 1;
+    }
+
+    .founder-container:hover .text-content,
+    .company-container:hover .text-content,
+    .year-container:hover .text-content {
+      opacity: 0;
+    }
+
+    .founder-container .image-content img,
+    .company-container .image-content img,
+    .year-container .image-content img {
+      max-height: 120px;
+      width: auto;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .components-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0;
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .components-list {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .components-list h3 {
+      margin-top: 0;
+      padding-bottom: 10px;
+    }
+
+    .components-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0 0;
+    }
+
+    .components-list li {
+      margin-bottom: 12px;
+      padding: 12px 15px;
+      background-color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 4px solid #bdc3c7;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .components-list li:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .components-list li.active {
+      font-weight: bold;
+    }
+
+
+    .components-list strong {
+      transition: color 0.3s ease;
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+    }
+
+    .components-list .component-desc {
+      font-size: 0.9em;
+      opacity: 0.8;
+      display: block;
+    }
+
+    .component-image {
+      flex: 1;
+      min-width: 300px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .component-image.hidden {
+      display: none;
+    }
+
+    .component-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid #ecf0f1;
+      transition: transform 0.3s ease;
+    }
+
+    .component-image .figcaption {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .component-placeholder {
+      text-align: center;
+      color: #7f8c8d;
+      padding: 40px 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 2px dashed #bdc3c7;
+    }
+
+    .component-placeholder p {
+      margin: 10px 0 0 0;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    .component-placeholder.hidden {
+      display: none;
+    }
+
+    @media screen and (max-width: 992px) {
+      .container {
+        width: 95%;
+        padding: 15px 20px;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      h3 {
+        font-size: 1.4em;
+      }
+
+      p,
+      ul,
+      ol {
+        font-size: 1.1em;
+      }
+
+      .image-left,
+      .image-right {
+        width: 40%;
+      }
+
+      .components-container {
+        flex-direction: column;
+      }
+
+      .component-image {
+        order: -1;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 100%;
+        padding: 10px 15px;
+        box-sizing: border-box;
+      }
+
+      .menu-bar {
+        background-color: transparent !important;
+        padding: 0;
+        border-radius: 0;
+        margin-bottom: 15px;
+      }
+
+      .burger-wrapper {
+        display: block;
+        text-align: left;
+        margin-bottom: 10px;
+      }
+
+      .burger {
+        cursor: pointer;
+        color: white;
+        font-size: 2.5em;
+        line-height: 1;
+        display: inline-block;
+        background-color: #34495e;
+        padding: 10px 20px;
+        border-radius: 8px;
+        user-select: none;
+        transition: background-color 0.3s;
+      }
+
+      .burger:hover {
+        background-color: #2c3e50;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #34495e;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        width: 100%;
+        padding: 15px 20px;
+        margin: 0;
+        text-align: center;
+        box-sizing: border-box;
+        color: white;
+        font-size: 1.1em;
+      }
+
+      .nav-links a:first-of-type {
+        border-top: none;
+      }
+
+      .nav-links a:hover {
+        background-color: #2c3e50;
+        border-radius: 0;
+      }
+
+      .image-left,
+      .image-right {
+        float: none;
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+        display: block;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        margin-top: 30px;
+      }
+
+      h3 {
+        font-size: 1.3em;
+        margin-top: 25px;
+      }
+
+      p,
+      ul,
+      ol {
+        font-size: 1em;
+        line-height: 1.5;
+      }
+
+      ul,
+      ol {
+        padding-left: 25px;
+      }
+
+      table {
+        font-size: 0.9em;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        white-space: nowrap;
+      }
+
+      .timeline-item {
+        padding-left: 20px;
+        margin-bottom: 20px;
+      }
+
+      .timeline-year {
+        font-size: 1.2em;
+      }
+
+      .info-box {
+        padding: 12px 15px;
+      }
+
+      .figcaption {
+        font-size: 0.9em;
+      }
+
+      .components-container {
+        padding: 15px;
+      }
+
+      .components-list li {
+        padding: 10px 12px;
+      }
+
+      .founder-container .image-content img,
+      .company-container .image-content img,
+      .year-container .image-content img {
+        max-height: 100px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 8px 12px;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      h2 {
+        font-size: 1.3em;
+      }
+
+      h3 {
+        font-size: 1.2em;
+      }
+
+      .burger {
+        font-size: 2em;
+        padding: 8px 16px;
+      }
+
+      .nav-links a {
+        padding: 12px 15px;
+        font-size: 1em;
+      }
+
+      .image-left,
+      .image-right {
+        max-width: 100%;
+      }
+
+      ul,
+      ol {
+        padding-left: 20px;
+      }
+
+      th,
+      td {
+        padding: 6px;
+        font-size: 0.85em;
+      }
+
+      .components-list li {
+        font-size: 0.9em;
+      }
+
+      .component-image {
+        min-width: auto;
+        padding: 15px;
+      }
+
+      .founder-container .image-content img,
+      .company-container .image-content img,
+      .year-container .image-content img {
+        max-height: 80px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="menu-bar">
+      <div class="burger-wrapper">
+        <span class="burger" onclick="toggleMenu()">☰</span>
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Главная</a>
+        <a href="teoriya.html">Теория</a>
+        <a href="opisanie.html">Описание</a>
+        <a href="princip.html">Принцип работы</a>
+        <a href="simulator.html">Симулятор</a>
+        <a href="dialog.html">Диалог</a>
+      </div>
+    </div>
+
+    <h1>Эвакуатор: описание установки</h1>
+
+    <h2>История создания эвакуатора</h2>
+
+    <p>История эвакуатора начинается в 1916 году в городе Чаттануга, штат Теннесси, США.
+      <span class="founder-container" id="founderEffect">
+        <span class="text-content clickable-text">Эрнест Холмс-старший</span>
+        <span class="image-content">
+          <img src="img/Ernest.jpeg" alt="Эрнест Холмс-старший">
+        </span>
+      </span>
+      владелец небольшой автомастерской, стал свидетелем серьезной аварии, после которой возникла проблема с
+      транспортировкой поврежденного автомобиля. Для буксировки потребовалось несколько человек и множество веревок, что
+      было крайне неэффективно и опасно.
+    </p>
+
+    <p>Вдохновленный этой ситуацией, Холмс решил создать устройство, которое могло бы легко и безопасно транспортировать
+      поврежденные автомобили. Используя трехтонное шасси грузовика Cadillac 1913 года, он сконструировал первый в мире
+      эвакуатор.</p>
+
+    <p><span class="company-container" id="companyEffect">
+        <span class="text-content clickable-text">Компания Ernest Holmes Company</span>
+        <span class="image-content">
+          <img src="img/Holmes_Company.jpg" alt="Логотип Holmes">
+        </span>
+      </span> была основана вскоре после создания первого эвакуатора. Первый эвакуатор Эрнеста Холмса обошелся ему всего
+      в 240 долларов, а за первую буксировку он взял 4 доллара. Вскоре спрос на услугу вырос настолько, что Холмс
+      основал компанию, которая производит эвакуаторы до сих пор.</p>
+
+    <p>В
+      <span class="year-container" id="yearEffect">
+        <span class="text-content clickable-text">1916 году</span>
+        <span class="image-content">
+          <img src="img/first_tow_truck.jpg" alt="Первый эвакуатор 1916 года">
+        </span>
+      </span> Эрнест Холмс создал первый в мире эвакуатор на базе грузовика Cadillac. Это изобретение произвело
+      настоящую революцию в сфере помощи на дорогах.
+    </p>
+
+    <h2>Эволюция эвакуаторов</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1916 год</div>
+        <p>Первый эвакуатор Holmes 485 - ручная лебедка, деревянные стрелы, грузоподъемность до 3 тонн. Использовался в
+          основном для легковых автомобилей.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1920-1930 годы</div>
+        <p>Появление гидравлических систем. Компания Holmes начинает массовое производство эвакуаторов. Металлические
+          стрелы приходят на смену деревянным.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1950-1960 годы</div>
+        <p>Разработка эвакуаторов с интегрированной лебедкой. Появление первых платформ для перевозки автомобилей.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1980-1990 годы</div>
+        <p>Внедрение гидравлических манипуляторов и систем дистанционного управления. Значительное увеличение
+          грузоподъемности.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2000-2020 годы</div>
+        <p>Компьютеризированные системы управления, мультифункциональные эвакуаторы, способные работать с любыми типами
+          транспорта.</p>
+      </div>
+    </div>
+
+    <h2>Основные типы современных эвакуаторов</h2>
+
+    <h3>1. Эвакуаторы с частичной погрузкой</h3>
+    <img src="img/chastichnaya_pogruzka.png" alt="Эвакуатор с частичной погрузкой" class="image-left">
+    <p>Самый распространенный тип эвакуаторов. Автомобиль поднимается за переднюю или заднюю ось с помощью
+      гидравлического подъемника и буксируется в полуподвешенном состоянии. Используется для транспортировки легковых
+      автомобилей на короткие и средние расстояния. Преимущества: простота использования, высокая скорость погрузки.
+      Недостатки: ограничения по типу привода автомобиля (не подходит для полноприводных авто).</p>
+
+    <div style="clear:both;"></div>
+
+    <h3>2. Эвакуаторы с полной погрузкой (платформенные)</h3>
+    <img src="img/polnaya_pogruzka.jpg" alt="Платформенный эвакуатор" class="image-right">
+    <p>Наиболее безопасный способ транспортировки. Автомобиль полностью загружается на платформу с помощью лебедки или
+      гидравлического привода. Идеально подходит для полноприводных автомобилей, спортивных машин с низким клиренсом и
+      автомобилей после серьезных аварий. Платформа может наклоняться и опускаться до уровня земли.</p>
+
+    <div style="clear:both;"></div>
+
+    <h3>3. Эвакуаторы с манипулятором</h3>
+    <img src="img/manipulator.jpg" alt="Эвакуатор с манипулятором" class="image-left">
+    <p>Оснащены гидравлической стрелой-манипулятором, которая может вращаться на 360 градусов. Используются для
+      извлечения автомобилей из труднодоступных мест: кюветов, оврагов, водоемов. Также применяются для погрузки
+      поврежденных автомобилей, когда нельзя использовать стандартные методы крепления.</p>
+
+    <div style="clear:both;"></div>
+
+    <h3>4. Тяжелые эвакуаторы</h3>
+    <img src="img/hard_towtruck.jpg" alt="Тяжелый эвакуатор" class="image-right">
+    <p>Предназначены для транспортировки грузовиков, автобусов, спецтехники и других тяжелых транспортных средств.
+      Грузоподъемность может достигать 50-100 тонн. Оснащаются мощными гидравлическими системами и несколькими
+      лебедками.</p>
+
+    <div style="clear:both;"></div>
+
+    <h2>Технические характеристики современных эвакуаторов</h2>
+
+    <table>
+      <tr>
+        <th>Тип эвакуатора</th>
+        <th>Грузоподъемность</th>
+        <th>Длина платформы</th>
+        <th>Тип привода</th>
+        <th>Область применения</th>
+      </tr>
+      <tr>
+        <td>Легкий (A)</td>
+        <td>до 2,5 т</td>
+        <td>4-5 м</td>
+        <td>Гидравлический</td>
+        <td>Мотоциклы, малолитражки</td>
+      </tr>
+      <tr>
+        <td>Средний (B)</td>
+        <td>2,5-5 т</td>
+        <td>5-6 м</td>
+        <td>Гидравлический</td>
+        <td>Легковые авто, внедорожники</td>
+      </tr>
+      <tr>
+        <td>Тяжелый (C)</td>
+        <td>5-15 т</td>
+        <td>6-8 м</td>
+        <td>Гидравлический + механический</td>
+        <td>Микроавтобусы, грузовики</td>
+      </tr>
+      <tr>
+        <td>Сверхтяжелый (D)</td>
+        <td>15-50 т</td>
+        <td>8-12 м</td>
+        <td>Гидравлический с усилением</td>
+        <td>Фуры, автобусы, спецтехника</td>
+      </tr>
+    </table>
+
+    <div class="image-block">
+      <img src="img/schema_tow_truck.jpg" alt="Схема эвакуатора" style="width:100%; max-width:700px;">
+      <div class="figcaption">Основные узлы современного эвакуатора с выдвижной платформой</div>
+    </div>
+
+    <div class="components-container">
+      <div class="components-list">
+        <h3>Основные компоненты эвакуатора с выдвижной платформой:</h3>
+        <ul>
+          <li onclick="showComponent(1)" id="comp1">
+            <strong>Шасси (базовое автомобильное шасси)</strong>
+            <span class="component-desc">Грузовая основа с усиленной рамой и пневмоподвеской</span>
+          </li>
+          <li onclick="showComponent(2)" id="comp2">
+            <strong>Выдвижная платформа</strong>
+            <span class="component-desc">Грузовая площадка с гидроприводом, выдвигающаяся назад под углом</span>
+          </li>
+          <li onclick="showComponent(3)" id="comp3">
+            <strong>Гидравлическая система</strong>
+            <span class="component-desc">Маслостанция, гидроцилиндры, распределители и шланги высокого давления</span>
+          </li>
+          <li onclick="showComponent(4)" id="comp4">
+            <strong>Лебедка с электроприводом</strong>
+            <span class="component-desc">Тяговая лебедка с тросом для затягивания автомобиля на платформу</span>
+          </li>
+          <li onclick="showComponent(9)" id="comp9">
+            <strong>Световая сигнализация и доп. оптика</strong>
+            <span class="component-desc">Проблесковые маячки и рабочее освещение</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="component-placeholder" id="componentPlaceholder">
+        <p>Выберите компонент из списка слева</p>
+        <p style="font-size:0.9em;">Нажмите на любой элемент, чтобы увидеть его изображение</p>
+      </div>
+
+      <div class="component-image hidden" id="componentImage">
+        <img src="" alt="Компонент эвакуатора" id="compImg">
+        <div class="figcaption" id="compCaption"></div>
+      </div>
+    </div>
+
+    <h3>Принцип работы выдвижной платформы:</h3>
+    <p>Эвакуатор с выдвижной платформой работает по следующему принципу: платформа гидравлически сдвигается назад и
+      наклоняется, образуя пологий въезд. Автомобиль затягивается лебедкой на платформу, после чего платформа
+      возвращается в горизонтальное положение и фиксируется. Стабилизаторы обеспечивают устойчивость во время погрузки,
+      а система креплений надежно фиксирует транспортируемый автомобиль.</p>
+
+    <h2>Современные технологии в эвакуаторах</h2>
+
+    <p>Современные эвакуаторы оснащаются передовыми технологическими решениями:</p>
+
+    <ul>
+      <li><strong>Системы дистанционного управления</strong> - оператор может управлять лебедкой и платформой с
+        безопасного расстояния с помощью пульта</li>
+      <li><strong>Компьютеризированные системы контроля нагрузки</strong> - автоматически определяют вес и распределение
+        нагрузки, предотвращая опрокидывание</li>
+      <li><strong>GPS-навигация и телематика</strong> - оптимизация маршрутов, отслеживание местоположения эвакуаторов
+      </li>
+      <li><strong>Системы видеонаблюдения</strong> - камеры для контроля слепых зон при погрузке</li>
+      <li><strong>Автоматические системы крепления</strong> - быстрая фиксация автомобиля без участия оператора</li>
+      <li><strong>Сенсоры приближения</strong> - предотвращают повреждение автомобиля при заезде на платформу</li>
+    </ul>
+
+    <div style="clear:both;"></div>
+
+    <h2>Области применения эвакуаторов</h2>
+
+    <ol>
+      <li><strong>Аварийная эвакуация</strong> - транспортировка поврежденных в ДТП автомобилей</li>
+      <li><strong>Штрафстоянка</strong> - перемещение неправильно припаркованных автомобилей</li>
+      <li><strong>Техническая помощь</strong> - буксировка автомобилей с неисправностями</li>
+      <li><strong>Транспортировка спецтехники</strong> - перевозка строительной и сельскохозяйственной техники</li>
+      <li><strong>Автоспорт</strong> - доставка гоночных автомобилей к месту соревнований</li>
+      <li><strong>Вытаскивание автомобилей из труднодоступных мест</strong> - кюветы, болота, водоемы</li>
+      <li><strong>Длительные перевозки</strong> - транспортировка автомобилей между городами</li>
+    </ol>
+
+    <div style="clear:both;"></div>
+
+    <h2>Ведущие мировые производители эвакуаторов</h2>
+
+    <ul>
+      <li><strong>Miller Industries (США)</strong> - крупнейший мировой производитель эвакуаторов, включает бренды
+        Century, Vulcan, Chevron, Holmes</li>
+      <li><strong>Jerr-Dan (США)</strong> - известен инновационными решениями в области эвакуационной техники</li>
+      <li><strong>Kässbohrer (Германия)</strong> - производит тяжелые эвакуаторы для грузового транспорта</li>
+      <li><strong>NRC (Нидерланды)</strong> - специализируется на эвакуаторах с роторным механизмом</li>
+      <li><strong>Бонаум (Австрия)</strong> - производит эвакуаторы на базе шасси MAN, Mercedes, Iveco</li>
+      <li><strong>Российские производители:</strong> Тонар, Автоспецоборудование, Механика, СпецАвтоТехника</li>
+    </ul>
+
+    <h2>Заключение</h2>
+    <p>Эвакуатор прошел долгий путь от простого механического устройства до высокотехнологичной многофункциональной
+      машины. Сегодня это незаменимый помощник на дорогах, обеспечивающий безопасность и мобильность транспортных
+      средств в любых ситуациях. Развитие технологий продолжается, и в будущем нас ждут полностью автоматизированные
+      эвакуаторы с искусственным интеллектом, способные самостоятельно принимать решения в сложных дорожных ситуациях.
+    </p>
+    <div id="flashContent" style="width:100%; height:600px; margin-top:30px; border:2px solid #3498db; border-radius:10px; overflow:hidden; background-color: #2c3e50; display: flex; align-items: center; justify-content: center;"></div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    window.addEventListener('load', function() {
+      const container = document.getElementById("flashContent");
+      if (!container) return;
+      
+      if (window.RufflePlayer && window.RufflePlayer.newest) {
+        try {
+          const ruffle = window.RufflePlayer.newest();
+          const player = ruffle.createPlayer();
+          
+          player.config = {
+            autoplay: "on",
+            backgroundColor: "#2c3e50",
+            letterbox: "off",
+            scale: "showAll",
+            salign: "C",
+            quality: "high"
+          };
+          
+          container.innerHTML = '';
+          
+          player.style.width = "100%";
+          player.style.height = "100%";
+          
+          container.appendChild(player);
+          player.load("animate/tow_truck_ActionScript 3.swf");
+          
+          setTimeout(function() {
+            if (player.scale) {
+              player.scale = 1.5;
+            }
+          }, 1000);
+          
+        } catch (e) {
+          container.innerHTML = '<p style="color:red; padding:20px;">Ошибка: ' + e.message + '</p>';
+        }
+      } else {
+        container.innerHTML = '<p style="color:red; padding:20px;">Ruffle не загружен. Установите расширение Ruffle Flash Emulator в Chrome.</p>';
+      }
+    });
+
+    function showComponent(num) {
+      for (let i = 1; i <= 9; i++) {
+        const el = document.getElementById('comp' + i);
+        if (el) {
+          el.classList.remove('active');
+        }
+      }
+
+      const currentComp = document.getElementById('comp' + num);
+      if (currentComp) {
+        currentComp.classList.add('active');
+      }
+
+      const img = document.getElementById('compImg');
+      const caption = document.getElementById('compCaption');
+      const placeholder = document.getElementById('componentPlaceholder');
+      const imageBlock = document.getElementById('componentImage');
+
+      const images = {
+        1: { src: 'img/baza_shassi.jpg', name: 'Шасси (базовое автомобильное шасси)' },
+        2: { src: 'img/platforma.png', name: 'Выдвижная платформа' },
+        3: { src: 'img/hidravlika.jpg', name: 'Гидравлическая система' },
+        4: { src: 'img/lebedka.jpeg', name: 'Лебедка с электроприводом' },
+        9: { src: 'img/migalka.jpg', name: 'Световая сигнализация и доп. оптика' }
+      };
+
+      if (images[num]) {
+        img.src = images[num].src;
+        caption.textContent = images[num].name;
+
+        placeholder.classList.add('hidden');
+        imageBlock.classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+
+</html>

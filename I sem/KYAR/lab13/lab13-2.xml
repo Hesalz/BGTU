@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="lab13-2.xsl"?>
+
+<students>
+
+  <student>
+    <name>Петров</name>
+    <grade>5</grade>
+  </student>
+
+  <student>
+    <name>Иванов</name>
+    <grade>3</grade>
+  </student>
+
+  <student>
+    <name>Сидоров</name>
+    <grade>4</grade>
+  </student>
+
+  <student>
+    <name>Колыбяка</name>
+    <grade>9</grade>
+  </student>
+
+  <student>
+    <name>Пушкин</name>
+    <grade>8</grade>
+  </student>
+
+  <student>
+    <name>Лермонтов</name>
+    <grade>10</grade>
+  </student>
+
+  <student>
+    <name>Ленин</name>
+    <grade>1</grade>
+  </student>
+
+</students>

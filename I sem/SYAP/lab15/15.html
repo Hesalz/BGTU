@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input {
+      display: inline-block;
+      width: 240px;
+      height: 55px;
+      margin: 10px 20px;
+      text-align: center;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: black;
+      background: yellowgreen;
+      box-shadow: 0 8px 15px yellowgreen;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    function z1() {
+      alert(/first.second/.test('first\nsecond'));
+      alert(/first.second/s.test('first\nsecond'));
+    }
+
+    function z2() {
+      var a = "[u]мой текст[/u],[u]мой текст[/u]"
+      a = a.replace(/\[u\](.*?)\[\/u\]/g, '<u>мой текст</u>')
+      alert(a)
+    }
+
+    function z3() {
+      var a = ' <a>Aliqua ea tempor dolar.</a> <a>Каир</a> <a>Мальдивы</a>';
+      a = a.replace(/<a>/g, '<textarea>');
+      alert(a);
+    }
+
+
+    function z4() {
+      var a = 'Some,text';
+      var b = a.replace("Some,text", "text,Some");
+      alert(b);
+    }
+
+    function z5() {
+      const Pass = ({ password, ...rest }) => rest
+      const user = { id: 100, name: 'Howard Moon', password: 'Password!' }
+      console.log(user);
+      console.log(Pass(user));
+    }
+    function z6() {
+      const b = { secondname: "Babashinskii", name: 'Hleb' }
+      const a = { ...b, namme: "Hleb", otch: "Aleksandrovich", age: 18 }
+      const { otch, namme, ...rest } = a;
+      console.log(rest);
+    }
+
+  </script>
+  <input type="button" value="1" onclick='z1()'></input>
+  <input type="button" value="2" onclick='z2()'></input>
+  <input type="button" value="3" onclick='z3()'></input>
+  <input type="button" value="4" onclick='z4()'></input><br>
+  <input type="button" value="5" onclick='z5()'>
+  <input type="button" value="6" onclick='z6()'>
+
+</body>
+
+</html>

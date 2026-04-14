@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="ProfileTitle">Личный кабинет</system:String>
+    <system:String x:Key="FullNameLabel">ФИО:</system:String>
+    <system:String x:Key="PhoneLabel">Телефон:</system:String>
+    <system:String x:Key="RegistrationDateLabel">Дата регистрации:</system:String>
+    <system:String x:Key="EmailLabel">Email:</system:String>
+    <system:String x:Key="ChangePasswordTitle">Смена пароля</system:String>
+    <system:String x:Key="CurrentPasswordLabel">Текущий пароль:</system:String>
+    <system:String x:Key="NewPasswordLabel">Новый пароль:</system:String>
+    <system:String x:Key="ConfirmPasswordLabel">Подтвердите пароль:</system:String>
+    <system:String x:Key="CancelButton">Отмена</system:String>
+    <system:String x:Key="SaveButton">Сохранить</system:String>
+    <system:String x:Key="ExitButton">Выйти</system:String>
+    <system:String x:Key="TitleProfile">CinemaHub - Личный кабинет</system:String>
+
+    <system:String x:Key="DashboardWindowTitle">CinemaHub</system:String>
+    <system:String x:Key="SearchPlaceholder">Поиск кинотеатра...</system:String>
+    <system:String x:Key="AllCategories">Все категории</system:String>
+    <system:String x:Key="AnyHallsCount">Любое кол-во залов</system:String>
+    <system:String x:Key="ResetButtonText">Сбросить</system:String>
+    <system:String x:Key="HallsFilterTooltip">Фильтр по количеству залов</system:String>
+    <system:String x:Key="AnyCapacity">Любая вместимость</system:String>
+    <system:String x:Key="CapacityUpTo100">До 100</system:String>
+    <system:String x:Key="RatingFilterText">Рейтинг:</system:String>
+    <system:String x:Key="Images">Галерея</system:String>
+    <system:String x:Key="NoImagesText">Изображения отсутствуют.</system:String>
+    <system:String x:Key="Papas">Вместимость:</system:String>
+    <system:String x:Key="Halls">Залы:</system:String>
+
+    <system:String x:Key="Title">CinemaHub - Управление кинотеатрами</system:String>
+    <system:String x:Key="ManageCinemas">Управление кинотеатрами</system:String>
+    <system:String x:Key="AddCinema">Добавить</system:String>
+    <system:String x:Key="EditCinema">Редактировать</system:String>
+    <system:String x:Key="DeleteCinema">Удалить</system:String>
+    <system:String x:Key="Refresh">Обновить список</system:String>
+    <system:String x:Key="Theme1"> Светлая</system:String>
+    <system:String x:Key="Theme2">Тёмная</system:String>
+    <system:String x:Key="Undo">Отменить</system:String>
+    <system:String x:Key="Redo">Повторить</system:String>
+</ResourceDictionary>

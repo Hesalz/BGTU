@@ -1,0 +1,24 @@
+﻿@page
+@model Lab7.Pages.СelebritiesModel
+
+@using DAL_Celebrity_MSSQL.Models
+@{
+}
+
+<h1>Celebrities</h1>
+
+<div class="celebrities-container">
+	<div class="celebrity-item">
+		<a asp-area="" asp-page="/NewCelebrity">
+			<img src="@Model.PhotosRequestPath/diamond.png" alt="diamond" class="celebrity-image" />
+		</a>
+	</div>
+	@foreach (Celebrity celebrity in Model.Celebrities)
+	{
+		<div class="celebrity-item">
+			<a asp-page="/Celebrity" asp-route-id="@celebrity.Id">
+				<img src="@Model.PhotosRequestPath/@celebrity.ReqPhotoPath" alt="Фото @celebrity.FullName" class="celebrity-image" />
+			</a>
+		</div>
+	}
+</div>

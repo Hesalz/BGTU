@@ -1,0 +1,383 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0;
+    background-color: #121212;
+    color: #eeeeee;
+}
+header, footer {
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+header h1 {
+    margin: 0; font-weight: normal;
+    color: #ff3d00;
+    text-shadow: 0 0 5px #ff3d00;
+}
+nav {
+    margin-top: 10px;
+}
+nav a {
+    color: #ffc107;
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+nav a:hover {
+    color: #ff3d00;
+    text-shadow: 0 0 8px #ff3d00;
+}
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+h2 {
+    color: #ff6f00;
+    text-shadow: 0 0 3px #ff6f00;
+}
+.movie-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.movie {
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #0008 inset;
+    width: 200px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+.movie:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff3d00 inset;
+}
+.movie img {
+    width: 100%;
+    display: block;
+}
+.movie-info {
+    padding: 15px;
+}
+.movie-info h3 {
+    margin: 0 0 8px;
+    font-size: 1.2em;
+    color: #ff8f00;
+}
+.movie-info p {
+    font-size: 0.9em;
+    line-height: 1.15;
+    color: #ddd;
+}
+button {
+    background-color: #ff3d00;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 30px auto 0;
+}
+button:hover {
+    background-color: #e63900;
+}
+footer {
+    text-align: center;
+    color: #666;
+    margin-top: 50px;
+    font-size: 0.9em;
+}
+@media (max-width: 600px) {
+    .movie-list {
+        flex-direction: column;
+        align-items: center;
+    }
+    .movie {
+        width: 90%;
+    }
+}
+
+
+.menu {
+    list-style: none;
+}
+
+
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #eeeeee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header,
+footer {
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+header h1 {
+    margin: 0;
+    font-weight: normal;
+    color: #ff3d00;
+    text-shadow: 0 0 5px #ff3d00;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    margin-top: 50px;
+    font-size: 0.9em;
+}
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header h1 {
+    margin: 0;
+    font-weight: normal;
+    color: #ff3d00;
+    text-shadow: 0 0 5px #ff3d00;
+    font-size: 1.8rem;
+}
+nav a {
+    color: #ffc107;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+nav a:first-child {
+    margin-left: 0;
+}
+nav a:hover {
+    color: #ff3d00;
+    text-shadow: 0 0 8px #ff3d00;
+}
+
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex-grow: 1;
+}
+h2 {
+    color: #ff6f00;
+    text-shadow: 0 0 3px #ff6f00;
+    font-size: 2rem;
+    margin-bottom: 24px;
+}
+p {
+    font-size: 1.2em;
+    line-height: 1.7;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+ul {
+    font-size: 1.15em;
+    color: #ffc107;
+    list-style-type: disc;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+footer p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+    text-align: center;
+    width: 100%;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 320px;
+    margin: 0 auto 40px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #ff6f00;
+}
+.slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s ease-in-out;
+}
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #eee;
+}
+
+header,
+footer {
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+header h1 {
+    margin: 0;
+    font-weight: normal;
+    color: #ff3d00;
+    text-shadow: 0 0 5px #ff3d00;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    margin-top: 50px;
+    font-size: 0.9em;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #ffc107;
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ff3d00;
+    text-shadow: 0 0 8px #ff3d00;
+}
+
+main {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    color: #ff6f00;
+    text-shadow: 0 0 3px #ff6f00;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #ff3d00;
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: bold;
+    color: #ffc107;
+}
+
+input,
+textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    background: #333;
+    color: #eee;
+}
+
+input:focus,
+textarea:focus {
+    outline: 2px solid #ff6f00;
+}
+
+button {
+    background: #ff3d00;
+    border: none;
+    padding: 12px 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: #e63900;
+}
+
+.message {
+    margin-top: 15px;
+    color: #0f0;
+    font-weight: bold;
+    display: none;
+    text-align: center;
+}
+
+.contact-info {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #ff3d00;
+    color: #ffc107;
+}
+
+.contact-info h3 {
+    margin-top: 0;
+    color: #ff6f00;
+    text-shadow: 0 0 3px #ff6f00;
+}
+
+.contact-info p {
+    margin: 8px 0;
+    font-size: 1.05em;
+    line-height: 1.4;
+}

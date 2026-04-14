@@ -1,0 +1,149 @@
+:root {
+    --white: rgba(255, 255, 255, 1);
+    --x-697586: rgba(105, 117, 134, 1);
+    --black: rgba(56, 56, 56, 1);
+    --x-849-8af: rgba(223, 225, 227, 1);
+    --light-shadow: 0px 2px 10px 0px rgba(185, 166, 189, 0.1);
+    --m3-schemes-on-surface-variant: rgba(73, 69, 79, 1);
+  }
+  
+  /*
+  
+  To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
+  
+  <body data-m3-mode="light">
+      <!-- the rest of your content -->
+  </body>
+  
+  You can apply the theme on any DOM node, not just the `body`
+  
+  */
+  
+  [data-m3-mode="light"] {
+    --m3-schemes-on-surface-variant: rgba(73, 69, 79, 1);
+  }
+  
+  [data-m3-mode="light-high-contrast"] {
+    --m3-schemes-on-surface-variant: rgba(37, 35, 43, 1);
+  }
+  
+  [data-m3-mode="light-medium-contrast"] {
+    --m3-schemes-on-surface-variant: rgba(69, 65, 74, 1);
+  }
+  
+  [data-m3-mode="dark"] {
+    --m3-schemes-on-surface-variant: rgba(202, 196, 208, 1);
+  }
+  
+  [data-m3-mode="dark-high-contrast"] {
+    --m3-schemes-on-surface-variant: rgba(255, 249, 255, 1);
+  }
+  
+  [data-m3-mode="dark-medium-contrast"] {
+    --m3-schemes-on-surface-variant: rgba(206, 200, 212, 1);
+  }
+  
+  [data-m3-mode="monochrome-LT"] {
+    --m3-schemes-on-surface-variant: rgba(71, 71, 71, 1);
+  }
+  
+  [data-m3-mode="monochrome-DT"] {
+    --m3-schemes-on-surface-variant: rgba(198, 198, 198, 1);
+  }
+  
+  [data-m3-mode="pink-LT"] {
+    --m3-schemes-on-surface-variant: rgba(80, 67, 72, 1);
+  }
+  
+  [data-m3-mode="pink-DT"] {
+    --m3-schemes-on-surface-variant: rgba(212, 194, 199, 1);
+  }
+  
+  [data-m3-mode="rose-LT"] {
+    --m3-schemes-on-surface-variant: rgba(82, 67, 69, 1);
+  }
+  
+  [data-m3-mode="rose-DT"] {
+    --m3-schemes-on-surface-variant: rgba(215, 194, 195, 1);
+  }
+  
+  [data-m3-mode="red-LT"] {
+    --m3-schemes-on-surface-variant: rgba(83, 67, 65, 1);
+  }
+  
+  [data-m3-mode="red-DT"] {
+    --m3-schemes-on-surface-variant: rgba(216, 194, 190, 1);
+  }
+  
+  [data-m3-mode="orange-LT"] {
+    --m3-schemes-on-surface-variant: rgba(82, 68, 60, 1);
+  }
+  
+  [data-m3-mode="orange-DT"] {
+    --m3-schemes-on-surface-variant: rgba(215, 194, 184, 1);
+  }
+  
+  [data-m3-mode="yellow-LT"] {
+    --m3-schemes-on-surface-variant: rgba(77, 70, 57, 1);
+  }
+  
+  [data-m3-mode="yellow-DT"] {
+    --m3-schemes-on-surface-variant: rgba(208, 197, 180, 1);
+  }
+  
+  [data-m3-mode="chartreuse-LT"] {
+    --m3-schemes-on-surface-variant: rgba(71, 72, 59, 1);
+  }
+  
+  [data-m3-mode="chartreuse-DT"] {
+    --m3-schemes-on-surface-variant: rgba(200, 199, 183, 1);
+  }
+  
+  [data-m3-mode="green-LT"] {
+    --m3-schemes-on-surface-variant: rgba(66, 73, 64, 1);
+  }
+  
+  [data-m3-mode="green-DT"] {
+    --m3-schemes-on-surface-variant: rgba(193, 201, 190, 1);
+  }
+  
+  [data-m3-mode="teal-LT"] {
+    --m3-schemes-on-surface-variant: rgba(63, 73, 70, 1);
+  }
+  
+  [data-m3-mode="teal-DT"] {
+    --m3-schemes-on-surface-variant: rgba(190, 201, 197, 1);
+  }
+  
+  [data-m3-mode="cyan-LT"] {
+    --m3-schemes-on-surface-variant: rgba(64, 72, 75, 1);
+  }
+  
+  [data-m3-mode="cyan-DT"] {
+    --m3-schemes-on-surface-variant: rgba(191, 200, 204, 1);
+  }
+  
+  [data-m3-mode="blue-LT"] {
+    --m3-schemes-on-surface-variant: rgba(68, 70, 79, 1);
+  }
+  
+  [data-m3-mode="blue-DT"] {
+    --m3-schemes-on-surface-variant: rgba(197, 198, 208, 1);
+  }
+  
+  [data-m3-mode="indigo-LT"] {
+    --m3-schemes-on-surface-variant: rgba(71, 70, 79, 1);
+  }
+  
+  [data-m3-mode="indigo-DT"] {
+    --m3-schemes-on-surface-variant: rgba(200, 197, 208, 1);
+  }
+  
+  [data-m3-mode="purple-LT"] {
+    --m3-schemes-on-surface-variant: rgba(74, 69, 78, 1);
+  }
+  
+  [data-m3-mode="purple-DT"] {
+    --m3-schemes-on-surface-variant: rgba(203, 196, 207, 1);
+  }
+  

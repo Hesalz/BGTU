@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        async function fetchfactorial() {
+            const startTime = Date.now();
+            const results = [];
+
+            for (let x = 1; x <= 20; x++) {
+                const response = await fetch('http://localhost:5000/fact?k=' + x);
+                const data = await response.json();
+                const elapsed = Date.now() - startTime;
+                results.push(`${elapsed}-${data.k}/${data.fact}`);
+            }
+                      
+            document.getElementById('results').innerHTML = results.join('<br/>') 
+            + '<br/>';
+        }
+        window.onload = fetchfactorial;
+    </script>
+</head>
+<body>
+    <div id="results"></div>
+</body>
+</html>

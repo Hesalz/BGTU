@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        fill: #fff;
+        font-family: AcuminVariableConcept, 'Acumin Variable Concept';
+        font-size: 19.98px;
+        font-variation-settings: 'wght' 194, 'wdth' 100, 'slnt' 0;
+      }
+
+      .cls-2 {
+        stroke: #1d1d1b;
+      }
+
+      .cls-4 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+
+      .cls-6 {
+        letter-spacing: 0em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0em;
+      }
+
+      .cls-9 {
+        letter-spacing: 0em;
+      }
+
+      .cls-10 {
+        fill: #1d1d1b;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g>
+    <circle class="cls-10" cx="100.33" cy="99.72" r="100"/>
+    <circle class="cls-2" cx="100.33" cy="99.72" r="100"/>
+  </g>
+  <g>
+    <circle class="cls-1" cx="70.24" cy="81.8" r="32.43"/>
+    <rect class="cls-10" x="70.24" y="44.02" width="43.55" height="82.3"/>
+    <line class="cls-1" x1="70.24" y1="49.38" x2="83.47" y2="49.38"/>
+    <line class="cls-1" x1="70.24" y1="114.23" x2="83.47" y2="114.23"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="107.71" y1="85.17" x2="107.71" y2="49.38"/>
+    <line class="cls-1" x1="131.34" y1="85.17" x2="155.09" y2="49.38"/>
+    <line class="cls-1" x1="131.49" y1="85.17" x2="107.74" y2="49.38"/>
+    <line class="cls-1" x1="155.15" y1="114.23" x2="155.15" y2="49.38"/>
+  </g>
+  <text class="cls-3" transform="translate(40.68 161.19)"><tspan class="cls-4" x="0" y="0">C</tspan><tspan class="cls-5" x="13.47" y="0">l</tspan><tspan class="cls-8" x="17.6" y="0">a</tspan><tspan class="cls-9" x="27.64" y="0">ude </tspan><tspan class="cls-6" x="64.6" y="0">M</tspan><tspan x="81.63" y="0">on</tspan><tspan class="cls-7" x="103.15" y="0">e</tspan><tspan x="113.34" y="0">t</tspan></text>
+</svg>

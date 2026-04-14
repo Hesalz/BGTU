@@ -1,0 +1,102 @@
+﻿@model ASPA008_1.Models.CelebrityViewModel
+@{
+    ViewData["Title"] = "Add New Celebrity";
+    Layout = "_Layout";
+}
+
+<h2>Add New Celebrity</h2>
+
+@if (Model.IsCorrect)
+{
+    <form asp-action="ProcessForm" method="post" enctype="multipart/form-data" style="max-width: 820px;" id="celebrityForm">
+        <input type="hidden" name="handler" value="render" />
+        <div class="formbetween">
+            <div class="container-img">
+                <img src="@Url.Content($"/Photos/NewCelebrity.jpg")"
+                     style="max-width: 200px; max-height: 200px;" />
+            </div>
+            <div>
+                <div class="form2el">
+                    <div class="form-group form-group1">
+                        <input asp-for="FullName" class="form-control" placeholder="FullName:" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <select asp-for="Nationality" asp-items="@(ViewData["Nationality"] as SelectList)"
+                                class="form-control">
+                            <option value="">Select Country</option>
+                        </select>
+                        <span asp-validation-for="Nationality" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group form-group2">
+                    <label asp-for="Upload"></label>
+                    <input asp-for="Upload" class="form-control-file" accept="image/*" id="uploadInput" />
+                    <span asp-validation-for="Upload" class="text-danger"></span>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-primary btn-custom">Ok</button>
+                    <a asp-action="NewHumanForm" class="btn btn-danger btn-custom">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+@if (!Model.IsCorrect)
+{
+    <form asp-action="ProcessForm" method="post" enctype="multipart/form-data" style="max-width: 672px;">
+        <input type="hidden" name="handler" value="save" />
+
+        <div class="formbetween">
+            <div>
+                @if (!string.IsNullOrEmpty(TempData["TempPhotoPath"]?.ToString()))
+                {
+                    <div class="form-group">
+                        <img src="@Url.Content($"/Photos/{TempData["TempPhotoPath"]}")"
+                             style="max-width: 200px; max-height: 200px;"
+                             id="imgs" />
+                    </div>
+                }
+            </div>
+            <div style="margin-left: 20px;">
+                <div class="formgroup">
+                    <div class="form-group" style="width: 85%; margin-bottom: 10px;">
+                        <input type="text" name="name" value="@TempData["FullName"]" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-group" style="width: 15%;">
+                        <input type="text" name="name" value="@TempData["Nationality"]" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="btnsform">
+                    <button type="submit" class="btn btn-success">Confirmation</button>
+                    <a asp-action="NewHumanForm" asp-route-isCancel="true" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('celebrityForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const fullName = document.querySelector('[name="FullName"]').value.trim();
+                    const nationality = document.querySelector('[name="Nationality"]').value;
+                    const upload = document.querySelector('[name="Upload"]').files[0];
+
+                    if (!fullName || !nationality || !upload) {
+                        e.preventDefault();
+                        alert('Пожалуйста, заполните все поля и загрузите фотографию');
+                        return false;
+                    }
+                    return true;
+                });
+            }      
+        });
+    </script>
+}

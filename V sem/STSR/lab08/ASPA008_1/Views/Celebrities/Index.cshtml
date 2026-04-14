@@ -1,0 +1,28 @@
+﻿@using DAL_Celebrity_MSSQL
+@using ASPA008_1.Helpers
+@model ASPA008_1.Controllers.CelebritiesController.IndexModel 
+
+@{
+    // Celebrities/Index.cshtml
+    //Layout = "_CelebritiesLayout";
+    Layout = "_Layout";
+}
+
+@section subhead {
+    <h2>Celebrities</h2>
+}
+
+<a asp-action="NewHumanForm" asp-controller="Celebrities">
+    @Html.CelebrityPhoto(0, "New Celebrity", $"{Model.photosrequestpath}/NewCelebrity.jpg")
+</a>
+
+@foreach (Celebrity c in Model.celebrities)
+{
+    <a asp-controller="Celebrities" asp-action="Celebrities" asp-route-id="@c.Id">
+        @Html.CelebrityPhoto(c.Id, c.FullName, $"{Model.photosrequestpath}/{c.ReqPhotoPath}")
+    </a>  
+}
+
+@section foot {
+    @* <h2>FOOT</h2> *@
+}

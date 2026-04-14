@@ -1,0 +1,11 @@
+﻿@page
+@model Lab7.Pages.CelebrityModel
+@using DAL_Celebrity_MSSQL.Models
+@{
+	Celebrity celebrity = Model.Celebrity;
+}
+
+<h1>@celebrity.FullName</h1>
+<div class="celebrity-item">
+	<img src="@($"/api/Celebrities/photo/{celebrity.ReqPhotoPath}")" alt="Фото @celebrity.FullName" class="celebrity-image" />
+</div>

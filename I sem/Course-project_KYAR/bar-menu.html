@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/bar-menu.css">
+    <link rel="stylesheet" href="css/form.css">
+    <title>Claude Monet</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo"><img src="img/logo2.svg" alt="logo"></a>
+        <input type="checkbox" id="nav-toggle" hidden>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="text">Ресторан<svg class="arrow-down"
+                            viewBox="0 0 9 5" width="15" height="15">
+                            <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" />
+                        </svg>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="about.html">О ресторане</a></li>
+                        <li><a href="command.html">Наша команда</a></li>
+                        <li><a href="shef.html">Шеф-повар</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item"><a href="menu.html" class="active">Меню<svg class="arrow-down" viewBox="0 0 9 5" width="15"
+                            height="15">
+                            <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" />
+                        </svg>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="menu.html">Основное меню</a></li>
+                        <li><a href="bar-menu.html">Барное меню</a></li>
+                        <li><a href="lunch.html">Деловой обед</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item"><a href="photo.html" class="text">Галерея</a></li>
+                <li class="menu-item reserve-btn"><a onclick="toggleForm()" class="text">Зарезервировать</a></li>
+                <li class="menu-item"><a href="contacts.html" class="text">Контакты</a></li>
+            </ul>
+            <div class="info">
+                <a href="contacts.html">Москва, ул. Спиридоновка, 25/20с1</a>
+                <a class="tooltip">График работы
+                    <span class="tooltiptext">Пн-Пт: 11:00-1:00<br>Сб-Вс: 12:00-2:00</span>
+                </a>
+                <a href="tel:+375295119753" target="_blank">+375 (29) 511-97-53</a>
+            </div>
+        </nav>
+        <nav class="nav">
+            <label for="nav-toggle" class="nav-toggle" onclick></label>
+            <h2 class="logo"> 
+                <a href="index.html">Claude Monet</a> 
+            </h2>
+            <ul>
+                <li><a href="index.html">Ресторан <svg height="5" width="9"
+                    viewBox="0 0 9 5">
+                    <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" fill="white" />
+                </svg></a>
+                <li><a href="about.html">О ресторане</a>
+                <li><a href="command.html">Наша команда</a>
+                <li><a href="shef.html">Шеф-повар</a>
+                <li><a href="menu.html">Меню <svg height="5" width="9"
+                    viewBox="0 0 9 5">
+                    <path d="M9,0.419 L8.606,0.003 L4.5,4.164 L0.394,0.003 L0,0.419 L4.5,4.997 L9,0.419 Z" fill="white" />
+                </svg></a>
+                <li><a href="menu.html">Основное меню</a>
+                <li><a href="bar-menu.html">Барное меню</a> 
+                <li><a href="lunch.html">Деловой обед</a>
+                <li><a href="photo.html">Галерея</a>
+                <li><a href="contacts.html">Контакты</a>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="fon">
+            <p>Барное меню</p>
+        </div>
+        <h1>ЧРЕЗМЕРНОЕ УПОТРЕБЛЕНИЕ АЛКОГОЛЯ ВРЕДИТ ЗДОРОВЬЮ</h1>
+        <div class="allmenu">
+            <div class="first">
+                <div class="red-wine">
+                    <h2>Красное вино</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Chateau Teyssier Saint Emilion Grand Cru</p>
+                                <p class="slash">/</p>
+                                <p>5000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Франция, Мерло и Каберне фран, сух., 15 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>S. Marzano Sessantanni Primitivo di Manduria</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Италия, Примитива, сух., 14,5%</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Gnarly Head Old Vine Zinfandel Lodi California</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, США, Зинфандель, сух., 14,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Тамада Киндзмараули</p>
+                                <p class="slash">/</p>
+                                <p>2000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Грузия, Саперави, п/сл., 11,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jacob’s Creek Merlot</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Австралия, Мерло, сух., 12,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jacob’s Creek Merlot</p>
+                                <p class="slash">/</p>
+                                <p>4000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Австралия, Мерло, сух., 12,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>De Martino Estate Carmenere</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Чили, Карменер, сух., 13,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>De Martino Estate Carmenere</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Чили, Карменер, сух., 13,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>De Martino Estate Cabernet Sauvignon</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Чили, Каберне совиньон, сух., 13,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>De Martino Estate Cabernet Sauvignon</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Чили, Каберне совиньон, сух., 13,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Brancott Estate Pinot Noir</p>
+                                <p class="slash">/</p>
+                                <p>600р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Новая Зеландия, Пино нуар, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Brancott Estate Pinot Noir</p>
+                                <p class="slash">/</p>
+                                <p>4000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Новая Зеландия, Пино нуар, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="rose-wine">
+                    <h2>Розовое вино</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Cotes De Provence Marius Peyol</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Франция, Гренаш / Гарнача, Сенсо, Сира, сух., 12,5%</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Cotes De Provence Marius Peyol</p>
+                                <p class="slash">/</p>
+                                <p>3500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Франция, Гренаш / Гарнача, Сенсо, Сира, сух., 12,5%</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="portvein">
+                    <h2>Портвейн и Херес</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Porto Niepoort Ruby</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Португалия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Valdespino Pedro Ximenez El Candado</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Испания</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Valdespino Contrabandista Amontillado</p>
+                                <p class="slash">/</p>
+                                <p>350р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Испания</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="second">
+                <div class="white-wine">
+                    <h2>Белое вино</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Chablis Jean-Marc Brocard</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Франция, Шардоне, сух., 12,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Edition Abtei Himmerod Riesling Feinherb Mosel</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Германия, Рислинг, п/сух., 10,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Gold Country California Colombard-Chardonnay</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, США, Шардоне и Коломбар, сух., 12 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Villa Maria Private Bin East Coast Pinot Grigio</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Новая Зеландия, Пино Гри, п/сух., 13.5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Villa Antinori Bianco Toscana</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Италия, Треббиано и Мальвазия, сух.,12 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>De Martino Reserva 347 Vineyards Chardonnay D.O. Valle De Casablanca</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Чили, Шардоне, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>De Martino Reserva 347 Vineyards Chardonnay D.O. Valle De Casablanca</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Чили, Шардоне, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Grillo Vigneti Zabu Sicilia</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Италия, Гролло, сух., 12,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Grillo Vigneti Zabu Sicilia</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Италия, Гролло, сух., 12,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Brancott Estate Sauvignon Blanc</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Новая Зеландия, Совиньон Блан, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Brancott Estate Sauvignon Blanc</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Новая Зеландия, Совиньон Блан, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Brancott Estate Sauvignon Blanc</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Новая Зеландия, Совиньон Блан, сух., 13 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Rene Mure Gewurztraminer Orchdees Sauvages Alsace</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Франция, Гевюрцтраминер, п/сух., 11,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Rene Mure Gewurztraminer Orchdees Sauvages Alsace</p>
+                                <p class="slash">/</p>
+                                <p>4500р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Франция, Гевюрцтраминер, п/сух., 11,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="grappa">
+                    <h2>Грапппа</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Poli Bassano Del Grappa Classica</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="third">
+                <div class="shamp">
+                    <h2>Шампанское и игристые вина</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Mumm "Grand Cordon" Brut</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Франция, Брют, 12%</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Marcel Martin La Garde Cremant De Loire Tete De Cuve Brut</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Франция, Креман, 12 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Codorniu Cuvee Barcelona 1872</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Испания, Кава, 11,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Codorniu Cuvee Barcelona 1872</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Испания, Кава, 11,5 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Gancia Prosecco Brut</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Италия, Просекко, 11 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Gancia Prosecco Brut</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>бутылка, Италия, Просекко, 11 %</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Moet & Chandon Brut “Imperial”</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>125 ml, Франция, Брют, 12 %</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="liker">
+                    <h2>Ликёры и вермуты</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Skinos Mastiha Spirit</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Греция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Becherovka</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Чехия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Sambuca Ramazzotti</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jagermeister</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Германия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Aperol</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Campari</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martini Fiero</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martini Bianco</p>
+                                </p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martini Rosso</p>
+                                <p class="slash">/</p>
+                                <p>3000р</p>
+                            </div>
+                            <div id="price">
+                                <p>40 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="h2cent">Фирменные настойки</h2>
+        <div class="center">
+            <div class="first">
+                <div class="nastoika1">
+                    <img src="./img/menu/nastoiki.jpg"></img>
+                </div>
+            </div>
+            <div class="second">
+                <div class="nastoika2">
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Малина</p>
+                                <p class="slash">/</p>
+                                <p>200р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Вишня</p>
+                                <p class="slash">/</p>
+                                <p>200р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Клюква</p>
+                                <p class="slash">/</p>
+                                <p>200р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="third">
+                <div class="nastoika3">
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Чёрная смородина</p>
+                                <p class="slash">/</p>
+                                <p>200р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Сет наливок</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>200 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="allmenu">
+            <div class="first">
+                <div class="whisky">
+                    <h2>Виски (Шотландия)</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Chivas Regal 12</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Chivas Regal 18</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Ballantine's Finest</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Macallan 12</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Macallan 15</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Auchentoshan "American Oak"</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Monkey Shoulder</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Lagavulin 16</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="whisky2">
+                    <h2>Виски (Ирландия)</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Redbreast 12</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jameson, "Black Barrel"</p>
+                                <p class="slash">/</p>
+                                <p>600р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jameson</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="whisky3">
+                    <h2>Виски (США)</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jack Daniel's №7</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Jack Daniel's Tennessee Honey</p>
+                                <p class="slash">/</p>
+                                <p>500р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Four Roses Bourbon</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="jin">
+                    <h2>Джин</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Malfy Con Limon</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Италия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Beefeater</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Англия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Hendrick's</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Шотландия</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="classic">
+                    <h2>Классические коктейли</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Whiskey Sour</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>140 ml. Бурбон, сахарный сироп, сок лимона, яичный белок</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Clover Club</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>75 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Daiquiri</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>120 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Negroni</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>90 ml. Джин, вермут, цитрусовый биттер</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Bellini</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>150 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>French 75</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>120 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Margarita</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>90 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Fiero Spritz</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>250 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Espresso Martini</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>105 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>French connection</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>70 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Penicillin</p>
+                                <p class="slash">/</p>
+                                <p>400р</p>
+                            </div>
+                            <div id="price">
+                                <p>110 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    </div>
+                    <div class="firma">
+                        <h2>Фирменные горячие напитки</h2>
+                        <div class="component">
+                            <span>
+                                <div class="inf">
+                                    <p>Облепиховый чай</p>
+                                    <p class="slash">/</p>
+                                    <p>400р</p>
+                                </div>
+                                <div id="price">
+                                    <p>800 ml. Облепиха, апельсин, мёд, розмарин, чай чёрный</p>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="component">
+                            <span>
+                                <div class="inf">
+                                    <p>Имбирный чай</p>
+                                    <p class="slash">/</p>
+                                    <p>400р</p>
+                                </div>
+                                <div id="price">
+                                    <p>800 ml. Сироп из имбиря, мёд, яблоко, грейпфрут, апельсин, тимьян</p>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="component">
+                            <span>
+                                <div class="inf">
+                                    <p>Нарочанский чай</p>
+                                    <p class="slash">/</p>
+                                    <p>300р</p>
+                                </div>
+                                <div id="price">
+                                    <p>350 ml. Чай чёрный, бальзам из нарочанский трав, мёд, лесные ягоды, тимьян</p>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="component">
+                            <span>
+                                <div class="inf">
+                                    <p>Шоколадный глинтвейн</p>
+                                    <p class="slash">/</p>
+                                    <p>300р</p>
+                                </div>
+                                <div id="price">
+                                    <p>350 ml. Шоколад тёмный, фирменный сироп из специй, апельсин, мёд, бренди, красное вино</p>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="component">
+                            <span>
+                                <div class="inf">
+                                    <p>Глинтвейн б/а</p>
+                                    <p class="slash">/</p>
+                                    <p>200р</p>
+                                </div>
+                                <div id="price">
+                                    <p>350 ml. Фирменный сироп из специй, апельсин, лимон, виноградный сок</p>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+            </div>
+            <div class="second">
+                <div class="tequila">
+                    <h2>Текила (Мексика)</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Avion Reposado</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Olmeca Silver</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Olmeca Gold</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <img src="./img/menu/tequila-kokteil.jpg" style="border-radius: 15px; width: 86%;"></img>
+                </div>
+                <div class="rom">
+                    <h2>Ром (Куба)</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Havana Club Anejo 7</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Havana Club Anejo 3 Anos</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Havana Club Cuban Spiced</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="konyak">
+                    <h2>Коньяк / Бренди</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martell VS</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Франция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martell Cordon Bleu</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Франция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martell ХО</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Франция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Арарат Васпуракан 15 лет</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Армения</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Арарат Ани 7 лет</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Армения</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="avtor">
+                    <h2>Авторские коктейли</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>11.47</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>170 ml. Игристое вино, молочный улун, груша, содовая</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>12.42</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>95 ml. Джин, мята, алоэ, зубровка</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>13.80</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>110 ml. Водка, земляника, эстрагон</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>14.80</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>130 ml. Водка, портвейн, ежевика, фиалка, содовая</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>15.47</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>110 ml. Джин, вермут, смородина, черемуха</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>16.04</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>90 ml. Белый ром, манго, щавель</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>17.03</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>95 ml. Бренди, облепиха, карамель, жареный фундук</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="firmanap">
+                    <h2>Фирменные коктейли</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Royal Compani</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>190 ml. Ром, сироп манго спайси, грейпфрутовый кордиал, нити чили, лимонный сок</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Martini Compani</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>190 ml. Имбирный джин, сироп фиалка, игристое вино, лимонный сок</p>
+                            </div>
+                        </span>
+                    </div>
+                    <img src="./img/menu/firma.jpg" style="width: 86%; border-radius: 15px;"></img>
+                </div>
+                <div class="tea">
+                    <h2>Чай</h2>
+
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Гордость цейлона</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>800 ml. Черный чай</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Узбекский</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>800 ml. Зеленый чай</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Альпийский луг</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>800 ml. Чай травяной с ромашкой, гибискусом и лимонной травой</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Улун изобилие</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>800 ml. Чай красный с кусочками ананаса, ягодами шиповника, смородины</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Наглый фрукт</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>800 ml. Фруктовый микс с кусочками яблока, винограда, малины, вишни и ананаса</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="third">
+                <div class="vodka">
+                    <h2>Водка</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Онегин</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Россия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Absolut Original</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Швеция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Absolut Pears</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Швеция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Grey Goose</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml, Франция</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>TRIPLE SEVEN</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Бульбаш №1</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>50 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="beer">
+                    <h2>Пиво разливное</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>* уточняйте у официанта</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="beer2">
+                    <h2>Пиво бутылочное</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Schofferhoffer Hefeweizen</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,5 L Мексика</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Corona Extra</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,35 L Мексика</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Belgian Kriek</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L, Бельгия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Clausthaler</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L, 6/а, Германия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Hofbrau Original</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,5 L, Германия</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Budweiser Dark</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,5 L, Чехия</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="juice">
+                    <h2>Соки и напитки</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Coca-Cola</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L, Беларусь</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Coca-Cola без сахара</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L, Беларусь</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Sprite</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L, Беларусь</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Schweppes tonic</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L, Беларусь</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Сок Rich</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,2 L, в ассортименте, Беларусь</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Red Bull Energy Drink</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,25 L, Австрия</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="voda">
+                    <h2>Вода</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>San Benedetto газ.</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,25 L</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>San Benedetto негаз.</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,25 L</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Джермук</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>0,33 L</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="limonad">
+                    <h2>Лимонады</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Клубничный</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>420 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Маракуйя</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>420 ml. Пюре из мякоти маракуйи с косточкой, лимонный сок, содовая</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Лайм-мята</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>420 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Ягодный</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>420 ml</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="coffee">
+                    <h2>Кофе</h2>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Эспрессо</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>30 ml.</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Американо</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>150 ml.</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Капучино</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>220 ml.</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Латте</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>350 ml.</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Флэт уайт</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>230 ml.</p>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="component">
+                        <span>
+                            <div class="inf">
+                                <p>Раф кофе</p>
+                                <p class="slash">/</p>
+                                <p>700р</p>
+                            </div>
+                            <div id="price">
+                                <p>350 ml.</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <div>
+                <p>Москва, улица Спиридоновка, 25/20с1<br>
+                    Пн-пт с 11:00 до 2:00<br>
+                    Сб, Вс с 10:00 до 4:00</p>
+            </div>
+            <div class="info-footer">
+                <div class="social">
+                    <a href="https://vk.com/svetere"><img src="img/vk.png" alt="vk"></a>
+                    <a href="https://instagram.com/vifftery"><img src="img/instagram.png" alt="inst"></a>
+                    <a href="https://twitter.com"><img src="img/twitter.png" alt="fb"></a>
+                    <a href="https://t.me/vifftery"><img src="img/telegram.png" alt="yt"></a>
+                </div>
+                <p>© 2024, РЕСТОРАН «Claude Monet»<br>ООО «КладИнвест»<br>220002, г.Москва,
+                    ул.Спиридоновка, д.25, пом. 20/с1<br>УНП 193601460</p>
+            </div>
+            <div>
+                <p>+375 (29) 511 97 53<br>
+                    awdefin@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="background" id="background"></div>
+    <div id="form" class="form-container">
+        <button class="close" onclick="toggleForm()">&times;</button>
+        <form id="myForm" onsubmit="submitForm(event)">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" required>
+
+            <label for="phone">Номер телефона:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="date">Дата:</label>
+            <input type="date" id="date" required>
+
+            <label for="time">Время:</label>
+            <select id="time" required>
+                <option value="">Выберите время</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="19:30">19:30</option>
+                <option value="20:00">20:00</option>
+                <option value="20:30">20:30</option>
+                <option value="21:00">21:00</option>
+                <option value="21:30">21:30</option>
+                <option value="22:00">22:00</option>
+                <option value="22:30">22:30</option>
+                <option value="23:00">23:00</option>
+                <option value="23:30">23:30</option>
+                <option value="00:00">00:00</option>
+                <option value="00:30">00:30</option>
+                <option value="1:00">1:00</option>
+            </select>
+
+            <label for="people">Количество человек:</label>
+            <select id="people" required>
+                <option value="">Выберите количество человек</option>
+                <option value="1-3">1-3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="10+">Более 10 гостей</option>
+            </select>
+
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+    <script src="./js/form.js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+
+</html>

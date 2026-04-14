@@ -1,0 +1,14 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Title">CinemaHub - Управление кинотеатрами</system:String>
+    <system:String x:Key="SearchPlaceholder">Поиск кинотеатра...</system:String>
+    <system:String x:Key="CategoryFilterTooltip">Фильтр по категории</system:String>
+    <system:String x:Key="HallCountFilterTooltip">Фильтр по количеству залов</system:String>
+    <system:String x:Key="CapacityFilterTooltip">Фильтр по вместимости</system:String>
+    <system:String x:Key="RatingFilterLabel">Рейтинг:</system:String>
+    <system:String x:Key="RatingFilterTooltip">Фильтр по рейтингу</system:String>
+    <system:String x:Key="ResetFilters">Сбросить</system:String>
+    <system:String x:Key="NoImagesMessage">Изображения отсутствуют</system:String>
+    <system:String x:Key="GalleryLabel">Галерея</system:String>
+</ResourceDictionary>

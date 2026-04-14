@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>10-01</title>
+</head>
+<body>
+  <h1>10-01</h1>
+  <button onclick="startWS()">startWS</button>
+  <div id="output"></div>
+
+  <script>
+    function startWS() {
+      const ws = new WebSocket('ws://localhost:4000');
+      const output = document.getElementById('output');
+      let counter = 0;
+      let interval;
+
+      ws.onopen = () => {
+        interval = setInterval(() => {
+          counter++;
+          const msg = `10-01-client: ${counter}`;
+          ws.send(msg);
+          output.innerHTML += `<p>Sent: ${msg}</p>`;
+        }, 3000);
+
+        setTimeout(() => {
+          clearInterval(interval);
+          ws.close();
+          output.innerHTML += `<p><b>Connection closed</b></p>`;
+        }, 25000);
+      };
+
+      ws.onmessage = (event) => {
+        output.innerHTML += `<p>Received: ${event.data}</p>`;
+      };
+
+      ws.onerror = (err) => {
+        output.innerHTML += `<p style="color:red">Error: ${err}</p>`;
+      };
+    }
+  </script>
+</body>
+</html>

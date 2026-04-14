@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: rgb(210, 210, 210);
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid rgb(170, 170, 170);
+    margin: 20px;
+    padding: 0 20px;
+    background-color: rgba(229, 238, 246, 0.864);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.cell {
+    width: 400px;
+    height: auto;
+    border: 3px solid rgb(170, 170, 170);
+    padding: 10px;
+    background-color: rgba(229, 238, 246, 0.864);
+    margin: 5px;
+}
+
+.cell img{
+    width: 100%;
+    margin-top: 40px;
+}
+
+video,
+audio {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-icon {
+    display: block;
+    cursor: pointer;
+    font-size: 50px;
+}
+
+#menu-toggle:checked+.header .menu-icon {
+    color: #333;
+}
+
+.menu-icon {
+    display: none;
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.cont p {
+    text-align: center;
+    margin-top: 0;
+}
+
+@media (max-width: 720px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cell {
+        margin: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .row {
+        display: none;
+    }
+
+    #menu-toggle:checked~.row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cell {
+        margin: 10px;
+    }
+
+    .menu-icon {
+        display: block;
+        margin-left: 25px;
+    }
+}
+
+.menu-item {
+    border: 3px solid rgb(170, 170, 170);
+    background-color: rgba(229, 238, 246, 0.864);
+    margin: 3px;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    width: 140px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.menu-item .submenu {
+    transition: 0.2s ease-in-out;
+    visibility: hidden;
+    width: 140px;
+    border: 3px solid rgb(170, 170, 170);
+    background-color: rgba(214, 223, 231, 0.723);
+    position: absolute;
+    top: 30px;
+    cursor: pointer;
+    right: -3px;
+    font-size: 20px;
+    overflow: hidden;
+    transition: height 0.5s ease, font-size 0.5s ease;
+}
+
+.menu-item .submenu:nth-child(2) {top: 60px; }
+.menu-item .submenu:nth-child(3) {top: 90px; }
+#nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-item a, .submenu a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+footer{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #333;
+    color: white;
+}

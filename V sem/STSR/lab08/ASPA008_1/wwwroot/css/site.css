@@ -1,0 +1,163 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+form {
+    padding: 10px 20px;
+    background-color: #9E7E52;
+}
+.form2el {
+    display: flex;
+    margin-bottom: 10px;
+}
+.form-group1 {
+    width: 100%;
+    margin-right: 10px;
+    
+}
+.form-group2 {
+    margin-bottom: 10px;
+}
+.formgroup {
+    display: flex;
+}
+.btnsform {
+    display: flex;
+    flex-direction: column;
+}
+.container-img {
+    margin-right: 20px;
+}
+.formbetween {
+    display: flex;
+    align-items: center;
+    width: max-content;
+}
+.btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.btn-custom {
+    width: 48%;
+}
+.celebrity-photo {
+    height: 170px;
+}
+a {
+    text-decoration: none;
+}
+li {
+    display: inline-block;
+}
+
+.celebrityimage, .photocel {
+    height: 200px;
+}
+
+.formstyle {
+    padding: 3px 0 3px 0;
+    display: flex;
+    align-items: center;
+    background-color: #876726;
+    width: max-content;
+}
+
+.inputs {
+    padding: 0px 3px 0 3px;
+}
+
+.submitbtn {
+    width: 210px;
+}
+
+.inputname {
+    width: 330px;
+}
+
+.inputnat {
+    width: 90px;
+}
+
+.inputfile {
+    width: 420px;
+}
+.celebrity-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #9E7E52;
+    border-radius: 10px;
+}
+
+.celebrity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.celebrity-content {
+    display: flex;
+    gap: 30px;
+}
+
+.celebrity-photo {
+    flex: 0 0 300px;
+}
+
+    .celebrity-photo img {
+        object-fit: cover;
+        max-height: 150px;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+.celebrity-info {
+    flex: 1;
+}
+
+.life-events {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .life-events li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+.wiki-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.wiki-btn {
+    white-space: nowrap;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}

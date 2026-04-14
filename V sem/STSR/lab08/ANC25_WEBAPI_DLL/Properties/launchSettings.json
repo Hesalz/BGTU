@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ANC25_WEBAPI_DLL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:3173;http://localhost:3174"
+    }
+  }
+}

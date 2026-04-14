@@ -1,0 +1,183 @@
+﻿<Window x:Class="Lab4_5.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab4_5"
+        mc:Ignorable="d"
+        Title="CinemaHub - Регистрация" Height="840" Width="350" 
+        Icon="/logo.png" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+
+        <Style x:Key="TestButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF3A3A3A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF4A4A4A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#FFE0E0E0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3E3E3E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="ToolTip" Value="Поле не может быть пустым"/>
+                    <Setter Property="BorderBrush" Value="#FFFF0000"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="#FF2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3E3E3E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF3A3A3A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF4A4A4A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF4A4A4A"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF2A2A2A"/>
+                </Trigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsEnabled" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#FFAAAAAA"/>
+                        </Setter.Value>
+                    </Setter>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0" To="1" Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10,0,0,0">
+        <Border CornerRadius="10" Background="#FF252525" BorderBrush="#FF3A3A3A" BorderThickness="1" Margin="10,10,10,0">
+            <StackPanel Margin="20,20,20,-6" Name="MainStackPanel">
+                <Button Content="✕" Click="CloseButton_Click" 
+                        Background="Transparent" BorderThickness="0" 
+                        Foreground="#FFA0A0A0" Width="30" Height="30"
+                        FontSize="16" FontWeight="Bold" RenderTransformOrigin="5.433,-1.233" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+                <Image Source="/logo.png" Height="100" Width="100" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                <TextBlock Text="Регистрация"/>
+
+                <Label Content="Фамилия:"/>
+                <TextBox x:Name="LastNameTextBox"/>
+
+                <Label Content="Имя:"/>
+                <TextBox x:Name="FirstNameTextBox"/>
+
+                <Label Content="Отчество:"/>
+                <TextBox x:Name="MiddleNameTextBox"/>
+
+                <Label Content="Email:"/>
+                <TextBox x:Name="EmailTextBox"/>
+
+                <Label Content="Телефон:"/>
+                <TextBox x:Name="PhoneTextBox" ToolTip="Формат: +375XXXXXXXXX"/>
+
+                <Label Content="Пароль:"/>
+                <PasswordBox x:Name="PasswordBox"/>
+
+                <Button Content="Зарегистрироваться" Name="RegisterButton" Click="RegisterButton_Click"/>
+
+                <Button Content="Назад" Click="BackButton_Click" 
+                        Width="70" HorizontalAlignment="Right" 
+                        Margin="0,10,0,0" Background="Transparent" 
+                        BorderThickness="0" Foreground="#FFA0A0A0"/>
+                <Button x:Name="ClearButton"
+                        Content="Очистить" 
+                        Command="local:RegistrationWindow.ClearFormCommand"
+                        Margin="0,10,0,5"
+                        Style="{StaticResource TestButtonStyle}" Width="88" Height="27" HorizontalAlignment="Left"/>
+                <Button Content="Тест событий" Click="TestEventsButton_Click" Style="{StaticResource TestButtonStyle}" Height="29" Width="88" HorizontalAlignment="Left"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

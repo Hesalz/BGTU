@@ -1,0 +1,112 @@
+﻿<Window x:Class="CinemaManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement"
+        mc:Ignorable="d"
+        Title="Управление кинотеатром" Height="600" Width="900"
+        x:Name="MainWindowControl">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <DataTemplate x:Key="FilmPosterTemplate">
+            <Image Source="{Binding PosterImage}" Width="80" Height="120" Stretch="Uniform"/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <Button Content="Фильмы" Width="100" Margin="5" Command="{Binding SwitchToFilmsCommand}"/>
+            <Button Content="Сеансы" Width="100" Margin="5" Command="{Binding SwitchToScreeningsCommand}"/>
+            <Button Content="Фильмы по жанру" Width="120" Margin="5" Command="{Binding ShowFilmsByGenreDialogCommand}"/>
+            <Button Content="Сеансы на дату" Width="120" Margin="5" Command="{Binding ShowScreeningsByDateDialogCommand}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding CurrentItems}"
+                  SelectedItem="{Binding SelectedItem}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Margin="5">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Постер" Width="100"
+                    Visibility="{Binding DataContext.IsFilmView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding PosterImage}" Width="80" Height="120" Stretch="Uniform"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*"
+                    Visibility="{Binding DataContext.IsFilmView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Режиссер" Binding="{Binding Director}" Width="*"
+                    Visibility="{Binding DataContext.IsFilmView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Год" Binding="{Binding ReleaseYear}" Width="80"
+                    Visibility="{Binding DataContext.IsFilmView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Жанр" Binding="{Binding Genre}" Width="*"
+                    Visibility="{Binding DataContext.IsFilmView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Длительность" Binding="{Binding Duration}" Width="100"
+                    Visibility="{Binding DataContext.IsFilmView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Фильм" Binding="{Binding FilmTitle}" Width="*"
+                    Visibility="{Binding DataContext.IsScreeningView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Дата и время"
+                    Visibility="{Binding DataContext.IsScreeningView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="ScreeningDateTime" StringFormat="{}{0:g}"/>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Зал" Binding="{Binding HallNumber}" Width="80"
+                    Visibility="{Binding DataContext.IsScreeningView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                <DataGridTextColumn Header="Цена билета"
+                    Visibility="{Binding DataContext.IsScreeningView,
+                              RelativeSource={RelativeSource AncestorType=Window},
+                              Converter={StaticResource BoolToVisibilityConverter}}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="TicketPrice" StringFormat="{}{0:C}"/>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Добавить" Width="100" Margin="5" Command="{Binding AddCommand}"/>
+            <Button Content="Редактировать" Width="100" Margin="5" Command="{Binding EditCommand}"/>
+            <Button Content="Удалить" Width="100" Margin="5" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

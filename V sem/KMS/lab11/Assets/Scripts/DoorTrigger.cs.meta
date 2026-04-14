@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 48560bed359327c46badeef4afe9020a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - leftDoor: {fileID: 4699788979269120469, guid: c4cf3adfa5df88a43bf404f6e92898bf, type: 3}
+  - rightDoor: {fileID: 2774646639530292579, guid: 278a9d18eef7dd24ea4bef5edd639737, type: 3}
+  - flyingCube: {fileID: 2236344543020324300, guid: 4d37bd4020b490346abc8cd17c6882df, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

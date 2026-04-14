@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Lib", "Lab5Lib\Lab5Lib.csproj", "{93E068CB-C211-4757-A189-D535FA619DC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "Program\Program.csproj", "{19861B5E-AB55-40AD-B86C-9A5A33444BCD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93E068CB-C211-4757-A189-D535FA619DC9} = {93E068CB-C211-4757-A189-D535FA619DC9}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{66E1DB76-E789-48E0-A4E1-BCE7520F8F9A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93E068CB-C211-4757-A189-D535FA619DC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E068CB-C211-4757-A189-D535FA619DC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E068CB-C211-4757-A189-D535FA619DC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E068CB-C211-4757-A189-D535FA619DC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19861B5E-AB55-40AD-B86C-9A5A33444BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19861B5E-AB55-40AD-B86C-9A5A33444BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19861B5E-AB55-40AD-B86C-9A5A33444BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19861B5E-AB55-40AD-B86C-9A5A33444BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FF414C4-17E0-4E08-87B6-32379C2B8C6F}
+	EndGlobalSection
+EndGlobal

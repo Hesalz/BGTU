@@ -1,0 +1,310 @@
+SET SERVEROUTPUT ON;
+
+-- 1
+CREATE TABLE STUDENTS (
+    STUDENT_ID NUMBER PRIMARY KEY,
+    NAME VARCHAR2(100) NOT NULL,
+    FACULTY VARCHAR2(50) REFERENCES FACULTY(FACULTY),
+    ENROLL_DATE DATE DEFAULT SYSDATE,
+    STATUS VARCHAR2(20) DEFAULT 'ACTIVE'
+);
+
+-- 2
+BEGIN
+    INSERT INTO STUDENTS VALUES (1, 'Иванов Иван', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (2, 'Петрова Мария', 'ФЭН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (3, 'Сидоров Алексей', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (4, 'Кузнецова Елена', 'ФИЯ', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (5, 'Смирнов Дмитрий', 'ФЭН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (6, 'Васильева Анна', 'ФКН', TO_DATE('01.09.2023', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (7, 'Николаев Петр', 'ФИЯ', TO_DATE('01.09.2023', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (8, 'Алексеева Ольга', 'ФЭН', TO_DATE('01.09.2023', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (9, 'Дмитриев Сергей', 'ФКН', TO_DATE('01.09.2023', 'DD.MM.YYYY'), 'ACTIVE');
+    INSERT INTO STUDENTS VALUES (10, 'Федорова Наталья', 'ФИЯ', TO_DATE('01.09.2023', 'DD.MM.YYYY'), 'ACTIVE');
+    COMMIT;
+END;
+
+--3
+CREATE OR REPLACE TRIGGER before_statement_students
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер BEFORE STATEMENT: before_statement_students');
+    
+    IF INSERTING THEN
+        DBMS_OUTPUT.PUT_LINE('Операция: INSERT');
+    ELSIF UPDATING THEN
+        DBMS_OUTPUT.PUT_LINE('Операция: UPDATE');
+    ELSIF DELETING THEN
+        DBMS_OUTPUT.PUT_LINE('Операция: DELETE');
+    END IF;
+END;
+/
+
+--4
+CREATE OR REPLACE TRIGGER before_row_students
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер BEFORE ROW: before_row_students');
+    
+    IF INSERTING THEN
+        DBMS_OUTPUT.PUT_LINE('Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF UPDATING THEN
+        DBMS_OUTPUT.PUT_LINE('Старая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME);
+        DBMS_OUTPUT.PUT_LINE('Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF DELETING THEN
+        DBMS_OUTPUT.PUT_LINE('Удаляемая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME);
+    END IF;
+END;
+/
+
+--5
+INSERT INTO STUDENTS VALUES (11, 'Борисова Ольга', 'ФКН', TO_DATE('02.05.2021', 'DD.MM.YYYY'), 'ACTIVE');
+
+UPDATE STUDENTS 
+SET NAME = 'Борисова Ольга Петровна', 
+    FACULTY = 'ФКН', 
+    ENROLL_DATE = TO_DATE('02.05.2021', 'DD.MM.YYYY'), 
+    STATUS = 'INACTIVE'
+WHERE STUDENT_ID = 11;
+
+DELETE FROM STUDENTS 
+WHERE STUDENT_ID = 11;
+
+--6
+CREATE OR REPLACE TRIGGER after_statement_students
+AFTER INSERT OR UPDATE OR DELETE ON STUDENTS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер AFTER STATEMENT: after_statement_students');
+
+    IF INSERTING THEN
+        DBMS_OUTPUT.PUT_LINE('Операция: INSERT');
+    ELSIF UPDATING THEN
+        DBMS_OUTPUT.PUT_LINE('Операция: UPDATE');
+    ELSIF DELETING THEN
+        DBMS_OUTPUT.PUT_LINE('Операция: DELETE');
+    END IF;
+END;
+
+--7
+CREATE OR REPLACE TRIGGER after_row_students
+AFTER INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер AFTER ROW: after_row_students');
+
+    IF INSERTING THEN
+        DBMS_OUTPUT.PUT_LINE('Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF UPDATING THEN
+        DBMS_OUTPUT.PUT_LINE('Старая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME);
+        DBMS_OUTPUT.PUT_LINE('Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF DELETING THEN
+        DBMS_OUTPUT.PUT_LINE('Удаляемая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME);
+    END IF;
+END;
+
+--8
+CREATE TABLE AUDIT_LOG (
+    OPERATION_DATE TIMESTAMP DEFAULT SYSTIMESTAMP,
+    OPERATION_TYPE VARCHAR2(10),
+    TRIGGER_NAME VARCHAR2(50),
+    DATA VARCHAR2(4000)
+);
+
+--9
+CREATE OR REPLACE TRIGGER before_statement_students
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер BEFORE STATEMENT: before_statement_students');
+
+    IF INSERTING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('INSERT', 'before_statement_students', 'Операция вставки');
+    ELSIF UPDATING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('UPDATE', 'before_statement_students', 'Операция обновления');
+    ELSIF DELETING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('DELETE', 'before_statement_students', 'Операция удаления');
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER before_row_students
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер BEFORE ROW: before_row_students');
+
+    IF INSERTING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('INSERT', 'before_row_students', 'Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF UPDATING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('UPDATE', 'before_row_students', 'Старая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME || '; Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF DELETING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('DELETE', 'before_row_students', 'Удаляемая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME);
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER after_statement_students
+AFTER INSERT OR UPDATE OR DELETE ON STUDENTS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер AFTER STATEMENT: after_statement_students');
+
+    IF INSERTING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('INSERT', 'after_statement_students', 'Операция вставки');
+    ELSIF UPDATING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('UPDATE', 'after_statement_students', 'Операция обновления');
+    ELSIF DELETING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('DELETE', 'after_statement_students', 'Операция удаления');
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER after_row_students
+AFTER INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Сработал триггер AFTER ROW: after_row_students');
+
+    IF INSERTING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('INSERT', 'after_row_students', 'Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF UPDATING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('UPDATE', 'after_row_students', 'Старая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME || '; Новая запись: ' || :NEW.STUDENT_ID || ' ' || :NEW.NAME);
+    ELSIF DELETING THEN
+        INSERT INTO AUDIT_LOG (OPERATION_TYPE, TRIGGER_NAME, DATA)
+        VALUES ('DELETE', 'after_row_students', 'Удаляемая запись: ' || :OLD.STUDENT_ID || ' ' || :OLD.NAME);
+    END IF;
+END;
+/
+
+-- 10
+INSERT INTO STUDENTS VALUES (1, 'Новый Студент', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+
+--11
+DROP TABLE STUDENTS;
+
+CREATE OR REPLACE TRIGGER prevent_drop_students
+BEFORE DROP ON SCHEMA
+BEGIN
+    IF ORA_DICT_OBJ_NAME = 'STUDENTS' AND ORA_DICT_OBJ_TYPE = 'TABLE' THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Удаление таблицы STUDENTS запрещено.');
+    END IF;
+END;
+
+--12
+DROP TABLE AUDIT_LOG;
+
+SELECT trigger_name, status FROM user_triggers WHERE table_name = 'AUDIT_LOG';
+
+--13
+ALTER TRIGGER BEFORE_ROW_STUDENTS DISABLE;
+ALTER TRIGGER AFTER_STATEMENT_STUDENTS DISABLE;
+ALTER TRIGGER BEFORE_STATEMENT_STUDENTS DISABLE;
+
+CREATE VIEW STUDENTS_VIEW AS
+SELECT STUDENT_ID, NAME, FACULTY, ENROLL_DATE, STATUS FROM STUDENTS;
+
+CREATE OR REPLACE TRIGGER instead_of_update_students_view
+INSTEAD OF UPDATE ON STUDENTS_VIEW
+FOR EACH ROW
+DECLARE
+    new_student_id NUMBER;
+BEGIN
+    SELECT NVL(MAX(STUDENT_ID), 0) + 1 INTO new_student_id FROM STUDENTS;
+
+    INSERT INTO STUDENTS (STUDENT_ID, NAME, FACULTY, ENROLL_DATE, STATUS)
+    VALUES (new_student_id, :NEW.NAME, :NEW.FACULTY, :NEW.ENROLL_DATE, :NEW.STATUS);
+    
+    UPDATE STUDENTS
+    SET STATUS = 'INACTIVE'
+    WHERE STUDENT_ID = :OLD.STUDENT_ID;
+END;
+
+INSERT INTO STUDENTS VALUES (21, 'Тестовый Студент', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+UPDATE STUDENTS_VIEW
+SET NAME = 'Обновленный Студент', FACULTY = 'ФЭН', ENROLL_DATE = TO_DATE('02.09.2022', 'DD.MM.YYYY'), STATUS = 'ACTIVE'
+WHERE STUDENT_ID = 21;
+SELECT * FROM STUDENTS WHERE STUDENT_ID = 21;
+SELECT * FROM students_view;
+
+--14
+-- BEFORE STATEMENT триггер
+CREATE OR REPLACE TRIGGER before_statement_demo
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется BEFORE STATEMENT триггер');
+END;
+/
+
+-- BEFORE ROW триггер
+CREATE OR REPLACE TRIGGER before_row_demo
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется BEFORE ROW триггер');
+END;
+/
+
+-- AFTER ROW триггер
+CREATE OR REPLACE TRIGGER after_row_demo
+AFTER INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется AFTER ROW триггер');
+END;
+/
+
+-- AFTER STATEMENT триггер
+CREATE OR REPLACE TRIGGER after_statement_demo
+AFTER INSERT OR UPDATE OR DELETE ON STUDENTS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется AFTER STATEMENT триггер');
+END;
+/
+
+
+INSERT INTO STUDENTS VALUES (30, 'Тестовый Студент', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+
+--15
+DROP TRIGGER after_statement_demo;
+DROP TRIGGER after_row_demo;
+DROP TRIGGER before_row_demo;
+DROP TRIGGER before_statement_demo;
+
+CREATE OR REPLACE TRIGGER before_row_demo_1
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется BEFORE ROW триггер 1');
+END;
+/
+
+CREATE OR REPLACE TRIGGER before_row_demo_2
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется BEFORE ROW триггер 2');
+END;
+/
+
+INSERT INTO STUDENTS VALUES (50, 'Тестовый Студент', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');
+
+
+CREATE OR REPLACE TRIGGER before_row_demo_2
+BEFORE INSERT OR UPDATE OR DELETE ON STUDENTS
+FOR EACH ROW
+FOLLOWS before_row_demo_1
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Выполняется BEFORE ROW триггер 2');
+END;
+
+INSERT INTO STUDENTS VALUES (51, 'Тестовый Студент', 'ФКН', TO_DATE('01.09.2022', 'DD.MM.YYYY'), 'ACTIVE');

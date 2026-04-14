@@ -1,0 +1,217 @@
+<UserControl x:Class="TicketBookingSystem.App.Views.UserProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="{StaticResource CardBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryLightColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource BackgroundColor}">
+        <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Левая колонка - Профиль -->
+        <Border Grid.Column="0" Style="{StaticResource ModernCardStyle}" Margin="0,0,20,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Button Content="← Назад" 
+                               Command="{Binding BackCommand}" 
+                               Style="{StaticResource SecondaryButtonStyle}"
+                               Margin="0,0,10,0"/>
+                    </StackPanel>
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Личный кабинет" Style="{StaticResource TitleTextStyle}" VerticalAlignment="Center" Margin="0"/>
+                        <Button Grid.Column="1" 
+                               Content="🔒 Сменить пароль"
+                               Command="{Binding OpenChangePasswordWindowCommand}"
+                               Style="{StaticResource SecondaryButtonStyle}"
+                               Margin="10,0,10,0"
+                               Padding="15,10"/>
+                        <Button Grid.Column="2" 
+                               Click="LogoutButton_Click"
+                               Content="🚪 Выйти"
+                               Style="{StaticResource DangerButtonStyle}"
+                               Padding="15,10"
+                               ToolTip="Выйти из аккаунта"/>
+                    </Grid>
+                    
+                    <TextBlock Text="Личная информация" Style="{StaticResource SubtitleTextStyle}"/>
+                    
+                    <TextBlock Text="Email:" Style="{StaticResource LabelTextStyle}"/>
+                    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                            Style="{StaticResource ModernTextBoxStyle}"
+                            Margin="0,0,0,15"/>
+                    
+                    <TextBlock Text="Имя:" Style="{StaticResource LabelTextStyle}"/>
+                    <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
+                            Style="{StaticResource ModernTextBoxStyle}"
+                            Margin="0,0,0,15"/>
+                    
+                    <TextBlock Text="Фамилия:" Style="{StaticResource LabelTextStyle}"/>
+                    <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
+                            Style="{StaticResource ModernTextBoxStyle}"
+                            Margin="0,0,0,15"/>
+                    
+                    <TextBlock Text="Телефон:" Style="{StaticResource LabelTextStyle}"/>
+                    <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
+                            Style="{StaticResource ModernTextBoxStyle}"
+                            Margin="0,0,0,20"/>
+                    
+                    <Button Content="💾 Сохранить изменения" Command="{Binding SaveProfileCommand}" Margin="0,0,0,30"/>
+                    
+                    <TextBlock Text="{Binding ProfileErrorMessage}" 
+                              Style="{StaticResource ErrorTextStyle}"
+                              Visibility="{Binding ProfileErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"
+                              Margin="0,20,0,0"/>
+                    <TextBlock Text="{Binding ProfileSuccessMessage}" 
+                              Foreground="{StaticResource SuccessColor}" 
+                              Margin="0,10,0,0" 
+                              TextWrapping="Wrap" 
+                              FontWeight="Bold"
+                              FontSize="14"
+                              Visibility="{Binding ProfileSuccessMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+                    <TextBlock Text="{Binding SuccessMessage}" 
+                              Foreground="{StaticResource SuccessColor}" 
+                              Margin="0,10,0,0" 
+                              TextWrapping="Wrap" 
+                              FontWeight="Bold"
+                              FontSize="14"
+                              Visibility="{Binding SuccessMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        
+        <!-- Правая колонка - Бронирования -->
+        <Border Grid.Column="1" Style="{StaticResource ModernCardStyle}">
+            <StackPanel>
+                <TextBlock Text="Мои бронирования" Style="{StaticResource SubtitleTextStyle}"/>
+                
+                <TextBlock Text="У вас пока нет бронирований" 
+                          Foreground="{StaticResource TextSecondaryColor}"
+                          FontSize="16"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Margin="0,50,0,0"
+                          TextAlignment="Center"
+                          Visibility="{Binding HasBookings, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="500">
+                    <ListBox ItemsSource="{Binding Bookings}" 
+                            SelectedItem="{Binding SelectedBooking}" 
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Visibility="{Binding HasBookings, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{StaticResource CardBackgroundColor}"
+                                       BorderBrush="{StaticResource BorderColor}"
+                                       BorderThickness="1"
+                                       CornerRadius="12"
+                                       Padding="16"
+                                       Margin="0,0,0,12">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#000000" BlurRadius="4" ShadowDepth="2" Opacity="0.1"/>
+                                    </Border.Effect>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Event.Title}" 
+                                                  FontSize="18" 
+                                                  FontWeight="Bold"
+                                                  Foreground="{StaticResource TextPrimaryColor}"
+                                                  Margin="0,0,0,10"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <TextBlock Text="📅 " Foreground="{StaticResource TextSecondaryColor}"/>
+                                            <TextBlock Text="{Binding Event.Date, StringFormat='{}{0:dd.MM.yyyy}'}" 
+                                                      Foreground="{StaticResource TextSecondaryColor}"/>
+                                            <TextBlock Text="  ⏰ " Foreground="{StaticResource TextSecondaryColor}" Margin="10,0,0,0"/>
+                                            <TextBlock Text="{Binding Event.Time, StringFormat='{}{0:hh\\:mm}'}" 
+                                                      Foreground="{StaticResource TextSecondaryColor}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <TextBlock Text="🎫 Количество билетов: " 
+                                                      FontWeight="Bold"
+                                                      Foreground="{StaticResource TextPrimaryColor}"/>
+                                            <TextBlock Text="{Binding TicketCount}" 
+                                                      Foreground="{StaticResource TextSecondaryColor}"/>
+                                            <TextBlock Text="  💰 Сумма: " 
+                                                      FontWeight="Bold" 
+                                                      Margin="10,0,0,0"
+                                                      Foreground="{StaticResource TextPrimaryColor}"/>
+                                            <TextBlock Text="{Binding TotalAmount, StringFormat='{}{0:C}'}" 
+                                                      Foreground="{StaticResource PrimaryColor}"
+                                                      FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <TextBlock Text="Статус билетов: " 
+                                                      FontWeight="Bold"
+                                                      Foreground="{StaticResource TextPrimaryColor}"/>
+                                            <TextBlock FontWeight="Bold">
+                                                <TextBlock.Text>
+                                                    <Binding Converter="{StaticResource BookingTicketStatusConverter}"/>
+                                                </TextBlock.Text>
+                                                <TextBlock.Foreground>
+                                                    <Binding Converter="{StaticResource BookingTicketStatusToBrushConverter}"/>
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Button Content="❌ Отменить бронирование" 
+                                               Click="CancelBookingButton_Click"
+                                               Style="{StaticResource DangerButtonStyle}"
+                                               Margin="0,5,0,0" 
+                                               Padding="12,8"
+                                               HorizontalAlignment="Left">
+                                            <Button.IsEnabled>
+                                                <Binding Converter="{StaticResource BookingTicketStatusToEnabledConverter}"/>
+                                            </Button.IsEnabled>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+        </Grid>
+    </Grid>
+</UserControl>
+

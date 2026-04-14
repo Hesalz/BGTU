@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Photos\Dima.tmpn0e1dy.tmp.jpg" />
+    <Content Remove="Photos\tmp0iautp.tmp" />
+    <Content Remove="Photos\tmpainqlj.tmp" />
+    <Content Remove="Photos\tmpeihx0n.tmp" />
+    <Content Remove="Photos\tmpjtycl1.tmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Photos\Babbage.jpg" />
+    <Content Include="Photos\Berners-Lee.jpg" />
+    <Content Include="Photos\Chomsky.jpg" />
+    <Content Include="Photos\Codd.jpg" />
+    <Content Include="Photos\diamond.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Photos\Dijkstra.jpg" />
+    <Content Include="Photos\Einstein.jpg" />
+    <Content Include="Photos\Ershov.jpg" />
+    <Content Include="Photos\Huntington.jpg" />
+    <Content Include="Photos\Knuth.jpg" />
+    <Content Include="Photos\Linus.jpg" />
+    <Content Include="Photos\Lovelace.jpg" />
+    <Content Include="Photos\Neumann.jpg" />
+    <Content Include="Photos\Tanenbaum.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_Celebrity_MSSQL\DAL_Celebrity_MSSQL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Photos\Celeberities.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
