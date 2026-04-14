@@ -1,7 +1,9 @@
 ## 🚀 Быстрый старт
 
+```bash
 git clone https://github.com/Hesalz/BGTU.git  
 cd BGTU
+```
 
 ## 📍 Варианты
 
