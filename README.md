@@ -1,62 +1,34 @@
-# \# 📚 BGTU Labs
+\# 📚 BGTU Labs
 
-# 
 
-# \## 🚀 Быстрый старт
 
-# 
+\*\*Быстрый старт\*\*
 
-# git clone https://github.com/Hesalz/BGTU.git
+git clone https://github.com/Hesalz/BGTU.git
 
-# cd BGTU
+cd BGTU
 
-# 
 
-# \## 📂 Структура
 
-# 
+\*\*Варианты\*\*  
 
-# I сем - Вариант 3
+I сем: 3 | II сем: 3 | III сем: 3 | IV сем: 3 | V сем: 2 | VI сем: 3
 
-# II сем - Вариант 3
 
-# III сем - Вариант 3
 
-# IV сем - Вариант 3
+\*\*Запуск\*\*  
 
-# V сем - Вариант 2
+C#: `dotnet restore` | Node.js: `npm install`
 
-# VI сем - Вариант 3
 
-# 
 
-# \## 🛠️ Запуск
+\*\*Требования\*\*  
 
-# 
+.NET SDK • Visual Studio • Node.js
 
-# C#: dotnet restore
 
-# Node.js: npm install
 
-# 
+\*\*Ошибки\*\*  
 
-# \## 📦 Требования
-
-# 
-
-# .NET SDK
-
-# Visual Studio
-
-# Node.js
-
-# 
-
-# \## 🔧 Ошибки
-
-# 
-
-# dotnet restore
-
-# npm install
+`dotnet restore` • `npm install`
 
