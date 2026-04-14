@@ -1,9 +1,6 @@
-/*
-# 📚 BGTU Labs
-
 ## 🚀 Быстрый старт
 
-git clone https://github.com/Hesalz/BGTU.git
+git clone https://github.com/Hesalz/BGTU.git  
 cd BGTU
 
 ## 📍 Варианты
@@ -16,9 +13,3 @@ cd BGTU
 | IV сем | 3 |
 | V сем | 2 |
 | VI сем | 3 |
-
-## 🛠️ Запуск
-
-dotnet restore
-npm install
-*/
