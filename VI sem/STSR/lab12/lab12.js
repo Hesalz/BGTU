@@ -47,64 +47,33 @@ let server = http.createServer((req, res) => {
             res.end(JSON.stringify(students));
             return;
         }
-    
-        let page = parseInt(path.query.page) || 1; 
-        let limit = parseInt(path.query.limit) || 3; 
-    
-        if (page <= 0 || limit <= 0) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                error: 5,
-                message: 'Параметры page и limit должны быть положительными числами'
-            }));
-            return;
-        }
-    
-        let startIndex = (page - 1) * limit;
-        let endIndex = startIndex + limit;
-        let paginatedStudents = students.slice(startIndex, endIndex);
-    
-        if (paginatedStudents.length === 0 && students.length > 0) {
-            res.writeHead(404, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                error: 6,
-                message: `Страница ${page} за пределами доступного диапазона`
-            }));
-            return;
-        }
-    
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-            page,
-            limit,
-            total: students.length,
-            data: paginatedStudents
-        }));
+        res.end(JSON.stringify(students));
     }
     
     else if (method === 'GET' && /^\/\d+$/.test(path.pathname)) {
-    let id = parseInt(path.pathname.split('/')[1]);
-    let students = loadStudents();
-    if (students.error) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(students));
-        return;
+        let id = parseInt(path.pathname.split('/')[1]);
+        let students = loadStudents();
+        if (students.error) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(students));
+            return;
+        }
+
+        let student = students.find(s => s.id === id);
+        if (student) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(student));
+        } else {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({
+                error: 2,
+                message: `студент с id ${id} не найден`
+            }));
+        }
     }
 
-    let student = students.find(s => s.id === id);
-    if (student) {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(student));
-    } else {
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-            error: 2,
-            message: `студент с id ${id} не найден`
-        }));
-    }
-}
-
-     else if (method === 'POST' && path.pathname === '/') {
+    else if (method === 'POST' && path.pathname === '/') {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -185,9 +154,9 @@ let server = http.createServer((req, res) => {
             } else {
                 res.writeHead(404, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({
-                                            error: 2,
-                                            message: `студент с id ${updatedStudent.id} не найден`
-                                        }));
+                    error: 2,
+                    message: `студент с id ${updatedStudent.id} не найден`
+                }));
             }
         });
     } else if (method === 'DELETE' && /^\/\d+$/.test(path.pathname)) {
@@ -208,53 +177,99 @@ let server = http.createServer((req, res) => {
         } else {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({
-                                        error: 2,
-                                        message: `студент с id ${id} не найден`
-                                    }));
+                error: 2,
+                message: `студент с id ${id} не найден`
+            }));
         }
     } else if (method === 'POST' && path.pathname === '/backup') {
-    setTimeout(() => {
-        let backupFile = backupStudents();
-        res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'Backup created', backup_file: backupFile }));
-    }, 2000);
+        setTimeout(() => {
+            let backupFile = backupStudents();
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Backup created', backup_file: backupFile }));
+        }, 2000);
     } else if (method === 'DELETE' && /^\/backup\/\d{8}$/.test(path.pathname)) {
-    let dateStr = path.pathname.split('/')[2];
-    let year = parseInt(dateStr.slice(0, 4));
-    let day = parseInt(dateStr.slice(4, 6));
-    let month = parseInt(dateStr.slice(6, 8)) - 1;
-    let cutoffDate = new Date(year, month, day);
-
-    fs.readdir(BACKUP_DIR, (err, files) => {
-        if (err) {
-            res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 1, message: 'ошибка чтения директории backups' }));
+        let dateStr = path.pathname.split('/')[2];
+        
+        let year = parseInt(dateStr.slice(0, 4));
+        let day = parseInt(dateStr.slice(4, 6));
+        let month = parseInt(dateStr.slice(6, 8)) - 1;
+        
+        if (year < 2000 || year > 2100 || month < 0 || month > 11 || day < 1 || day > 31) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ 
+                error: 1, 
+                message: 'Некорректная дата. Формат: yyyyddmm (например: 20261504)' 
+            }));
             return;
         }
-        files.forEach(file => {
-            let filePath = path_e.join(BACKUP_DIR, file);
-            let timestamp = file.split('_')[0];
-            if (timestamp.length >= 8) {
-                let fYear  = parseInt(timestamp.slice(0, 4));
-                let fMonth = parseInt(timestamp.slice(4, 6)) - 1;
-                let fDay   = parseInt(timestamp.slice(6, 8));
-                let fileDate = new Date(fYear, fMonth, fDay);
-                if (fileDate < cutoffDate) {
-                    fs.unlinkSync(filePath);
-                }
+        
+        let cutoffDate = new Date(year, month, day);
+        
+        if (cutoffDate.getFullYear() !== year || 
+            cutoffDate.getMonth() !== month || 
+            cutoffDate.getDate() !== day) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ 
+                error: 2, 
+                message: 'Некорректная дата (дня не существует)' 
+            }));
+            return;
+        }
+
+        if (!fs.existsSync(BACKUP_DIR)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'нет бэкапов для удаления' }));
+            return;
+        }
+
+        fs.readdir(BACKUP_DIR, (err, files) => {
+            if (err) {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 3, message: 'ошибка чтения директории backups' }));
+                return;
             }
+            
+            let deletedCount = 0;
+            files.forEach(file => {
+                let filePath = path_e.join(BACKUP_DIR, file);
+                let timestamp = file.split('_')[0];
+                if (timestamp.length >= 8) {
+                    let fYear = parseInt(timestamp.slice(0, 4));
+                    let fMonth = parseInt(timestamp.slice(4, 6)) - 1;
+                    let fDay = parseInt(timestamp.slice(6, 8));
+                    let fileDate = new Date(fYear, fMonth, fDay);
+                    
+                    if (!isNaN(fileDate.getTime()) && fileDate < cutoffDate) {
+                        try {
+                            fs.unlinkSync(filePath);
+                            deletedCount++;
+                        } catch(e) {
+                            console.error('Ошибка удаления:', filePath, e);
+                        }
+                    }
+                }
+            });
+            
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ 
+                message: 'устаревшие бэкапы были удалены',
+                deleted_count: deletedCount
+            }));
         });
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'устаревшие бэкапы были удалены' }));
-    });
     } else if (method === 'GET' && path.pathname === '/backup') {
+        if (!fs.existsSync(BACKUP_DIR)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify([]));
+            return;
+        }
+        
         fs.readdir(BACKUP_DIR, (err, files) => {
             if (err) {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({    
-                                            error: 1,
-                                            message: 'ошибка чтения директории backups' 
-                                        }));
+                    error: 1,
+                    message: 'ошибка чтения директории backups' 
+                }));
             } else {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify(files));
@@ -263,8 +278,8 @@ let server = http.createServer((req, res) => {
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({    error: 4, 
-                                    message: 'Недопустимая точка запроса' 
-                                }));
+            message: 'Недопустимая точка запроса' 
+        }));
     }
 });
 
@@ -287,4 +302,5 @@ wss.on('connection', (ws) => {
 
 server.listen(3000, () => {
     console.log("http://localhost:3000");
+    console.log("ws://localhost:3000");
 });
