@@ -9,7 +9,7 @@ const BACKUP_DIR = 'backups';
 
 function loadStudents() {
     if (!fs.existsSync(STUDENT_LIST)) {
-        return { error: 1, message: 'ошибка чтения файла StudentList.json' };
+        return { error: 1, message: 'Ошибка чтения файла StudentList.json' };
     }
     let data = fs.readFileSync(STUDENT_LIST);
     return JSON.parse(data);
@@ -294,9 +294,9 @@ function notifyAll() {
 }
 
 wss.on('connection', (ws) => {
-    console.log('подключен новый клиент');
+    console.log('Подключен новый клиент');
     ws.on('close', () => {
-        console.log('клиент отключился');
+        console.log('Клиент отключился');
     });
 });
 
