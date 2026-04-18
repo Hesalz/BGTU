@@ -3,23 +3,38 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour
 {
     private Animator anim;
+    private bool isOpen = false;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-        anim.SetBool("OpenDoor", false);
+        if (anim != null)
+            anim.SetBool("OpenDoor", false);
     }
 
-    void Update()
+    public void OpenDoorFunction()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (anim != null && !isOpen)
         {
             anim.SetBool("OpenDoor", true);
+            isOpen = true;
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.F))
+    public void CloseDoorFunction()
+    {
+        if (anim != null && isOpen)
         {
             anim.SetBool("OpenDoor", false);
+            isOpen = false;
         }
+    }
+
+    public void ToggleDoor()
+    {
+        if (isOpen)
+            CloseDoorFunction();
+        else
+            OpenDoorFunction();
     }
 }
