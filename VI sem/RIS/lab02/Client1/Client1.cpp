@@ -266,8 +266,8 @@ int main(int argc, char* argv[]) {
         Sleep(delayBeforeStart);
     }
 
-    char ip[] = "26.180.211.124";
-    char resource[] = "Z:\\Lab_2.txt";
+    char ip[] = "26.83.199.121";
+    char resource[] = "Y:\\server.txt";
 
     //инициализация
     CA ca = InitCA(ip, resource);
@@ -284,7 +284,7 @@ int main(int argc, char* argv[]) {
             if (file != nullptr) {
                 for (int i = 0; i < 5; i++) {
                     string currentTime = GetCurrentDateTime();
-                    fprintf(file, "[Клиент %s] %s - запись %d/5\n",
+                    fprintf(file, "[Client %s] %s - note %d/5\n",
                         clientName.c_str(), currentTime.c_str(), i + 1);
                     fflush(file);
 

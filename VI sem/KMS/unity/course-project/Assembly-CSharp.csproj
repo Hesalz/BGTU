@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\RulesButton.cs" />
+    <Compile Include="Assets\scripts\VehicleController.cs" />
     <Compile Include="Assets\scripts\Podsvetka.cs" />
     <Compile Include="Assets\scripts\RotateWheel.cs" />
     <Compile Include="Assets\scripts\VehicleEnterController.cs" />

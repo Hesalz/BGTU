@@ -16,8 +16,8 @@ public class RightPanelButtons : MonoBehaviour
     public GameObject appareliObject;
 
     [Header("Позиции камеры для элементов")]
-    public Vector3 lebedkaPos = new Vector3(5f, 3f, 4f);
-    public Vector3 lebedkaRot = new Vector3(15f, -45f, 0f);
+    public Vector3 lebedkaPos = new Vector3(594.98f, 12.63f, 496.39f);
+    public Vector3 lebedkaRot = new Vector3(10.462f, 137.577f, -1.655f);
     public Vector3 shassiPos = new Vector3(0f, 1f, 3f);
     public Vector3 shassiRot = new Vector3(10f, 0f, 0f);
     public Vector3 migalkaPos = new Vector3(2f, 5f, 5f);

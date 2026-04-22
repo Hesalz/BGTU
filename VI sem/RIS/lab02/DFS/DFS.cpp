@@ -253,8 +253,8 @@ void CloseDFSFIle(HDFS hdfs) {
 void DemonstrateWriteRead() {
     cout << "ÄÅÌÎÍÑÒÐÀÖÈß ÇÀÏÈÑÈ 10 ÑÒÐÎÊ" << endl;
 
-    char fileName[] = "Z:\\Lababusik.txt";
-    char serverIP[] = "26.180.211.124";
+    char fileName[] = "Y:\\server.txt";
+    char serverIP[] = "26.83.199.121";
 
     HDFS hdfs = OpenDFSFIle(fileName, serverIP);                     //îòêð ôàéë ÷åðåç àïè
 
@@ -271,7 +271,7 @@ void DemonstrateWriteRead() {
         char timeStr[80];
         strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", timeinfo);
 
-        sprintf(buffer, "[DFS Çàïèñü %d] %s\n", i, timeStr);
+        sprintf(buffer, "[DFS Note %d] %s\n", i, timeStr);
         int written = WriteDFSFIle(hdfs, buffer, (int)strlen(buffer));
 
         if (written > 0) {
@@ -318,74 +318,13 @@ void DemonstrateWriteRead() {
     CloseDFSFIle(hdfs);
 }
 
-void DemonstrateMultipleProcesses() {
-    cout << "ÄÅÌÎÍÑÒÐÀÖÈß ÑÎÂÌÅÑÒÍÎÉ ÐÀÁÎÒÛ ÏÐÎÖÅÑÑÎÂ" << endl;
-
-    char fileName[] = "Z:\\shared.txt";
-    char serverIP[] = "26.162.145.221";
-
-    string processName = "Ïðîöåññ";
-    if (__argc > 2) {
-        processName = __argv[2];                               //èìÿ èç cmd
-    }
-    else if (__argc > 1 && string(__argv[1]) != "multi") {
-        processName = __argv[1];
-    }
-
-    cout << "[" << processName << "] Ïîïûòêà îòêðûòü ôàéë..." << endl;
-
-    HDFS hdfs = OpenDFSFIle(fileName, serverIP);
-
-    if (!hdfs) {
-        cout << "[" << processName << "] Íå óäàëîñü îòêðûòü ôàéë" << endl;
-        return;
-    }
-
-    cout << "[" << processName << "] Ôàéë îòêðûò. Íà÷èíàþ çàïèñü..." << endl;
-
-    for (int i = 1; i <= 5; i++) {
-        char buffer[256];
-        time_t now = time(NULL);
-        struct tm* timeinfo = localtime(&now);
-        char timeStr[80];
-        strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", timeinfo);
-
-        sprintf(buffer, "[%s] Çàïèñü %d îò %s\n", processName.c_str(), i, timeStr);
-        int written = WriteDFSFIle(hdfs, buffer, (int)strlen(buffer));
-
-        if (written > 0) {
-            cout << "[" << processName << "] Çàïèñàíà ñòðîêà " << i << endl;
-        }
-
-        Sleep(2000);
-    }
-
-    cout << "[" << processName << "] Çàïèñü çàâåðøåíà. Çàêðûâàþ ôàéë..." << endl;
-    CloseDFSFIle(hdfs);
-}
-
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "rus");
 
     cout << "ÄÅÌÎÍÑÒÐÀÖÈß API DFS" << endl;
 
-    if (argc > 1 && string(argv[1]) == "multi") {
-        DemonstrateMultipleProcesses();
-    }
-    else if (argc > 1 && string(argv[1]) == "write") {
-        DemonstrateWriteRead();
-    }
-    else if (argc > 1) {
-        DemonstrateMultipleProcesses();
-    }
-    else {
-        DemonstrateWriteRead();
+    DemonstrateWriteRead();
 
-        cout << "\n\nÄëÿ äåìîíñòðàöèè ñîâìåñòíîé ðàáîòû çàïóñòèòå:" << endl;
-        cout << "  DFS_Demo.exe multi A" << endl;
-        cout << "  DFS_Demo.exe multi B" << endl;
-        cout << "  DFS_Demo.exe multi C" << endl;
-    }
     cout << "ÄÅÌÎÍÑÒÐÀÖÈß ÇÀÂÅÐØÅÍÀ" << endl;
     system("pause");
     return 0;
