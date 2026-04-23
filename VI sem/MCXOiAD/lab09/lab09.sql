@@ -107,9 +107,8 @@ DECLARE
     v_order_date    t1.order_date%TYPE;
     v_services      k2_type;
     
-    v_has_101 BOOLEAN;
-    v_has_105 BOOLEAN;
-    v_found   BOOLEAN := FALSE;
+    v_intersection_found BOOLEAN;
+    v_common_services    VARCHAR2(200);
 BEGIN
     OPEN c_orders;
     LOOP
@@ -120,29 +119,36 @@ BEGIN
     END LOOP;
     CLOSE c_orders;
     
-    DBMS_OUTPUT.PUT_LINE('Анализ пересечения коллекций K2 (услуги) в заказах:');
+    DBMS_OUTPUT.PUT_LINE('=== ПЕРЕСЕЧЕНИЕ КОЛЛЕКЦИЙ K2 МЕЖДУ РАЗНЫМИ ЗАКАЗАМИ ===');
+    DBMS_OUTPUT.PUT_LINE('');
     
     FOR i IN 1..K1.COUNT LOOP
-        v_has_101 := FALSE;
-        v_has_105 := FALSE;
-        
-        IF K1(i).services IS NOT NULL THEN
-            FOR j IN 1..K1(i).services.COUNT LOOP
-                IF K1(i).services(j).service_id = 101 THEN v_has_101 := TRUE; END IF;
-                IF K1(i).services(j).service_id = 105 THEN v_has_105 := TRUE; END IF;
-            END LOOP;
-        END IF;
-        
-        IF v_has_101 AND v_has_105 THEN
-            DBMS_OUTPUT.PUT_LINE('  ЗАКАЗ ' || K1(i).order_id || ' (' || K1(i).customer_name || 
-                                 ') - услуги ПЕРЕСЕКАЮТСЯ (есть 101 и 105)');
-            v_found := TRUE;
-        END IF;
+        FOR j IN i+1..K1.COUNT LOOP
+            IF K1(i).services IS NOT NULL AND K1(j).services IS NOT NULL THEN
+                
+                v_intersection_found := FALSE;
+                v_common_services := '';
+                
+                FOR s IN 1..K1(i).services.COUNT LOOP
+                    FOR t IN 1..K1(j).services.COUNT LOOP
+                        IF K1(i).services(s).service_id = K1(j).services(t).service_id THEN
+                            v_intersection_found := TRUE;
+                            v_common_services := v_common_services || 
+                                                K1(i).services(s).service_id || ' ';
+                        END IF;
+                    END LOOP;
+                END LOOP;
+                
+                IF v_intersection_found THEN
+                    DBMS_OUTPUT.PUT_LINE('  ПЕРЕСЕЧЕНИЕ НАЙДЕНО:');
+                    DBMS_OUTPUT.PUT_LINE('  Заказ ' || K1(i).order_id || ' (' || K1(i).customer_name || ')');
+                    DBMS_OUTPUT.PUT_LINE('  Заказ ' || K1(j).order_id || ' (' || K1(j).customer_name || ')');
+                    DBMS_OUTPUT.PUT_LINE('  Общие услуги (service_id): ' || v_common_services);
+                    DBMS_OUTPUT.PUT_LINE('');
+                END IF;
+            END IF;
+        END LOOP;
     END LOOP;
-    
-    IF NOT v_found THEN
-        DBMS_OUTPUT.PUT_LINE('  Нет заказов с пересекающимися услугами 101 и 105');
-    END IF;
 END;
 /
 
@@ -164,7 +170,6 @@ DECLARE
     v_test_element t1_type := t1_type(99, 'Тестовый заказ', SYSDATE, k2_type());
     v_is_member BOOLEAN := FALSE;
 BEGIN
-    -- Загрузка K1
     OPEN c_orders;
     LOOP
         FETCH c_orders INTO v_order_id, v_customer_name, v_order_date, v_services;
