@@ -1,68 +1,145 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
-    [Header("ƒ‚ËÊÂÌËÂ")]
-    public float moveSpeed = 10f;
-    public float turnSpeed = 50f;
-    public float smoothTime = 0.1f;
+    [Header("–î–≤–∏–∂–µ–Ω–∏–µ")]
+    public float maxSpeed = 15f;
+    public float acceleration = 8f;
+    public float brakingForce = 10f;
+    public float reverseSpeed = 7f;
+    public float turnSensitivity = 1.2f;
 
-    [Header(" ÓÎ∏Ò‡")]
+    [Header("–ö–æ–ª—ë—Å–∞")]
     public Transform frontLeftWheel;
     public Transform frontRightWheel;
-    public float maxWheelAngle = 35f;
+    public float maxSteeringAngle = 35f;
 
-    [Header("¬‡˘ÂÌËÂ ÍÓÎ∏Ò")]
-    public bool rotateWheels = true;
-    public float wheelRotationSpeed = 100f;
+    [Header("–í—Ä–∞—â–µ–Ω–∏–µ –∫–æ–ª—ë—Å")]
+    public float wheelRotationSpeed = 500f;
 
-    private float currentSpeed = 0f;
-    private float currentTurn = 0f;
-    private float velocityRef = 0f;
-    private float turnVelocityRef = 0f;
-    private float wheelRotation = 0f;
     private Rigidbody rb;
+    private bool isPlayerDriving = false;
+    private float currentSpeed = 0f;
+    private float targetSpeed = 0f;
+    private float currentTurnInput = 0f;
+    private float currentSteeringAngle = 0f;
+    private float wheelRotation = 0f;
+
+    private Quaternion originalLeftWheelRotation;
+    private Quaternion originalRightWheelRotation;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.centerOfMass = new Vector3(0, -0.5f, 0);
+            rb.centerOfMass = new Vector3(0, -0.8f, 0);
+        }
+
+        if (frontLeftWheel != null)
+            originalLeftWheelRotation = frontLeftWheel.localRotation;
+        if (frontRightWheel != null)
+            originalRightWheelRotation = frontRightWheel.localRotation;
+
+        DisableWheelAnimators();
+
+        SetDrivingState(false);
+    }
+
+    void DisableWheelAnimators()
+    {
+        if (frontLeftWheel != null)
+        {
+            Animator anim = frontLeftWheel.GetComponent<Animator>();
+            if (anim != null) anim.enabled = false;
+        }
+
+        if (frontRightWheel != null)
+        {
+            Animator anim = frontRightWheel.GetComponent<Animator>();
+            if (anim != null) anim.enabled = false;
         }
     }
 
     void Update()
     {
+        if (!isPlayerDriving) return;
+
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, vertical * moveSpeed, ref velocityRef, smoothTime);
-        currentTurn = Mathf.SmoothDamp(currentTurn, horizontal * turnSpeed, ref turnVelocityRef, smoothTime);
+        if (Mathf.Abs(vertical) < 0.1f)
+        {
+            targetSpeed = 0f;
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, brakingForce * Time.deltaTime);
+        }
+        else
+        {
+            targetSpeed = vertical > 0 ? vertical * maxSpeed : vertical * reverseSpeed;
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, acceleration * Time.deltaTime);
+        }
 
-        Vector3 move = transform.forward * currentSpeed;
-        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        transform.position += transform.forward * currentSpeed * Time.deltaTime;
 
-        transform.Rotate(Vector3.up, currentTurn * Time.deltaTime);
+        if (Mathf.Abs(currentSpeed) > 0.1f)
+        {
+            float speedFactor = Mathf.Clamp01(Mathf.Abs(currentSpeed) / maxSpeed);
+            float turnMultiplier = Mathf.Lerp(0.7f, 1f, 1 - speedFactor);
+            float turnAngle = horizontal * turnSensitivity * turnMultiplier * Mathf.Abs(currentSpeed) * Time.deltaTime;
+            if (currentSpeed < 0) turnAngle = -turnAngle;
+            transform.Rotate(Vector3.up, turnAngle);
+        }
 
-        float wheelAngle = horizontal * maxWheelAngle;
+        currentTurnInput = Mathf.Lerp(currentTurnInput, horizontal, 10f * Time.deltaTime);
+        currentSteeringAngle = currentTurnInput * maxSteeringAngle;
+
+        if (Mathf.Abs(currentSpeed) > 0.1f)
+        {
+            wheelRotation += currentSpeed * wheelRotationSpeed * Time.deltaTime;
+            ApplyWheelTransform(wheelRotation, currentSteeringAngle);
+        }
+        else
+        {
+            ApplyWheelTransform(0, currentSteeringAngle);
+        }
+    }
+
+    void ApplyWheelTransform(float rotationAngle, float steeringAngle)
+    {
+        Quaternion steeringRot = Quaternion.Euler(0, 0, steeringAngle);
+        Quaternion wheelRot = Quaternion.Euler(rotationAngle, 0, 0);
 
         if (frontLeftWheel != null)
-            frontLeftWheel.localRotation = Quaternion.Euler(0, wheelAngle, 0);
+        {
+            frontLeftWheel.localRotation = originalLeftWheelRotation * steeringRot * wheelRot;
+        }
 
         if (frontRightWheel != null)
-            frontRightWheel.localRotation = Quaternion.Euler(0, wheelAngle, 0);
-
-        if (rotateWheels && currentSpeed != 0)
         {
-            float rotationDelta = currentSpeed * wheelRotationSpeed * Time.deltaTime;
-            wheelRotation += rotationDelta;
+            frontRightWheel.localRotation = originalRightWheelRotation * steeringRot * wheelRot;
+        }
+    }
+
+    public void SetDrivingState(bool isDriving)
+    {
+        isPlayerDriving = isDriving;
+
+        if (!isDriving)
+        {
+            currentSpeed = 0f;
+            wheelRotation = 0f;
+            currentSteeringAngle = 0f;
 
             if (frontLeftWheel != null)
-                frontLeftWheel.Rotate(rotationDelta, 0, 0, Space.Self);
-
+                frontLeftWheel.localRotation = originalLeftWheelRotation;
             if (frontRightWheel != null)
-                frontRightWheel.Rotate(rotationDelta, 0, 0, Space.Self);
+                frontRightWheel.localRotation = originalRightWheelRotation;
+        }
+
+        if (rb != null)
+        {
+            rb.isKinematic = !isDriving;
+            if (!isDriving) rb.linearVelocity = Vector3.zero;
         }
     }
 }

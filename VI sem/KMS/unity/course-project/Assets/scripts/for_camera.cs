@@ -17,9 +17,13 @@ public class for_camera : MonoBehaviour
     [SerializeField] private float moveLimitX = 20f;
     [SerializeField] private float moveLimitZ = 20f;
 
+    [Header("Режимы камеры")]
+    [SerializeField] private Vector3 thirdPersonOffset = new Vector3(0, 2, -5);
+    [SerializeField] private Vector3 firstPersonOffset = new Vector3(-1.3f, 4f, 2f);
+
     private float horizontalAngle = 0f;
     private float verticalAngle = 20f;
-    private float currentZoom = 100f;
+    private float currentZoom = 50f;
 
     private Vector3 cameraOffset = Vector3.zero;
 
@@ -43,12 +47,23 @@ public class for_camera : MonoBehaviour
     private bool isManualPosition = false;
 
     private bool isVehicleMode = false;
+    private int currentCameraMode = 2;
+
+    private float firstPersonHorizontal = 0f;
+    private float firstPersonVertical = 0f;
+    private float thirdPersonHorizontal = 0f;
+    private float thirdPersonVertical = 20f;
+    private float thirdPersonZoom = 50f;
 
     private float originalRotationSpeed;
     private float originalZoomSpeed;
     private float originalMoveSpeed;
     private float originalNearLimit;
     private float originalFarLimit;
+
+    private Transform originalCameraParent;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
 
     private void Awake()
     {
@@ -57,6 +72,10 @@ public class for_camera : MonoBehaviour
         originalMoveSpeed = moveSpeed;
         originalNearLimit = nearLimit;
         originalFarLimit = farLimit;
+
+        originalCameraParent = transform.parent;
+        originalCameraPosition = transform.localPosition;
+        originalCameraRotation = transform.localRotation;
 
         Vector3 startRotation = transform.eulerAngles;
         horizontalAngle = startRotation.y;
@@ -74,11 +93,26 @@ public class for_camera : MonoBehaviour
             return;
         }
 
-        if (isFreeControlEnabled && !isUIMode && isVehicleMode)
+        if (isVehicleMode && !isUIMode)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SetCameraMode(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SetCameraMode(2);
+            }
+        }
+
+        if (isVehicleMode && !isUIMode && isFreeControlEnabled)
         {
             HandleCameraRotation();
-            HandleZoom();
-            HandleCameraMovement();
+
+            if (currentCameraMode == 2)
+            {
+                HandleZoom();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -100,10 +134,55 @@ public class for_camera : MonoBehaviour
         if (isAutoMoving) return;
         if (isManualPosition) return;
 
-        if (!isUIMode && isFreeControlEnabled && isVehicleMode)
+        if (isVehicleMode && !isUIMode)
         {
             ApplyCameraTransform();
         }
+    }
+
+    public void SetCameraMode(int mode)
+    {
+        if (mode == currentCameraMode) return;
+
+        if (currentCameraMode == 1)
+        {
+            firstPersonHorizontal = horizontalAngle;
+            firstPersonVertical = verticalAngle;
+        }
+        else if (currentCameraMode == 2)
+        {
+            thirdPersonHorizontal = horizontalAngle;
+            thirdPersonVertical = verticalAngle;
+            thirdPersonZoom = currentZoom;
+        }
+
+        currentCameraMode = mode;
+
+        if (currentCameraMode == 1)
+        {
+            horizontalAngle = firstPersonHorizontal;
+            verticalAngle = firstPersonVertical;
+            currentZoom = nearLimit + 10f;
+
+            if (followTarget != null)
+            {
+                transform.SetParent(followTarget);
+                transform.localPosition = firstPersonOffset;
+                transform.localRotation = Quaternion.Euler(verticalAngle, horizontalAngle, 0f);
+            }
+        }
+        else
+        {
+            horizontalAngle = thirdPersonHorizontal;
+            verticalAngle = thirdPersonVertical;
+            currentZoom = thirdPersonZoom;
+
+            transform.SetParent(originalCameraParent);
+            transform.position = savedPosition;
+            transform.rotation = savedRotation;
+            cameraOffset = Vector3.zero;
+        }
+
     }
 
     public void SetUIMode(bool uiMode)
@@ -214,11 +293,21 @@ public class for_camera : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        if (Input.GetMouseButton(1))
-        {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+        if (!Input.GetMouseButton(1)) return;
 
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        if (currentCameraMode == 1)
+        {
+            horizontalAngle += mouseX * rotationSpeed;
+            verticalAngle -= mouseY * rotationSpeed;
+            verticalAngle = Mathf.Clamp(verticalAngle, -80f, 80f);
+
+            transform.localRotation = Quaternion.Euler(verticalAngle, horizontalAngle, 0f);
+        }
+        else
+        {
             horizontalAngle += mouseX * rotationSpeed;
             verticalAngle -= mouseY * rotationSpeed;
             verticalAngle = Mathf.Clamp(verticalAngle, downMin, upMax);
@@ -232,30 +321,18 @@ public class for_camera : MonoBehaviour
         currentZoom = Mathf.Clamp(currentZoom, nearLimit, farLimit);
     }
 
-    private void HandleCameraMovement()
-    {
-        float horizontalMove = Input.GetAxis("Horizontal");
-        float verticalMove = Input.GetAxis("Vertical");
-
-        Vector3 moveDirection = new Vector3(horizontalMove, 0f, verticalMove);
-        Vector3 localMove = transform.right * moveDirection.x + transform.forward * moveDirection.z;
-        localMove.y = 0f;
-
-        cameraOffset += localMove * moveSpeed * Time.deltaTime;
-        cameraOffset.x = Mathf.Clamp(cameraOffset.x, -moveLimitX, moveLimitX);
-        cameraOffset.z = Mathf.Clamp(cameraOffset.z, -moveLimitZ, moveLimitZ);
-    }
-
     private void ApplyCameraTransform()
     {
         if (followTarget == null) return;
 
+        if (currentCameraMode == 1) return;
+
         Quaternion cameraRotation = Quaternion.Euler(verticalAngle, horizontalAngle, 0f);
         Vector3 offset = cameraRotation * new Vector3(0f, 0f, -currentZoom);
-        Vector3 targetPosition = followTarget.position + offset + cameraOffset;
+        Vector3 targetPosition = followTarget.position + offset + cameraOffset + thirdPersonOffset;
 
         transform.position = targetPosition;
-        transform.LookAt(followTarget);
+        transform.LookAt(followTarget.position + Vector3.up * 1.5f);
     }
 
     public void SetVehicleMode(bool isVehicle)
@@ -269,23 +346,32 @@ public class for_camera : MonoBehaviour
             moveSpeed = originalMoveSpeed;
             nearLimit = originalNearLimit;
             farLimit = originalFarLimit;
-
             isFreeControlEnabled = true;
-            isManualPosition = false;
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            SetCameraMode(2);
+            cameraOffset = Vector3.zero;
 
             horizontalAngle = 0f;
             verticalAngle = 20f;
-            cameraOffset = Vector3.zero;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
+            transform.SetParent(originalCameraParent);
+            transform.localPosition = originalCameraPosition;
+            transform.localRotation = originalCameraRotation;
+
             rotationSpeed = 0f;
             moveSpeed = 0f;
             zoomSpeed = 0f;
             isFreeControlEnabled = false;
         }
+    }
+
+    public int GetCurrentCameraMode()
+    {
+        return currentCameraMode;
     }
 }

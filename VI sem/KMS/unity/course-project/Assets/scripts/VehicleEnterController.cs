@@ -17,9 +17,11 @@ public class VehicleEntryController : MonoBehaviour
     public for_camera vehicleCameraScript;
     public GameObject practiceButton;
     public OpenDoor doorScript;
+    public VehicleController vehicleController;
 
     private bool isInVehicle = false;
     private bool isPracticeMode = false;
+    private bool isDoorOpen = false;
     private Vector3 originalPlayerCameraPosition;
     private Quaternion originalPlayerCameraRotation;
     private Transform originalPlayerCameraParent;
@@ -65,24 +67,50 @@ public class VehicleEntryController : MonoBehaviour
                 if (doorScript != null)
                 {
                     doorScript.ToggleDoor();
+                    isDoorOpen = !isDoorOpen;
                 }
             }
             else if (IsLookingAtEnterTrigger())
             {
-                EnterVehicle();
+                if (isDoorOpen)
+                {
+                    EnterVehicle();
+                }
+                else
+                {
+                }
             }
         }
         else if (isInVehicle && Input.GetKeyDown(KeyCode.E))
         {
-            ExitVehicle();
+            if (IsLookingAtDoor())
+            {
+                if (doorScript != null)
+                {
+                    doorScript.ToggleDoor();
+                    isDoorOpen = !isDoorOpen;
+                }
+            }
+            else
+            {
+                if (isDoorOpen)
+                {
+                    ExitVehicle();
+                }
+                else
+                {
+                }
+            }
         }
     }
 
     bool IsLookingAtDoor()
     {
-        if (vehicleDoor == null || playerCamera == null) return false;
+        Camera currentCamera = isInVehicle ? vehicleCamera : playerCamera;
 
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        if (vehicleDoor == null || currentCamera == null) return false;
+
+        Ray ray = new Ray(currentCamera.transform.position, currentCamera.transform.forward);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, interactionDistance))
@@ -140,13 +168,24 @@ public class VehicleEntryController : MonoBehaviour
             vehicleCameraScript.SetFollowTarget(vehicleCameraTarget);
         }
 
+        if (vehicleController != null)
+        {
+            vehicleController.SetDrivingState(true);
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
     }
 
     void ExitVehicle()
     {
         isInVehicle = false;
+
+        if (vehicleController != null)
+        {
+            vehicleController.SetDrivingState(false);
+        }
 
         if (vehicleCamera != null)
             vehicleCamera.gameObject.SetActive(false);
