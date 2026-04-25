@@ -123,11 +123,13 @@ TutorialInfo/
 Temp/
 
 # course-project-KMS
-VI sem/KMS/unity/course-project/
-!VI sem/KMS/unity/course-project/Assets/
-VI sem/KMS/unity/course-project/Assets/*
+VI sem/KMS/unity/course-project/**/*.*
+VI sem/KMS/unity/course-project/**/.*
+!VI sem/KMS/unity/course-project/Assets/scripts/
 !VI sem/KMS/unity/course-project/Assets/scripts/*.cs
 !VI sem/KMS/unity/course-project/Assets/animations/
+!VI sem/KMS/unity/course-project/Assets/animations/*.anim
+!VI sem/KMS/unity/course-project/Assets/animations/*.controller
 
 # IDEs
 .vscode/
