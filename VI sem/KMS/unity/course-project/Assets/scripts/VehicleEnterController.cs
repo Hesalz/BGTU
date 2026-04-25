@@ -110,16 +110,22 @@ public class VehicleEntryController : MonoBehaviour
 
         if (vehicleDoor == null || currentCamera == null) return false;
 
-        Ray ray = new Ray(currentCamera.transform.position, currentCamera.transform.forward);
-        RaycastHit hit;
+        // Проверяем расстояние и направление взгляда
+        float distanceToDoor = Vector3.Distance(currentCamera.transform.position, vehicleDoor.transform.position);
 
-        if (Physics.Raycast(ray, out hit, interactionDistance))
+        if (distanceToDoor > interactionDistance) return false;
+
+        // Проверяем, смотрит ли игрок в сторону двери
+        Vector3 directionToDoor = (vehicleDoor.transform.position - currentCamera.transform.position).normalized;
+        float dot = Vector3.Dot(currentCamera.transform.forward, directionToDoor);
+
+        // Если угол между направлением взгляда и дверью меньше 30 градусов
+        if (dot > 0.866f) // cos(30°)
         {
-            if (hit.transform.gameObject == vehicleDoor || hit.transform.IsChildOf(vehicleDoor.transform))
-            {
-                return true;
-            }
+            Debug.Log($"Смотрю на дверь! Расстояние: {distanceToDoor:F2}");
+            return true;
         }
+
         return false;
     }
 
@@ -127,16 +133,22 @@ public class VehicleEntryController : MonoBehaviour
     {
         if (enterTrigger == null || playerCamera == null) return false;
 
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        RaycastHit hit;
+        // Проверяем расстояние до триггера входа
+        float distanceToTrigger = Vector3.Distance(playerCamera.transform.position, enterTrigger.transform.position);
 
-        if (Physics.Raycast(ray, out hit, interactionDistance))
+        if (distanceToTrigger > interactionDistance) return false;
+
+        // Проверяем, смотрит ли игрок в сторону триггера
+        Vector3 directionToTrigger = (enterTrigger.transform.position - playerCamera.transform.position).normalized;
+        float dot = Vector3.Dot(playerCamera.transform.forward, directionToTrigger);
+
+        // Если угол между направлением взгляда и триггером меньше 30 градусов
+        if (dot > 0.866f) // cos(30°)
         {
-            if (hit.transform.gameObject == enterTrigger || hit.transform.IsChildOf(enterTrigger.transform))
-            {
-                return true;
-            }
+            Debug.Log($"Смотрю на триггер входа! Расстояние: {distanceToTrigger:F2}");
+            return true;
         }
+
         return false;
     }
 

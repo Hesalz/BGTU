@@ -7,34 +7,28 @@ public class VehicleController : MonoBehaviour
     public float acceleration = 10f;
     public float brakingForce = 10f;
     public float reverseSpeed = 10f;
-    public float turnSensitivity = 1.2f;
+    public float turnSensitivity = 1.4f;
 
     [Header("Колёса")]
     public Transform frontLeftWheel;
     public Transform frontRightWheel;
     public float maxSteeringAngle = 35f;
 
-    [Header("Руль (опционально)")]
+    [Header("Руль")]
     public Transform steeringWheel;
     public float maxSteeringWheelAngle = 180f;
     public bool invertSteeringWheel = false;
     public SteeringWheelAxis steeringAxis = SteeringWheelAxis.Z;
-
     public enum SteeringWheelAxis { X, Y, Z }
 
     [Header("Вращение колёс")]
     public float wheelRotationSpeed = 500f;
 
     [Header("Мигалка")]
-    public Flasher vehicleFlasher; 
+    public Flasher vehicleFlasher;
     public KeyCode flashKey = KeyCode.F;
 
-    [Header("Настройки CharacterController")]
-    public float controllerHeight = 0.5f;
-    public float controllerRadius = 3.5f;
-    public Vector3 controllerCenter = new Vector3(0, 0.5f, 0);
-
-    private CharacterController controller;
+    private Rigidbody rb;
     private bool isPlayerDriving = false;
     private float currentSpeed = 0f;
     private float targetSpeed = 0f;
@@ -46,13 +40,26 @@ public class VehicleController : MonoBehaviour
     private Quaternion originalRightWheelRotation;
     private Quaternion originalSteeringWheelRotation;
 
-    private float fixedGroundHeight = 0f;
-    private bool hasFixedHeight = false;
-
     void Start()
     {
-        SetupCharacterController();
-        FindGroundHeight();
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
+        }
+
+        rb.mass = 1000f;       
+        rb.linearDamping = 0.5f;         
+        rb.angularDamping = 0.5f;  
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        BoxCollider boxCol = GetComponent<BoxCollider>();
+        if (boxCol == null)
+        {
+            boxCol = gameObject.AddComponent<BoxCollider>();
+            boxCol.size = new Vector3(3f, 1.2f, 5f);
+            boxCol.center = new Vector3(0, 0.6f, 0);
+        }
 
         if (frontLeftWheel != null)
             originalLeftWheelRotation = frontLeftWheel.localRotation;
@@ -63,54 +70,6 @@ public class VehicleController : MonoBehaviour
 
         DisableWheelAnimators();
         SetDrivingState(false);
-    }
-
-    void SetupCharacterController()
-    {
-        controller = GetComponent<CharacterController>();
-        if (controller == null)
-        {
-            controller = gameObject.AddComponent<CharacterController>();
-        }
-
-        controller.height = controllerHeight;
-        controller.radius = controllerRadius;
-        controller.center = controllerCenter;
-        controller.skinWidth = 0.01f;
-        controller.minMoveDistance = 0.001f;
-        controller.slopeLimit = 45f;
-        controller.stepOffset = 0.3f;
-        controller.detectCollisions = true;
-    }
-
-    void FindGroundHeight()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out hit, 10f))
-        {
-            fixedGroundHeight = hit.point.y + (controllerHeight / 2) - 0.01f;
-            hasFixedHeight = true;
-
-            Vector3 newPos = transform.position;
-            newPos.y = fixedGroundHeight;
-            transform.position = newPos;
-        }
-        else
-        {
-            fixedGroundHeight = transform.position.y;
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (!isPlayerDriving) return;
-
-        if (hasFixedHeight)
-        {
-            Vector3 pos = transform.position;
-            pos.y = fixedGroundHeight;
-            transform.position = pos;
-        }
     }
 
     void Update()
@@ -132,17 +91,7 @@ public class VehicleController : MonoBehaviour
         }
 
         Vector3 moveDirection = transform.forward * currentSpeed;
-
-        moveDirection.y = 0;
-
-        controller.Move(moveDirection * Time.deltaTime);
-
-        if (hasFixedHeight && Mathf.Abs(transform.position.y - fixedGroundHeight) > 0.05f)
-        {
-            Vector3 pos = transform.position;
-            pos.y = fixedGroundHeight;
-            transform.position = pos;
-        }
+        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
 
         if (Mathf.Abs(currentSpeed) > 0.1f)
         {
@@ -168,12 +117,9 @@ public class VehicleController : MonoBehaviour
 
         ApplySteeringWheelTransform(currentTurnInput);
 
-        if (Input.GetKeyDown(flashKey))
+        if (Input.GetKeyDown(flashKey) && vehicleFlasher != null)
         {
-            if (vehicleFlasher != null)
-            {
-                vehicleFlasher.ToggleFlasher();
-            }
+            vehicleFlasher.ToggleFlasher();
         }
     }
 
@@ -230,6 +176,7 @@ public class VehicleController : MonoBehaviour
             targetSpeed = 0f;
             wheelRotation = 0f;
             currentSteeringAngle = 0f;
+            rb.linearVelocity = Vector3.zero;
 
             if (frontLeftWheel != null)
                 frontLeftWheel.localRotation = originalLeftWheelRotation;
@@ -240,27 +187,7 @@ public class VehicleController : MonoBehaviour
         }
         else
         {
-            FindGroundHeight();
-        }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (controller != null)
-        {
-            Gizmos.color = Color.green;
-            Vector3 center = transform.position + controller.center;
-            Gizmos.DrawWireSphere(center, controller.radius);
-
-            Vector3 top = center + Vector3.up * (controller.height / 2);
-            Vector3 bottom = center - Vector3.up * (controller.height / 2);
-            Gizmos.DrawLine(top, bottom);
-        }
-
-        if (hasFixedHeight)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(new Vector3(transform.position.x, fixedGroundHeight, transform.position.z), 0.2f);
+            rb.linearVelocity = Vector3.zero;
         }
     }
 }

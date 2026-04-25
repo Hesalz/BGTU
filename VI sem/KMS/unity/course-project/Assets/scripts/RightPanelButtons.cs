@@ -16,16 +16,16 @@ public class RightPanelButtons : MonoBehaviour
     public GameObject appareliObject;
 
     [Header("Позиции камеры для элементов")]
-    public Vector3 lebedkaPos = new Vector3(594.98f, 12.63f, 496.39f);
-    public Vector3 lebedkaRot = new Vector3(10.462f, 137.577f, -1.655f);
-    public Vector3 shassiPos = new Vector3(0f, 1f, 3f);
-    public Vector3 shassiRot = new Vector3(10f, 0f, 0f);
-    public Vector3 migalkaPos = new Vector3(2f, 5f, 5f);
-    public Vector3 migalkaRot = new Vector3(25f, -30f, 0f);
-    public Vector3 platformaPos = new Vector3(0f, 2f, 6f);
-    public Vector3 platformaRot = new Vector3(20f, 0f, 0f);
-    public Vector3 appareliPos = new Vector3(3f, 2f, 7f);
-    public Vector3 appareliRot = new Vector3(15f, -60f, 0f);
+    public Vector3 lebedkaPos = new Vector3(590.9f, 11.8f, 486.9f);
+    public Vector3 lebedkaRot = new Vector3(34.554f, 92.408f, 1.306f);
+    public Vector3 shassiPos = new Vector3(585.3f, 7.7f, 498.1f);
+    public Vector3 shassiRot = new Vector3(11.404f, -180f, 1.306f);
+    public Vector3 migalkaPos = new Vector3(592.9f, 13.8f, 488.8f);
+    public Vector3 migalkaRot = new Vector3(34.554f, 125.91f, 1.306f);
+    public Vector3 platformaPos = new Vector3(572.4f, 14.6f, 486.9f);
+    public Vector3 platformaRot = new Vector3(33.664f, 90f, 1.306f);
+    public Vector3 appareliPos = new Vector3(574.35f, 6.07f, 485.36f);
+    public Vector3 appareliRot = new Vector3(-35.418f, 71.781f, 3.026f);
 
     [Header("Тексты для информации")]
     public string lebedkaInfo = "Лебёдка - гидравлическое тяговое устройство с тросом и крюком для подтягивания автомобиля на платформу эвакуатора.";

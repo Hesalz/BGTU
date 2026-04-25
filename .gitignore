@@ -57,6 +57,8 @@ project.uiproj
 *.ndf
 *.ldf
 *.mdf
+*.sqlproj
+*.dbmdl
 
 # Token files
 token.json
@@ -120,6 +122,10 @@ Settings/
 TutorialInfo/
 Temp/
 
+# course-project-KMS
+VI sem/KMS/unity/assets/
+VI sem/KMS/unity/course-project/
+
 # IDEs
 .vscode/
 .idea/
@@ -129,4 +135,4 @@ Temp/
 *.csproj.DotSettings
 
 # BFG Repo-Cleaner
-bfg-*.jar
+bfg-*.jar"# Database files" 
