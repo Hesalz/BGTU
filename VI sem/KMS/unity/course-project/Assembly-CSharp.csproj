@@ -68,7 +68,9 @@
     <Compile Include="Assets\scripts\VehicleEnterController.cs" />
     <Compile Include="Assets\scripts\test.cs" />
     <Compile Include="Assets\ModularFirstPersonController\FirstPersonController\FirstPersonController.cs" />
+    <Compile Include="Assets\scripts\LeverController.cs" />
     <Compile Include="Assets\scripts\RightPanelButtons.cs" />
+    <Compile Include="Assets\scripts\Flasher.cs" />
     <Compile Include="Assets\scripts\for_camera.cs" />
     <Compile Include="Assets\scripts\OpenDoor.cs" />
   </ItemGroup>
