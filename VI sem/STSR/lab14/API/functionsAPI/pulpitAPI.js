@@ -13,16 +13,27 @@ function addPulpit(request, response, body) {
 }
 
 function updatePulpit(request, response, body) {
-    Pulpit.update({
+    const updateData = {
         pulpit_name: body.pulpit_name
-    },
+    };
+    
+    if (body.faculty !== undefined) {
+        updateData.faculty = body.faculty;
+    }
+    
+    Pulpit.update(updateData,
         { where: { pulpit: body.pulpit } })
         .then(result => {
-            if (result == 0) {
+            if (result[0] == 0) {
                 throw new Error('Pulpit not exists');
             }
             else {
-                response.end(JSON.stringify(body))
+                const updatedData = {
+                    pulpit: body.pulpit,
+                    pulpit_name: body.pulpit_name,
+                    faculty: body.faculty || null
+                };
+                response.end(JSON.stringify(updatedData));
             }
         }).catch(error => errorHandler(response, 500, error.message));
 }

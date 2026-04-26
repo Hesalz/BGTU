@@ -1,0 +1,94 @@
+1. Все факультеты
+{
+  "query": "{ getFaculties { FACULTY FACULTY_NAME } }"
+}
+
+2. Конкретный факультет (например, ИТ)
+{
+  "query": "{ getFaculties(FACULTY: \"ИТ\") { FACULTY FACULTY_NAME } }"
+}
+
+3. Все кафедры
+{
+  "query": "{ getPulpits { PULPIT PULPIT_NAME FACULTY } }"
+}
+
+4. Конкретная кафедра
+{
+  "query": "{ getPulpits(PULPIT: \"ИСИТ\") { PULPIT PULPIT_NAME FACULTY } }"
+}
+
+5. Все преподаватели
+{
+  "query": "{ getTeachers { TEACHER TEACHER_NAME PULPIT } }"
+}
+
+6. Конкретный преподаватель
+{
+  "query": "{ getTeachers(TEACHER: \"СМЛВ\") { TEACHER TEACHER_NAME PULPIT } }"
+}
+
+7. Все предметы
+{
+  "query": "{ getSubjects { SUBJECT SUBJECT_NAME PULPIT } }"
+}
+
+8. Конкретный предмет
+{
+  "query": "{ getSubjects(SUBJECT: \"БД\") { SUBJECT SUBJECT_NAME PULPIT } }"
+}
+
+9. Преподаватели по факультету (ИТ)
+{
+  "query": "{ getTeachersByFaculty(FACULTY: \"ИТ\") { FACULTY TEACHERS { TEACHER TEACHER_NAME PULPIT } } }"
+}
+
+10. Кафедры + предметы по факультету (ИТ)
+{
+  "query": "{ getSubjectsByFaculties(FACULTY: \"ИТ\") { PULPIT PULPIT_NAME FACULTY SUBJECTS { SUBJECT SUBJECT_NAME } } }"
+}
+
+11. Добавить новый факультет
+{
+  "query": "mutation { setFaculty(FACULTY: \"НОВЫЙ\", FACULTY_NAME: \"Новый тестовый факультет\") { FACULTY FACULTY_NAME } }"
+}
+
+12. Обновить факультет
+{
+  "query": "mutation { setFaculty(FACULTY: \"НОВЫЙ\", FACULTY_NAME: \"Обновлённое название\") { FACULTY FACULTY_NAME } }"
+}
+
+13. Добавить кафедру
+{
+  "query": "mutation { setPulpit(PULPIT: \"ТК\", PULPIT_NAME: \"Тестовая кафедра\", FACULTY: \"НОВЫЙ\") { PULPIT PULPIT_NAME FACULTY } }"
+}
+
+14. Добавить преподавателя
+{
+  "query": "mutation { setTeacher(TEACHER: \"ИВАН\", TEACHER_NAME: \"Иванов Иван Иванович\", PULPIT: \"ИСИТ\") { TEACHER TEACHER_NAME PULPIT } }"
+}
+
+15. Добавить предмет
+{
+  "query": "mutation { setSubject(SUBJECT: \"АЛГ\", SUBJECT_NAME: \"Алгоритмы и структуры данных\", PULPIT: \"ИСИТ\") { SUBJECT SUBJECT_NAME PULPIT } }"
+}
+
+16. Удалить факультет
+{
+  "query": "mutation { delFaculty(FACULTY: \"НОВЫЙ\") { success } }"
+}
+
+17. Удалить преподавателя
+{
+  "query": "mutation { delTeacher(TEACHER: \"ИВАН\") { success } }"
+}
+
+18. Удалить кафедру
+{
+  "query": "mutation { delPulpit(PULPIT: \"ТК\") { success } }"
+}
+
+19. Удалить предмет
+{
+  "query": "mutation { delSubject(SUBJECT: \"АЛГ\") { success } }"
+}
