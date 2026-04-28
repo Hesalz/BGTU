@@ -1,0 +1,157 @@
+{
+    "info": {
+      "name": "MongoDB BSTU API",
+      "description": "API для работы с факультетами и кафедрами",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "GET - Все факультеты",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/api/faculties",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "faculties"]
+          }
+        }
+      },
+      {
+        "name": "GET - Все кафедры",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/api/pulpits",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "pulpits"]
+          }
+        }
+      },
+      {
+        "name": "POST - Добавить факультет",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"faculty\": \"ФИТ\",\n    \"faculty_name\": \"Физико-информационных технологий\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/api/faculties",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "faculties"]
+          }
+        }
+      },
+      {
+        "name": "POST - Добавить кафедру",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"pulpit\": \"ВМ\",\n    \"pulpit_name\": \"Высшей математики\",\n    \"faculty\": \"ИЭ\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/api/pulpits",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "pulpits"]
+          }
+        }
+      },
+      {
+        "name": "PUT - Изменить факультет",
+        "request": {
+          "method": "PUT",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"faculty\": \"ИТ\",\n    \"faculty_name\": \"Информационных технологий и систем\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/api/faculties",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "faculties"]
+          }
+        }
+      },
+      {
+        "name": "PUT - Изменить кафедру",
+        "request": {
+          "method": "PUT",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"pulpit\": \"ПИ\",\n    \"pulpit_name\": \"Программной инженерии и ИТ\",\n    \"faculty\": \"ИТ\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/api/pulpits",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "pulpits"]
+          }
+        }
+      },
+      {
+        "name": "DELETE - Удалить факультет",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/api/faculties/ФИТ",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "faculties", "ФИТ"]
+          }
+        }
+      },
+      {
+        "name": "DELETE - Удалить кафедру",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/api/pulpits/ВМ",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["api", "pulpits", "ВМ"]
+          }
+        }
+      }
+    ]
+  }
