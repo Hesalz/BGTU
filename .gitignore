@@ -140,4 +140,4 @@ VI sem/KMS/unity/course-project/**/.*
 *.csproj.DotSettings
 
 # BFG Repo-Cleaner
-bfg-*.jar"# Database files" 
+bfg-*.jar

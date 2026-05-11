@@ -253,8 +253,8 @@ void CloseDFSFIle(HDFS hdfs) {
 void DemonstrateWriteRead() {
     cout << "ÄÅÌÎÍÑÒÐÀÖÈß ÇÀÏÈÑÈ 10 ÑÒÐÎÊ" << endl;
 
-    char fileName[] = "X:\\server.txt";
-    char serverIP[] = "26.58.222.244";
+    char fileName[] = "Y:\\server.txt";
+    char serverIP[] = "26.83.199.121";
 
     HDFS hdfs = OpenDFSFIle(fileName, serverIP);                     //îòêð ôàéë ÷åðåç àïè
 

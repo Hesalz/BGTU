@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CsvToOracleApp/CsvToOracleApp.csproj" />
+  <Project Path="OracleImportLib/OracleImportLib.csproj" />
+  <Project Path="SqlExportLib/SqlExportLib.csproj" />
+  <Project Path="SqlToCsvApp/SqlToCsvApp.csproj" />
+</Solution>

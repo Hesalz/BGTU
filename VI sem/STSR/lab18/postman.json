@@ -1,0 +1,548 @@
+{
+    "info": {
+      "name": "STSR Lab14 API Tests (по вашему коду)",
+      "description": "Тестирование API для управления факультетами, кафедрами, дисциплинами, типами аудиторий и аудиториями",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "1. GET Requests - получение данных",
+        "item": [
+          {
+            "name": "GET / - HTML страница",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["/"]
+              }
+            }
+          },
+          {
+            "name": "GET /api/faculties - все факультеты",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/faculties",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "faculties"]
+              }
+            }
+          },
+          {
+            "name": "GET /api/pulpits - все кафедры",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/pulpits",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "pulpits"]
+              }
+            }
+          },
+          {
+            "name": "GET /api/subjects - все дисциплины",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/subjects",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "subjects"]
+              }
+            }
+          },
+          {
+            "name": "GET /api/auditoriumtypes - все типы аудиторий (внимание: в коде auditoriumtypes, не auditoriumstypes)",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriumtypes",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriumtypes"]
+              }
+            }
+          },
+          {
+            "name": "GET /api/auditoriums - все аудитории",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriums",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriums"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "2. POST Requests - добавление записей",
+        "item": [
+          {
+            "name": "POST /api/faculties - добавить факультет",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"faculty\": \"F1\",\n  \"faculty_name\": \"Информационных технологий\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/faculties",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "faculties"]
+              }
+            }
+          },
+          {
+            "name": "POST /api/pulpits - добавить кафедру",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"pulpit\": \"ISIT\",\n  \"pulpit_name\": \"Информационных систем и технологий\",\n  \"faculty\": \"F1\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/pulpits",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "pulpits"]
+              }
+            }
+          },
+          {
+            "name": "POST /api/subjects - добавить дисциплину",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"subject\": \"SUBJ1\",\n  \"subject_name\": \"Базы данных\",\n  \"pulpit\": \"ISIT\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/subjects",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "subjects"]
+              }
+            }
+          },
+          {
+            "name": "POST /api/auditoriumtypes - добавить тип аудитории (внимание: auditoriumtypes, не auditoriumstypes)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"auditorium_type\": \"LEC\",\n  \"auditorium_typename\": \"Лекционная\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriumtypes",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriumtypes"]
+              }
+            }
+          },
+          {
+            "name": "POST /api/auditoriums - добавить аудиторию",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"auditorium\": \"201\",\n  \"auditorium_name\": \"Ауд. 201\",\n  \"auditorium_type\": \"LEC\",\n  \"auditorium_capacity\": 50\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriums",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriums"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "3. PUT Requests - обновление записей",
+        "item": [
+          {
+            "name": "PUT /api/faculties - обновить факультет",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"faculty\": \"F1\",\n  \"faculty_name\": \"Информационных технологий и программирования\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/faculties",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "faculties"]
+              }
+            }
+          },
+          {
+            "name": "PUT /api/pulpits - обновить кафедру",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"pulpit\": \"ISIT\",\n  \"pulpit_name\": \"Информационных систем и технологий (обновлено)\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/pulpits",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "pulpits"]
+              }
+            }
+          },
+          {
+            "name": "PUT /api/subjects - обновить дисциплину",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"subject\": \"SUBJ1\",\n  \"subject_name\": \"Базы данных (продвинутый курс)\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/subjects",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "subjects"]
+              }
+            }
+          },
+          {
+            "name": "PUT /api/auditoriumtypes - обновить тип аудитории",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"auditorium_type\": \"LEC\",\n  \"auditorium_typename\": \"Лекционная (компьютерная)\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriumtypes",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriumtypes"]
+              }
+            }
+          },
+          {
+            "name": "PUT /api/auditoriums - обновить аудиторию",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"auditorium\": \"201\",\n  \"auditorium_name\": \"Ауд. 201 (обновлено)\",\n  \"auditorium_type\": \"LEC\",\n  \"auditorium_capacity\": 60\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriums",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriums"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "4. DELETE Requests - удаление записей",
+        "item": [
+          {
+            "name": "DELETE /api/faculties/F1 - удалить факультет",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/faculties/F1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "faculties", "F1"]
+              }
+            }
+          },
+          {
+            "name": "DELETE /api/pulpits/ISIT - удалить кафедру",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/pulpits/ISIT",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "pulpits", "ISIT"]
+              }
+            }
+          },
+          {
+            "name": "DELETE /api/subjects/SUBJ1 - удалить дисциплину",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/subjects/SUBJ1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "subjects", "SUBJ1"]
+              }
+            }
+          },
+          {
+            "name": "DELETE /api/auditoriumtypes/LEC - удалить тип аудитории",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriumtypes/LEC",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriumtypes", "LEC"]
+              }
+            }
+          },
+          {
+            "name": "DELETE /api/auditoriums/201 - удалить аудиторию",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/auditoriums/201",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "auditoriums", "201"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "5. Teacher API (дополнительно, из вашего кода)",
+        "item": [
+          {
+            "name": "GET /api/teachers - все преподаватели",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/teachers",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "teachers"]
+              }
+            }
+          },
+          {
+            "name": "POST /api/teachers - добавить преподавателя",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"teacher\": \"T1\",\n  \"teacher_name\": \"Иванов И.И.\",\n  \"pulpit\": \"ISIT\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/teachers",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "teachers"]
+              }
+            }
+          },
+          {
+            "name": "PUT /api/teachers - обновить преподавателя",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"teacher\": \"T1\",\n  \"teacher_name\": \"Иванов Иван Иванович\",\n  \"pulpit\": \"ISIT\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/teachers",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "teachers"]
+              }
+            }
+          },
+          {
+            "name": "DELETE /api/teachers/T1 - удалить преподавателя",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/teachers/T1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "teachers", "T1"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "6. Error Handling - обработка ошибок",
+        "item": [
+          {
+            "name": "DELETE несуществующего факультета",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/faculties/NONEXISTENT",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "faculties", "NONEXISTENT"]
+              }
+            }
+          },
+          {
+            "name": "POST с некорректными данными",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"wrong_field\": \"value\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api/faculties",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "faculties"]
+              }
+            }
+          },
+          {
+            "name": "GET несуществующего эндпоинта",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/api/notexists",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api", "notexists"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
