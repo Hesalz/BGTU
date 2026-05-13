@@ -57,7 +57,6 @@ project.uiproj
 *.ndf
 *.ldf
 *.mdf
-*.sqlproj
 *.dbmdl
 
 # Token files
@@ -97,7 +96,6 @@ artifacts/
 .DS_Store
 Thumbs.db
 __pycache__/
-*.pyc
 
 # UiPath files
 .entities/
