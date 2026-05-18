@@ -110,19 +110,15 @@ public class VehicleEntryController : MonoBehaviour
 
         if (vehicleDoor == null || currentCamera == null) return false;
 
-        // Проверяем расстояние и направление взгляда
         float distanceToDoor = Vector3.Distance(currentCamera.transform.position, vehicleDoor.transform.position);
 
         if (distanceToDoor > interactionDistance) return false;
 
-        // Проверяем, смотрит ли игрок в сторону двери
         Vector3 directionToDoor = (vehicleDoor.transform.position - currentCamera.transform.position).normalized;
         float dot = Vector3.Dot(currentCamera.transform.forward, directionToDoor);
 
-        // Если угол между направлением взгляда и дверью меньше 30 градусов
-        if (dot > 0.866f) // cos(30°)
+        if (dot > 0.866f)
         {
-            Debug.Log($"Смотрю на дверь! Расстояние: {distanceToDoor:F2}");
             return true;
         }
 
@@ -133,19 +129,15 @@ public class VehicleEntryController : MonoBehaviour
     {
         if (enterTrigger == null || playerCamera == null) return false;
 
-        // Проверяем расстояние до триггера входа
         float distanceToTrigger = Vector3.Distance(playerCamera.transform.position, enterTrigger.transform.position);
 
         if (distanceToTrigger > interactionDistance) return false;
 
-        // Проверяем, смотрит ли игрок в сторону триггера
         Vector3 directionToTrigger = (enterTrigger.transform.position - playerCamera.transform.position).normalized;
         float dot = Vector3.Dot(playerCamera.transform.forward, directionToTrigger);
 
-        // Если угол между направлением взгляда и триггером меньше 30 градусов
-        if (dot > 0.866f) // cos(30°)
+        if (dot > 0.866f)
         {
-            Debug.Log($"Смотрю на триггер входа! Расстояние: {distanceToTrigger:F2}");
             return true;
         }
 
@@ -258,5 +250,15 @@ public class VehicleEntryController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public bool IsInsideVehicle()
+    {
+        return isInVehicle;
+    }
+
+    public bool IsDoorClosed()
+    {
+        return !isDoorOpen;
     }
 }

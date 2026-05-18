@@ -1,0 +1,36 @@
+﻿--4.1.	Числовые
+SELECT 
+   { [Measures].[Мера 1], 
+     [Measures].[Мера 2],
+     [Measures].[Мера 3] } ON COLUMNS,
+   [DimService].[Category].Members ON ROWS
+FROM [Модель]
+
+--4.2.	Обработки строковых значений;
+SELECT 
+   [DimCustomer].[CustomerName].Members ON ROWS,
+   [DimCustomer].[City].Members ON COLUMNS
+FROM [Модель]
+WHERE [Measures].[Мера 1]
+
+--4.3.	Для наборов;
+SELECT 
+   { [Measures].[Мера 1] } ON COLUMNS,
+   TOPCOUNT([DimService].[ServiceName].Members, 2, [Measures].[Мера 1]) ON ROWS
+FROM [Модель]
+
+--4.4.	Для элемента измерения;
+WITH MEMBER [Measures].[PreviousAmount] AS
+   ([DimDate].[FullDate].PrevMember, [Measures].[Мера 1])
+SELECT 
+   { [Measures].[Мера 1], 
+     [Measures].[PreviousAmount] } ON COLUMNS,
+   [DimDate].[FullDate].Members ON ROWS
+FROM [Модель]
+
+--4.5.	Для иерархий;
+SELECT 
+   [Measures].[Мера 1] ON COLUMNS,
+   [DimDate].[MonthName].Members ON ROWS
+FROM [Модель]
+WHERE [DimDate].[Year].&[2025]

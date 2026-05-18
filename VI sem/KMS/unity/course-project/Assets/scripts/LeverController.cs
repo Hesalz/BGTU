@@ -1,14 +1,14 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class LeverController : MonoBehaviour
 {
-    [Header("Рычаг")]
+    [Header("Р С‹С‡Р°Рі")]
     public Animator leverAnimator;         
 
-    [Header("Аппарели")]
+    [Header("РђРїРїР°СЂРµР»Рё")]
     public Animator[] rampsAnimators;         
 
-    [Header("Настройки")]
+    [Header("РќР°СЃС‚СЂРѕР№РєРё")]
     public KeyCode interactKey = KeyCode.E;   
     public float interactionRadius = 8f;      
     public bool showPrompt = true;            
@@ -73,5 +73,10 @@ public class LeverController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
+    }
+
+    public bool AreRampsOpen()
+    {
+        return isOpen;
     }
 }

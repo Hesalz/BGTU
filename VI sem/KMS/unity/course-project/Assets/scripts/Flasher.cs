@@ -180,4 +180,9 @@ public class Flasher : MonoBehaviour
         else
             EnableFlasher();
     }
+
+    public bool IsFlashing()
+    {
+        return isFlashing;
+    }
 }

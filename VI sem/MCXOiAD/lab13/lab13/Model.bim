@@ -1,0 +1,347 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1400,
+  "model": {
+    "culture": "ru-RU",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/PC;OrderServiceDW",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "PC",
+            "database": "OrderServiceDW"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "UsernamePassword",
+          "kind": "SQL",
+          "path": "pc;OrderServiceDW",
+          "Username": "cube_user",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "DimCustomer",
+        "columns": [
+          {
+            "name": "CustomerID",
+            "dataType": "int64",
+            "sourceColumn": "CustomerID"
+          },
+          {
+            "name": "CustomerName",
+            "dataType": "string",
+            "sourceColumn": "CustomerName"
+          },
+          {
+            "name": "City",
+            "dataType": "string",
+            "sourceColumn": "City"
+          },
+          {
+            "name": "Segment",
+            "dataType": "string",
+            "sourceColumn": "Segment"
+          },
+          {
+            "name": "RegistrationDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RegistrationDate"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/PC;OrderServiceDW\",",
+                "    dbo_DimCustomer = Source{[Schema=\"dbo\",Item=\"DimCustomer\"]}[Data]",
+                "in",
+                "    dbo_DimCustomer"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "columns": [
+          {
+            "name": "DateID",
+            "dataType": "int64",
+            "sourceColumn": "DateID"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "sourceColumn": "Quarter"
+          },
+          {
+            "name": "QuarterName",
+            "dataType": "string",
+            "sourceColumn": "QuarterName"
+          },
+          {
+            "name": "Month",
+            "dataType": "int64",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName"
+          },
+          {
+            "name": "Week",
+            "dataType": "int64",
+            "sourceColumn": "Week"
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "string",
+            "sourceColumn": "DayOfWeek"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/PC;OrderServiceDW\",",
+                "    dbo_DimDate = Source{[Schema=\"dbo\",Item=\"DimDate\"]}[Data]",
+                "in",
+                "    dbo_DimDate"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimService",
+        "columns": [
+          {
+            "name": "ServiceID",
+            "dataType": "int64",
+            "sourceColumn": "ServiceID"
+          },
+          {
+            "name": "ServiceName",
+            "dataType": "string",
+            "sourceColumn": "ServiceName"
+          },
+          {
+            "name": "Category",
+            "dataType": "string",
+            "sourceColumn": "Category"
+          },
+          {
+            "name": "Subcategory",
+            "dataType": "string",
+            "sourceColumn": "Subcategory"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price"
+          },
+          {
+            "name": "Cost",
+            "dataType": "double",
+            "sourceColumn": "Cost"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/PC;OrderServiceDW\",",
+                "    dbo_DimService = Source{[Schema=\"dbo\",Item=\"DimService\"]}[Data]",
+                "in",
+                "    dbo_DimService"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimStatus",
+        "columns": [
+          {
+            "name": "StatusID",
+            "dataType": "int64",
+            "sourceColumn": "StatusID"
+          },
+          {
+            "name": "StatusName",
+            "dataType": "string",
+            "sourceColumn": "StatusName"
+          },
+          {
+            "name": "StatusGroup",
+            "dataType": "string",
+            "sourceColumn": "StatusGroup"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/PC;OrderServiceDW\",",
+                "    dbo_DimStatus = Source{[Schema=\"dbo\",Item=\"DimStatus\"]}[Data]",
+                "in",
+                "    dbo_DimStatus"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactOrders",
+        "columns": [
+          {
+            "name": "OrderID",
+            "dataType": "int64",
+            "sourceColumn": "OrderID"
+          },
+          {
+            "name": "CustomerID",
+            "dataType": "int64",
+            "sourceColumn": "CustomerID"
+          },
+          {
+            "name": "ServiceID",
+            "dataType": "int64",
+            "sourceColumn": "ServiceID"
+          },
+          {
+            "name": "DateID",
+            "dataType": "int64",
+            "sourceColumn": "DateID"
+          },
+          {
+            "name": "StatusID",
+            "dataType": "int64",
+            "sourceColumn": "StatusID"
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity"
+          },
+          {
+            "name": "UnitPrice",
+            "dataType": "double",
+            "sourceColumn": "UnitPrice"
+          },
+          {
+            "name": "Discount",
+            "dataType": "double",
+            "sourceColumn": "Discount"
+          },
+          {
+            "name": "TotalAmount",
+            "dataType": "double",
+            "sourceColumn": "TotalAmount"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/PC;OrderServiceDW\",",
+                "    dbo_FactOrders = Source{[Schema=\"dbo\",Item=\"FactOrders\"]}[Data]",
+                "in",
+                "    dbo_FactOrders"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Мера 1",
+            "expression": "SUM(FactOrders[TotalAmount])"
+          },
+          {
+            "name": "Мера 2",
+            "expression": "SUM(FactOrders[Quantity])"
+          },
+          {
+            "name": "Мера 3",
+            "expression": "COUNTROWS(FactOrders)"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "de4463dc-8bac-4e77-a4b1-44379ca8bf92",
+        "fromTable": "FactOrders",
+        "fromColumn": "CustomerID",
+        "toTable": "DimCustomer",
+        "toColumn": "CustomerID"
+      },
+      {
+        "name": "aec0596d-9bc3-4416-aa11-4a94a547711e",
+        "fromTable": "FactOrders",
+        "fromColumn": "DateID",
+        "toTable": "DimDate",
+        "toColumn": "DateID"
+      },
+      {
+        "name": "b634a4c9-f6f7-4024-912d-95f9b55505e4",
+        "fromTable": "FactOrders",
+        "fromColumn": "ServiceID",
+        "toTable": "DimService",
+        "toColumn": "ServiceID"
+      },
+      {
+        "name": "710d6112-a015-42f3-9420-6006ace16282",
+        "fromTable": "FactOrders",
+        "fromColumn": "StatusID",
+        "toTable": "DimStatus",
+        "toColumn": "StatusID"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "500"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

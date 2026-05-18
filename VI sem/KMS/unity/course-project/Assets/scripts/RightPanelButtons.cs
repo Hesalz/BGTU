@@ -6,6 +6,7 @@ public class RightPanelButtons : MonoBehaviour
     public for_camera cameraController;
     public TextMeshProUGUI infoText;
     public VehicleEntryController vehicleEntryController;
+    public TaskManager taskManager;
 
     [Header("3D Объекты для подсветки")]
     public GameObject lebedkaObject;
@@ -16,8 +17,8 @@ public class RightPanelButtons : MonoBehaviour
     public GameObject appareliObject;
 
     [Header("Позиции камеры для элементов")]
-    public Vector3 lebedkaPos = new Vector3(590.9f, 11.8f, 486.9f);
-    public Vector3 lebedkaRot = new Vector3(34.554f, 92.408f, 1.306f);
+    public Vector3 lebedkaPos = new Vector3(591f, 11.48f, 485.54f);
+    public Vector3 lebedkaRot = new Vector3(0f, 71.598f, 0f);
     public Vector3 shassiPos = new Vector3(585.3f, 7.7f, 498.1f);
     public Vector3 shassiRot = new Vector3(11.404f, -180f, 1.306f);
     public Vector3 migalkaPos = new Vector3(592.9f, 13.8f, 488.8f);
@@ -104,6 +105,9 @@ public class RightPanelButtons : MonoBehaviour
 
         if (vehicleEntryController != null)
             vehicleEntryController.StartPractice();
+
+        if (taskManager != null)
+            taskManager.StartPractice();
 
         ShowInfo("Режим практики. Управление персонажем: WASD. Подойдите к двери и нажмите E.");
         cameraController.StartPracticeMode();
