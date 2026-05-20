@@ -1,0 +1,109 @@
+{
+  "info": {
+    "name": "lab19",
+    "_postman_id": "lab19",
+    "description": "lab19",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "GET /user",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/user",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["user"]
+        }
+      }
+    },
+    {
+      "name": "POST /user",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "Alina",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/user",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["user"]
+        }
+      }
+    },
+    {
+      "name": "GET /about",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/about",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["about"]
+        }
+      }
+    },
+    {
+      "name": "POST /about",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/about",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["about"]
+        }
+      }
+    },
+    {
+      "name": "GET /notfound",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/notfound",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["notfound"]
+        }
+      }
+    }
+  ]
+}

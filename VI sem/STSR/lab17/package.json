@@ -1,0 +1,17 @@
+{
+  "name": "lab17",
+  "version": "1.0.0",
+  "description": "",
+  "main": "17-01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "redis": "^5.12.1"
+  }
+}

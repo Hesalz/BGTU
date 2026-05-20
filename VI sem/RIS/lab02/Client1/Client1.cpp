@@ -266,8 +266,8 @@ int main(int argc, char* argv[]) {
         Sleep(delayBeforeStart);
     }
 
-    char ip[] = "26.83.199.121";
-    char resource[] = "Y:\\server.txt";
+    char ip[] = "26.180.211.124";
+    char resource[] = "Z:\\Lab_2.txt";
 
     //инициализация
     CA ca = InitCA(ip, resource);
