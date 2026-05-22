@@ -29,6 +29,9 @@ public class WinchSystem : MonoBehaviour
     private Rigidbody attachedVehicleRb;
     private Transform attachedTowPoint;
 
+    public System.Action OnHookAttached;
+    public System.Action OnVehicleLocked;
+
     private Collider hookCollider;
 
     void Start()
@@ -231,6 +234,9 @@ public class WinchSystem : MonoBehaviour
 
     void LockVehicle()
     {
+        if (OnVehicleLocked != null)
+            OnVehicleLocked();
+
         vehicleLocked = true;
 
         attachedVehicleRb.linearVelocity = Vector3.zero;
@@ -275,6 +281,9 @@ public class WinchSystem : MonoBehaviour
         hookRb.isKinematic = true;
 
         hookAttached = true;
+
+        if (OnHookAttached != null)
+            OnHookAttached();
     }
 
     public bool IsHookAttached()

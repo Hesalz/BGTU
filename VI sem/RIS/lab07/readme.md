@@ -1,43 +1,42 @@
 Структура:
-1PC:
-	26.83.199.121  сервер времени 1
-	26.83.199.122  сервер времени 2
-	26.83.199.123  посредник Agent
-2PC:
-	26.58.222.244  сервер времени 3
-	клиент отправляет запросы на посредника 26.83.199.123
+	192.168.56.101  сервер времени 1
+	192.168.56.102  сервер времени 2
+	192.168.56.103  сервер времени 3
+	192.168.56.104  посредник Agent
+	клиент отправляет запросы на посредника 192.168.56.104
 
 
 CMD:
-1PC:
-	netsh interface ipv4 add address "Radmin VPN" 26.83.199.122 255.0.0.0
-	netsh interface ipv4 add address "Radmin VPN" 26.83.199.123 255.0.0.0
+	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.101 -PrefixLength 24
+	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.102 -PrefixLength 24
+	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.103 -PrefixLength 24
+	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.104 -PrefixLength 24
 
-	ipconfig
-	//Открыть UDP порт 5555
-	netsh advfirewall firewall add rule name="Lab07 UDP 5555" dir=in action=allow protocol=UDP localport=5555
-2PC:
 	ipconfig
 	//Открыть UDP порт 5555
 	netsh advfirewall firewall add rule name="Lab07 UDP 5555" dir=in action=allow protocol=UDP localport=5555
 
 
 nodes.txt:
-26.83.199.121
-26.83.199.122
-26.58.222.244
+192.168.56.101
+192.168.56.102
+192.168.56.103
 
 config.txt:
-26.83.199.122
+192.168.56.101
 
 Запуск:
-1PC:
-	./ServerU.exe 26.83.199.121
-	./ServerU.exe 26.83.199.122
-	./ServerU_Agent.exe 26.83.199.123
-2PC:
-	./ServerU.exe 26.58.222.244
-	./ClientU.exe 26.83.199.123
+.\ServerU.exe 192.168.56.101
+.\ServerU.exe 192.168.56.102
+.\ServerU.exe 192.168.56.103
+
+.\ServerU_Agent.exe 192.168.56.104
+.\ClientU.exe 192.168.56.104
+
+
+192.168.56.101
+192.168.56.102
+192.168.56.104
 
 
 
@@ -52,7 +51,4 @@ config.txt:
 
 
 
-
-удаление ip адресов:
-	netsh interface ipv4 delete address "Radmin VPN" 26.83.199.122 255.0.0.0
 

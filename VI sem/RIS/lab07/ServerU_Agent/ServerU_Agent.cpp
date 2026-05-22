@@ -1,61 +1,29 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
-#include <WinSock2.h>
-#include <Windows.h>
-#include <iostream>
-#include <fstream>
+#include <stdio.h>
 #include <string>
+#include <fstream>
+#include <WinSock2.h>
 
 #pragma comment(lib, "WS2_32.lib")
 
-#ifndef SIO_UDP_CONNRESET
-#define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
-#endif
-
-const int PORT = 5555;
-const char* CONFIG_FILE = "config.txt";
-
-// Убираем ошибку UDP Connection Reset в Windows
-void disableUdpReset(SOCKET s)
+static std::string trim(const std::string& s)
 {
-    BOOL flag = FALSE;
-    DWORD returned = 0;
+    size_t start = s.find_first_not_of(" \t\r\n");
 
-    WSAIoctl(
-        s,
-        SIO_UDP_CONNRESET,
-        &flag,
-        sizeof(flag),
-        NULL,
-        0,
-        &returned,
-        NULL,
-        NULL
-    );
-}
-
-// Вывод ошибки Winsock
-void showError(const char* text)
-{
-    std::cout << text << ". Код ошибки: " << WSAGetLastError() << std::endl;
-}
-
-// Удаление пробелов и переносов строк
-std::string trim(const std::string& value)
-{
-    size_t first = value.find_first_not_of(" \t\r\n");
-    if (first == std::string::npos)
+    if (start == std::string::npos)
         return "";
 
-    size_t last = value.find_last_not_of(" \t\r\n");
-    return value.substr(first, last - first + 1);
+    size_t end = s.find_last_not_of(" \t\r\n");
+
+    return s.substr(start, end - start + 1);
 }
 
-// Чтение IP координатора из config.txt
-std::string getCoordinatorIp()
+static std::string loadCoordinator()
 {
-    std::ifstream file(CONFIG_FILE);
+    std::ifstream file("config.txt");
+
     std::string line;
 
     if (file.is_open() && std::getline(file, line))
@@ -64,227 +32,150 @@ std::string getCoordinatorIp()
     return "";
 }
 
-// Отправка запроса координатору и получение ответа
-bool askCoordinator(SOCKET socketHandle, const std::string& coordinatorIp, std::string& answer)
-{
-    sockaddr_in coordinatorAddress{};
-    coordinatorAddress.sin_family = AF_INET;
-    coordinatorAddress.sin_port = htons(PORT);
-    coordinatorAddress.sin_addr.s_addr = inet_addr(coordinatorIp.c_str());
-
-    if (coordinatorAddress.sin_addr.s_addr == INADDR_NONE)
-    {
-        std::cout << "[Ошибка] Некорректный IP координатора в config.txt: "
-            << coordinatorIp
-            << std::endl;
-
-        return false;
-    }
-
-    const char* request = "GET_TIME";
-
-    int sendResult = sendto(
-        socketHandle,
-        request,
-        (int)strlen(request),
-        0,
-        (sockaddr*)&coordinatorAddress,
-        sizeof(coordinatorAddress)
-    );
-
-    if (sendResult == SOCKET_ERROR)
-    {
-        showError("Ошибка отправки запроса координатору");
-        return false;
-    }
-
-    char buffer[256];
-
-    sockaddr_in fromServer{};
-    int fromServerSize = sizeof(fromServer);
-
-    int recvResult = recvfrom(
-        socketHandle,
-        buffer,
-        sizeof(buffer) - 1,
-        0,
-        (sockaddr*)&fromServer,
-        &fromServerSize
-    );
-
-    if (recvResult == SOCKET_ERROR)
-    {
-        int error = WSAGetLastError();
-
-        if (error == WSAETIMEDOUT)
-        {
-            std::cout << "[Ошибка] Координатор "
-                << coordinatorIp
-                << " не ответил на запрос"
-                << std::endl;
-        }
-        else
-        {
-            showError("Ошибка получения ответа от координатора");
-        }
-
-        return false;
-    }
-
-    buffer[recvResult] = '\0';
-    answer = buffer;
-
-    return true;
-}
-
 int main(int argc, char* argv[])
 {
-    setlocale(LC_ALL, "Russian");
-
     if (argc < 2)
     {
-        std::cout << "Запуск: ServerU_Agent.exe <IP_ПОСРЕДНИКА>" << std::endl;
+        printf("Usage: %s <AGENT_IP>\n", argv[0]);
         return -1;
     }
 
-    std::string agentIp = argv[1];
+    WSAData wsadata;
 
-    WSAData data;
+    WSAStartup(MAKEWORD(2, 2), &wsadata);
 
-    if (WSAStartup(MAKEWORD(2, 2), &data) != 0)
-    {
-        showError("Ошибка WSAStartup");
-        return -1;
-    }
+    SOCKET s = socket(AF_INET, SOCK_DGRAM, 0);
 
-    SOCKET agentSocket = socket(AF_INET, SOCK_DGRAM, 0);
-
-    if (agentSocket == INVALID_SOCKET)
-    {
-        showError("Ошибка создания сокета");
-        WSACleanup();
-        return -1;
-    }
-
-    disableUdpReset(agentSocket);
-
-    DWORD timeout = 2500;
+    DWORD timeout = 3000;
 
     setsockopt(
-        agentSocket,
+        s,
         SOL_SOCKET,
         SO_RCVTIMEO,
         (const char*)&timeout,
         sizeof(timeout)
     );
 
-    sockaddr_in agentAddress{};
-    agentAddress.sin_family = AF_INET;
-    agentAddress.sin_port = htons(PORT);
-    agentAddress.sin_addr.s_addr = inet_addr(agentIp.c_str());
+    sockaddr_in addr = { 0 };
 
-    if (bind(agentSocket, (sockaddr*)&agentAddress, sizeof(agentAddress)) == SOCKET_ERROR)
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(5555);
+    addr.sin_addr.s_addr = inet_addr(argv[1]);
+
+    if (bind(s, (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR)
     {
-        std::cout << "[Ошибка] Не удалось запустить посредника на IP "
-            << agentIp
-            << " и порту "
-            << PORT
-            << std::endl;
-
-        closesocket(agentSocket);
-        WSACleanup();
+        printf("Bind error\n");
         return -1;
     }
 
-    std::cout << "[Посредник] Запущен на "
-        << agentIp
-        << ":"
-        << PORT
-        << std::endl;
+    printf("[Agent] Started on %s:5555\n", argv[1]);
 
-    char clientBuffer[256];
+    char buffer[256];
 
     while (true)
     {
-        sockaddr_in clientAddress{};
-        int clientSize = sizeof(clientAddress);
+        sockaddr_in client = { 0 };
 
-        int recvResult = recvfrom(
-            agentSocket,
-            clientBuffer,
-            sizeof(clientBuffer) - 1,
+        int clientSize = sizeof(client);
+
+        int r = recvfrom(
+            s,
+            buffer,
+            sizeof(buffer) - 1,
             0,
-            (sockaddr*)&clientAddress,
+            (sockaddr*)&client,
             &clientSize
         );
 
-        if (recvResult == SOCKET_ERROR)
+        if (r == SOCKET_ERROR)
+            continue;
+
+        buffer[r] = '\0';
+
+        if (strcmp(buffer, "gettime") != 0)
+            continue;
+
+        std::string coordIp = loadCoordinator();
+
+        if (coordIp.empty())
         {
-            int error = WSAGetLastError();
-
-            if (error == WSAETIMEDOUT)
-                continue;
-
-            showError("Ошибка получения запроса клиента");
+            printf("[Agent] No coordinator\n");
             continue;
         }
 
-        clientBuffer[recvResult] = '\0';
+        SOCKET temp = socket(AF_INET, SOCK_DGRAM, 0);
 
-        std::string clientMessage = clientBuffer;
-        std::string clientIp = inet_ntoa(clientAddress.sin_addr);
+        DWORD tout = 3000;
 
-        if (clientMessage != "GET_TIME")
-            continue;
-
-        std::string coordinatorIp = getCoordinatorIp();
-
-        if (coordinatorIp.empty())
-        {
-            std::cout << "[Ошибка] В config.txt не указан координатор" << std::endl;
-            continue;
-        }
-
-        std::string timeAnswer;
-
-        bool ok = askCoordinator(
-            agentSocket,
-            coordinatorIp,
-            timeAnswer
+        setsockopt(
+            temp,
+            SOL_SOCKET,
+            SO_RCVTIMEO,
+            (const char*)&tout,
+            sizeof(tout)
         );
 
-        if (!ok)
+        sockaddr_in coord = { 0 };
+
+        coord.sin_family = AF_INET;
+        coord.sin_port = htons(5555);
+        coord.sin_addr.s_addr = inet_addr(coordIp.c_str());
+
+        sendto(
+            temp,
+            "gettime",
+            7,
+            0,
+            (sockaddr*)&coord,
+            sizeof(coord)
+        );
+
+        sockaddr_in from = { 0 };
+
+        int fromSize = sizeof(from);
+
+        int rr = recvfrom(
+            temp,
+            buffer,
+            sizeof(buffer) - 1,
+            0,
+            (sockaddr*)&from,
+            &fromSize
+        );
+
+        if (rr == SOCKET_ERROR)
         {
-            std::cout << "[Журнал] Клиент "
-                << clientIp
-                << " обратился к посреднику, но координатор "
-                << coordinatorIp
-                << " недоступен"
-                << std::endl;
+            printf(
+                "[Agent] Coordinator timeout: %s\n",
+                coordIp.c_str()
+            );
+
+            closesocket(temp);
 
             continue;
         }
 
+        buffer[rr] = '\0';
+
+        printf(
+            "[LOG] Client %s -> Coordinator %s\n",
+            inet_ntoa(client.sin_addr),
+            coordIp.c_str()
+        );
+
         sendto(
-            agentSocket,
-            timeAnswer.c_str(),
-            (int)timeAnswer.length(),
+            s,
+            buffer,
+            rr,
             0,
-            (sockaddr*)&clientAddress,
+            (sockaddr*)&client,
             clientSize
         );
 
-        std::cout << "[Журнал] Клиент: "
-            << clientIp
-            << " | координатор: "
-            << coordinatorIp
-            << " | ответ: "
-            << timeAnswer
-            << std::endl;
+        closesocket(temp);
     }
 
-    closesocket(agentSocket);
-    WSACleanup();
+    closesocket(s);
 
-    return 0;
+    WSACleanup();
 }

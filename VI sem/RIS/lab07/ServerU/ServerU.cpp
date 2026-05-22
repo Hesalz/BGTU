@@ -1,499 +1,429 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
-#include <WinSock2.h>
-#include <Windows.h>
-#include <iostream>
-#include <fstream>
+#include <stdio.h>
+#include <time.h>
+#include <thread>
 #include <vector>
 #include <string>
-#include <thread>
+#include <fstream>
 #include <algorithm>
-#include <ctime>
+#include <WinSock2.h>
 
 #pragma comment(lib, "WS2_32.lib")
 
-#ifndef SIO_UDP_CONNRESET
-#define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
-#endif
+SOCKET s;
 
-const int PORT = 5555;
-const char* NODES_FILE = "nodes.txt";
-const char* CONFIG_FILE = "config.txt";
+std::string my_ip;
+std::string coordinator_ip;
 
-SOCKET serverSocket;
-std::string myIp;
-std::string coordinatorIp;
+bool is_coordinator = false;
+bool election = false;
+bool got_ok = false;
+
+int missed = 0;
+
 std::vector<std::string> nodes;
 
-bool iAmCoordinator = false;
-bool electionStarted = false;
-bool receivedOk = false;
-int lostAnswers = 0;
-
-// Убираем ошибку UDP Connection Reset в Windows
-void disableUdpReset(SOCKET s)
+static std::string trim(const std::string& s)
 {
-    BOOL flag = FALSE;
-    DWORD returned = 0;
+    size_t start = s.find_first_not_of(" \t\r\n");
 
-    WSAIoctl(
-        s,
-        SIO_UDP_CONNRESET,
-        &flag,
-        sizeof(flag),
-        NULL,
-        0,
-        &returned,
-        NULL,
-        NULL
-    );
-}
-
-// Вывод ошибки Winsock
-void showError(const char* text)
-{
-    std::cout << text << ". Код ошибки: " << WSAGetLastError() << std::endl;
-}
-
-// Удаление лишних пробелов и переносов строк
-std::string trim(const std::string& value)
-{
-    size_t first = value.find_first_not_of(" \t\r\n");
-    if (first == std::string::npos)
+    if (start == std::string::npos)
         return "";
 
-    size_t last = value.find_last_not_of(" \t\r\n");
-    return value.substr(first, last - first + 1);
+    size_t end = s.find_last_not_of(" \t\r\n");
+
+    return s.substr(start, end - start + 1);
 }
 
-// Перевод IP в число, чтобы можно было сравнивать IP-адреса
-unsigned long ipToNumber(const std::string& ip)
+unsigned long ipToNum(const std::string& ip)
 {
     return ntohl(inet_addr(ip.c_str()));
 }
 
-// Загрузка списка серверов из nodes.txt
-void loadNodes()
+void sendMessage(
+    const std::string& ip,
+    const std::string& msg
+)
 {
-    nodes.clear();
+    sockaddr_in addr = { 0 };
 
-    std::ifstream file(NODES_FILE);
-    std::string line;
-
-    if (!file.is_open())
-    {
-        std::cout << "[Ошибка] Не удалось открыть файл nodes.txt" << std::endl;
-        return;
-    }
-
-    while (std::getline(file, line))
-    {
-        line = trim(line);
-
-        if (!line.empty())
-            nodes.push_back(line);
-    }
-}
-
-// Чтение текущего координатора из config.txt
-std::string readCoordinator()
-{
-    std::ifstream file(CONFIG_FILE);
-    std::string line;
-
-    if (file.is_open() && std::getline(file, line))
-        return trim(line);
-
-    return "";
-}
-
-// Запись нового координатора в config.txt
-void writeCoordinator(const std::string& ip)
-{
-    std::ofstream file(CONFIG_FILE, std::ios::trunc);
-
-    if (file.is_open())
-        file << ip;
-}
-
-// Отправка UDP-сообщения на указанный IP
-void sendUdpMessage(const std::string& ip, const std::string& message)
-{
-    sockaddr_in address{};
-    address.sin_family = AF_INET;
-    address.sin_port = htons(PORT);
-    address.sin_addr.s_addr = inet_addr(ip.c_str());
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(5555);
+    addr.sin_addr.s_addr = inet_addr(ip.c_str());
 
     sendto(
-        serverSocket,
-        message.c_str(),
-        (int)message.length(),
+        s,
+        msg.c_str(),
+        (int)msg.length(),
         0,
-        (sockaddr*)&address,
-        sizeof(address)
+        (sockaddr*)&addr,
+        sizeof(addr)
     );
 }
 
-// Формирование текущего времени в нужном формате
-std::string getCurrentTime()
+void saveCoordinator()
 {
-    time_t now = time(NULL);
-    tm* local = localtime(&now);
+    std::ofstream file("config.txt", std::ios::trunc);
 
-    char buffer[64];
-
-    strftime(
-        buffer,
-        sizeof(buffer),
-        "%d%m%Y:%H:%M:%S",
-        local
-    );
-
-    return std::string(buffer);
+    file << coordinator_ip;
 }
 
-// Определение начального координатора
-void defineStartCoordinator()
+void loadNodes()
 {
-    coordinatorIp = readCoordinator();
+    std::ifstream file("nodes.txt");
 
-    if (coordinatorIp.empty())
+    std::string ip;
+
+    while (std::getline(file, ip))
     {
-        auto maxNode = std::max_element(
+        ip = trim(ip);
+
+        if (!ip.empty())
+            nodes.push_back(ip);
+    }
+}
+
+void initializeCoordinator()
+{
+    std::ifstream file("config.txt");
+
+    std::string fileCoordinator;
+
+    if (file.is_open())
+        std::getline(file, fileCoordinator);
+
+    fileCoordinator = trim(fileCoordinator);
+
+    if (!fileCoordinator.empty())
+    {
+        coordinator_ip = fileCoordinator;
+    }
+    else
+    {
+        auto it = std::max_element(
             nodes.begin(),
             nodes.end(),
             [](const std::string& a, const std::string& b)
             {
-                return ipToNumber(a) < ipToNumber(b);
+                return ipToNum(a) < ipToNum(b);
             }
         );
 
-        if (maxNode != nodes.end())
-        {
-            coordinatorIp = *maxNode;
-            writeCoordinator(coordinatorIp);
-        }
+        coordinator_ip = *it;
     }
 
-    iAmCoordinator = (myIp == coordinatorIp);
-
-    if (iAmCoordinator)
-        std::cout << "[Старт] Этот сервер является координатором: " << myIp << std::endl;
-    else
-        std::cout << "[Старт] Текущий координатор: " << coordinatorIp << std::endl;
-}
-
-// Рассылка сообщения о новом координаторе
-void announceCoordinator()
-{
-    coordinatorIp = myIp;
-    iAmCoordinator = true;
-    electionStarted = false;
-    receivedOk = false;
-    lostAnswers = 0;
-
-    writeCoordinator(myIp);
-
-    std::cout << "[Выборы] Сервер " << myIp << " стал новым координатором" << std::endl;
-
-    for (const std::string& ip : nodes)
+    if (coordinator_ip == my_ip)
     {
-        if (ip != myIp)
-            sendUdpMessage(ip, "COORDINATOR");
-    }
-}
+        is_coordinator = true;
 
-// Запуск выборов по алгоритму забияки
-void startElection()
-{
-    electionStarted = true;
-    receivedOk = false;
+        saveCoordinator();
 
-    std::cout << "[Выборы] Координатор не отвечает. Начинаем выборы" << std::endl;
-
-    unsigned long myNumber = ipToNumber(myIp);
-
-    for (const std::string& ip : nodes)
-    {
-        if (ipToNumber(ip) > myNumber)
-        {
-            std::cout << "[Выборы] Отправлен запрос старшему серверу: " << ip << std::endl;
-            sendUdpMessage(ip, "ELECTION");
-        }
-    }
-
-    Sleep(2000);
-
-    if (!receivedOk)
-    {
-        announceCoordinator();
+        printf("[Server] I am coordinator\n");
     }
     else
     {
-        std::cout << "[Выборы] Есть сервер старше. Ждём нового координатора" << std::endl;
-        electionStarted = false;
-        lostAnswers = 0;
+        is_coordinator = false;
+
+        printf(
+            "[Server] Coordinator: %s\n",
+            coordinator_ip.c_str()
+        );
+
+        unsigned long myNum = ipToNum(my_ip);
+        unsigned long coordNum = ipToNum(coordinator_ip);
+
+        if (myNum > coordNum)
+        {
+            printf("[Bully] Higher node joined cluster. Starting election.\n");
+
+            election = true;
+
+            got_ok = false;
+
+            for (auto& ip : nodes)
+            {
+                if (ipToNum(ip) > myNum)
+                    sendMessage(ip, "election");
+            }
+
+            Sleep(3000);
+
+            if (!got_ok)
+            {
+                is_coordinator = true;
+
+                coordinator_ip = my_ip;
+
+                saveCoordinator();
+
+                printf("[Bully] I am new coordinator\n");
+
+                for (auto& ip : nodes)
+                {
+                    if (ip != my_ip)
+                        sendMessage(ip, "coordinator");
+                }
+            }
+
+            election = false;
+        }
     }
 }
 
-// Поток проверки координатора
-void coordinatorChecker()
+void electionThread()
 {
     while (true)
     {
         Sleep(5000);
 
-        if (iAmCoordinator)
+        if (is_coordinator)
             continue;
 
-        if (coordinatorIp.empty())
-        {
-            lostAnswers = 3;
-        }
-        else
-        {
-            sendUdpMessage(coordinatorIp, "PING");
-            lostAnswers++;
+        sendMessage(coordinator_ip, "ping");
 
-            std::cout << "[Проверка] Проверяем координатора "
-                << coordinatorIp
-                << ". Неудачных проверок: "
-                << lostAnswers
-                << std::endl;
+        missed++;
+
+        if (missed < 3)
+            continue;
+
+        if (election)
+            continue;
+
+        printf("[Bully] Coordinator down\n");
+
+        election = true;
+
+        got_ok = false;
+
+        unsigned long myNum = ipToNum(my_ip);
+
+        for (auto& ip : nodes)
+        {
+            if (ipToNum(ip) > myNum)
+                sendMessage(ip, "election");
         }
 
-        if (lostAnswers >= 3 && !electionStarted)
+        Sleep(3000);
+
+        if (!got_ok)
         {
-            startElection();
+            is_coordinator = true;
+
+            coordinator_ip = my_ip;
+
+            saveCoordinator();
+
+            printf("[Bully] I am new coordinator\n");
+
+            for (auto& ip : nodes)
+            {
+                if (ip != my_ip)
+                    sendMessage(ip, "coordinator");
+            }
         }
+
+        election = false;
+
+        missed = 0;
     }
 }
 
-// Поток приёма сообщений
-// Поток для приема и обработки сообщений от других серверов
-void messageListener()
+void listenerThread()
 {
-    char buffer[1024];
+    char buffer[256];
 
     while (true)
     {
-        sockaddr_in senderAddr{};
-        int senderAddrSize = sizeof(senderAddr);
+        sockaddr_in from = { 0 };
 
-        int received = recvfrom(
-            serverSocket,
+        int fromSize = sizeof(from);
+
+        int r = recvfrom(
+            s,
             buffer,
             sizeof(buffer) - 1,
             0,
-            (sockaddr*)&senderAddr,
-            &senderAddrSize
+            (sockaddr*)&from,
+            &fromSize
         );
 
-        if (received == SOCKET_ERROR)
-        {
+        if (r <= 0)
             continue;
-        }
 
-        buffer[received] = '\0';
+        buffer[r] = '\0';
 
-        std::string message = buffer;
-        std::string senderIp = inet_ntoa(senderAddr.sin_addr);
+        std::string msg(buffer);
 
-        // Новый сервер появился в кластере
-        if (message == "HELLO")
+        std::string sender = inet_ntoa(from.sin_addr);
+
+        if (msg == "gettime")
         {
-            std::cout << "[Старт] Обнаружен запущенный сервер: "
-                << senderIp
-                << std::endl;
+            if (!is_coordinator)
+                continue;
 
-            // Если новый сервер старше текущего координатора, запускаем выборы
-            if (!coordinatorIp.empty() &&
-                ipToNumber(senderIp) > ipToNumber(coordinatorIp))
+            time_t t = time(NULL);
+
+            tm now;
+
+            localtime_s(&now, &t);
+
+            char out[64];
+
+            strftime(
+                out,
+                sizeof(out),
+                "%d%m%Y:%H:%M:%S",
+                &now
+            );
+
+            sendto(
+                s,
+                out,
+                (int)strlen(out),
+                0,
+                (sockaddr*)&from,
+                fromSize
+            );
+
+            printf(
+                "[Server] Time sent to %s\n",
+                sender.c_str()
+            );
+        }
+        else if (msg == "ping")
+        {
+            sendMessage(sender, "pong");
+        }
+        else if (msg == "pong")
+        {
+            missed = 0;
+        }
+        else if (msg == "election")
+        {
+            sendMessage(sender, "ok");
+
+            if (!election)
             {
-                std::cout << "[Старт] Сервер "
-                    << senderIp
-                    << " старше текущего координатора "
-                    << coordinatorIp
-                    << ". Запускаем выборы"
-                    << std::endl;
+                election = true;
 
-                coordinatorIp = "";
-                lostAnswers = 3;
+                got_ok = false;
 
-                if (!electionStarted)
-                    startElection();
+                unsigned long myNum = ipToNum(my_ip);
+
+                for (auto& ip : nodes)
+                {
+                    if (ipToNum(ip) > myNum)
+                        sendMessage(ip, "election");
+                }
+
+                std::thread([]()
+                    {
+                        Sleep(3000);
+
+                        if (!got_ok)
+                        {
+                            is_coordinator = true;
+
+                            coordinator_ip = my_ip;
+
+                            saveCoordinator();
+
+                            printf("[Bully] I am new coordinator\n");
+
+                            for (auto& ip : nodes)
+                            {
+                                if (ip != my_ip)
+                                    sendMessage(ip, "coordinator");
+                            }
+                        }
+
+                        election = false;
+
+                        missed = 0;
+
+                    }).detach();
             }
         }
-
-        // Запрос времени от посредника
-        else if (message == "GET_TIME")
+        else if (msg == "ok")
         {
-            if (iAmCoordinator)
-            {
-                std::string time = getCurrentTime();
-                sendUdpMessage(senderIp, time);
-
-                std::cout << "Отправлено время посреднику "
-                    << senderIp
-                    << ": "
-                    << time
-                    << std::endl;
-            }
+            got_ok = true;
         }
-
-        // Проверка доступности сервера
-        else if (message == "PING")
+        else if (msg == "coordinator")
         {
-            sendUdpMessage(senderIp, "PONG");
-        }
+            coordinator_ip = sender;
 
-        // Ответ от координатора на проверку
-        else if (message == "PONG")
-        {
-            if (senderIp == coordinatorIp)
-            {
-                lostAnswers = 0;
-            }
-        }
+            if (coordinator_ip != my_ip)
+                is_coordinator = false;
 
-        // Сообщение о начале выборов
-        else if (message == "ELECTION")
-        {
-            std::cout << "Получен ELECTION от "
-                << senderIp
-                << std::endl;
+            missed = 0;
 
-            if (ipToNumber(myIp) > ipToNumber(senderIp))
-            {
-                sendUdpMessage(senderIp, "OK");
+            election = false;
 
-                if (!electionStarted)
-                    startElection();
-            }
-        }
+            saveCoordinator();
 
-        // Ответ от более старшего сервера
-        else if (message == "OK")
-        {
-            std::cout << "Получен OK от "
-                << senderIp
-                << std::endl;
-
-            receivedOk = true;
-        }
-
-        // Сообщение о новом координаторе
-        else if (message == "COORDINATOR")
-        {
-            coordinatorIp = senderIp;
-            iAmCoordinator = (coordinatorIp == myIp);
-            electionStarted = false;
-            receivedOk = false;
-            lostAnswers = 0;
-
-            writeCoordinator(coordinatorIp);
-
-            std::cout << "Новый координатор: "
-                << coordinatorIp
-                << std::endl;
+            printf(
+                "[Bully] New coordinator: %s\n",
+                sender.c_str()
+            );
         }
     }
-}
-// Уведомление остальных серверов о запуске этого сервера
-void announceStart()
-{
-    for (const std::string& ip : nodes)
-    {
-        if (ip != myIp)
-            sendUdpMessage(ip, "HELLO");
-    }
-
-    std::cout << "[Старт] Сервер сообщил остальным о своём запуске" << std::endl;
 }
 
 int main(int argc, char* argv[])
 {
-    setlocale(LC_ALL, "Russian");
-
     if (argc < 2)
     {
-        std::cout << "Запуск: ServerU.exe <IP_СЕРВЕРА>" << std::endl;
+        printf("Usage: %s <IP>\n", argv[0]);
+
         return -1;
     }
 
-    myIp = argv[1];
+    my_ip = argv[1];
 
     loadNodes();
 
-    if (std::find(nodes.begin(), nodes.end(), myIp) == nodes.end())
+    WSAData wsadata;
+
+    WSAStartup(MAKEWORD(2, 2), &wsadata);
+
+    s = socket(AF_INET, SOCK_DGRAM, 0);
+
+    sockaddr_in addr = { 0 };
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(5555);
+    addr.sin_addr.s_addr = inet_addr(my_ip.c_str());
+
+    if (bind(
+        s,
+        (sockaddr*)&addr,
+        sizeof(addr)
+    ) == SOCKET_ERROR)
     {
-        std::cout << "[Ошибка] IP " << myIp << " отсутствует в nodes.txt" << std::endl;
+        printf(
+            "Bind error for %s\n",
+            my_ip.c_str()
+        );
+
         return -1;
     }
 
-    WSAData data;
+    initializeCoordinator();
 
-    if (WSAStartup(MAKEWORD(2, 2), &data) != 0)
-    {
-        showError("Ошибка WSAStartup");
-        return -1;
-    }
+    printf(
+        "[Server] Started on %s\n",
+        my_ip.c_str()
+    );
 
-    serverSocket = socket(AF_INET, SOCK_DGRAM, 0);
+    std::thread t1(listenerThread);
+    std::thread t2(electionThread);
 
-    if (serverSocket == INVALID_SOCKET)
-    {
-        showError("Ошибка создания сокета");
-        WSACleanup();
-        return -1;
-    }
+    t1.join();
+    t2.join();
 
-    disableUdpReset(serverSocket);
+    closesocket(s);
 
-    sockaddr_in serverAddress{};
-    serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(PORT);
-    serverAddress.sin_addr.s_addr = inet_addr(myIp.c_str());
-
-    if (bind(serverSocket, (sockaddr*)&serverAddress, sizeof(serverAddress)) == SOCKET_ERROR)
-    {
-        std::cout << "[Ошибка] Не удалось занять IP "
-            << myIp
-            << " и порт "
-            << PORT
-            << std::endl;
-
-        closesocket(serverSocket);
-        WSACleanup();
-        return -1;
-    }
-
-    defineStartCoordinator();
-
-    announceStart();
-
-    if (!coordinatorIp.empty() &&
-        ipToNumber(myIp) > ipToNumber(coordinatorIp))
-    {
-        std::cout << "[Старт] Этот сервер старше текущего координатора. Запускаем выборы" << std::endl;
-        startElection();
-    }
-
-    std::cout << "[Сервер] UDP-сервер времени запущен: "
-        << myIp
-        << ":"
-        << PORT
-        << std::endl;
-
-    std::thread listener(messageListener);
-    std::thread checker(coordinatorChecker);
-
-    listener.join();
-    checker.join();
-
-    closesocket(serverSocket);
     WSACleanup();
-
-    return 0;
 }

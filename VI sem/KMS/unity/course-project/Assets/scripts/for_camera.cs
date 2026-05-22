@@ -14,8 +14,6 @@ public class for_camera : MonoBehaviour
     [SerializeField] private float upMax = 80f;
 
     [SerializeField] private float moveSpeed = 10f;
-    //[SerializeField] private float moveLimitX = 20f;
-    //[SerializeField] private float moveLimitZ = 20f;
 
     [Header("Режимы камеры")]
     [SerializeField] private Vector3 thirdPersonOffset = new Vector3(0, 2, -5);

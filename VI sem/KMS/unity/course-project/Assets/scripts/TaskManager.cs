@@ -6,7 +6,7 @@ public class TaskManager : MonoBehaviour
 {
     [Header("UI")]
     public TextMeshProUGUI infoText;
-    public GameObject taskPanel; // Панель с кнопками заданий
+    public GameObject taskPanel;
     public float taskDelaySeconds = 1f;
 
     [Header("References")]
@@ -31,7 +31,6 @@ public class TaskManager : MonoBehaviour
         for (int i = 1; i <= 7; i++)
             tasksCompleted[i] = false;
 
-        // Изначально панель с кнопками выключена
         if (taskPanel != null)
             taskPanel.SetActive(false);
     }
@@ -41,7 +40,6 @@ public class TaskManager : MonoBehaviour
     {
         if (!isPracticeMode) return;
 
-        // Обработка ESC для переключения курсора
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleCursor();
@@ -226,7 +224,6 @@ public class TaskManager : MonoBehaviour
     {
         isPracticeMode = true;
 
-        // Включаем панель с кнопками
         if (taskPanel != null)
             taskPanel.SetActive(true);
 
@@ -248,5 +245,22 @@ public class TaskManager : MonoBehaviour
 
         if (taskNumber >= 1 && taskNumber <= 7)
             ShowInfo(descriptions[taskNumber]);
+    }
+
+    public void ExitPractice()
+    {
+        isPracticeMode = false;
+        currentTask = 1;
+        leverUsedForTask4 = false;
+        leverUsedForTask7 = false;
+
+        for (int i = 1; i <= 7; i++)
+            tasksCompleted[i] = false;
+
+        if (taskPanel != null)
+            taskPanel.SetActive(false);
+
+        if (infoText != null)
+            infoText.text = "";
     }
 }

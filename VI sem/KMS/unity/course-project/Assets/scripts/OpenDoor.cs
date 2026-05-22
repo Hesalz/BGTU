@@ -5,11 +5,19 @@ public class OpenDoor : MonoBehaviour
     private Animator anim;
     private bool isOpen = false;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip doorOpenSound;
+    public AudioClip doorCloseSound;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         if (anim != null)
             anim.SetBool("OpenDoor", false);
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
     }
 
     public void OpenDoorFunction()
@@ -18,6 +26,7 @@ public class OpenDoor : MonoBehaviour
         {
             anim.SetBool("OpenDoor", true);
             isOpen = true;
+            PlaySound(doorOpenSound);
         }
     }
 
@@ -27,6 +36,7 @@ public class OpenDoor : MonoBehaviour
         {
             anim.SetBool("OpenDoor", false);
             isOpen = false;
+            PlaySound(doorCloseSound);
         }
     }
 
@@ -36,5 +46,13 @@ public class OpenDoor : MonoBehaviour
             CloseDoorFunction();
         else
             OpenDoorFunction();
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

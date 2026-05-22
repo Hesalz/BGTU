@@ -190,4 +190,9 @@ public class VehicleController : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
         }
     }
+
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
+    }
 }

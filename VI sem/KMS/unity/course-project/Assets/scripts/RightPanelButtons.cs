@@ -1,5 +1,7 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RightPanelButtons : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class RightPanelButtons : MonoBehaviour
     public TextMeshProUGUI infoText;
     public VehicleEntryController vehicleEntryController;
     public TaskManager taskManager;
+    public Button closeButton;
 
     [Header("3D Объекты для подсветки")]
     public GameObject lebedkaObject;
@@ -111,5 +114,13 @@ public class RightPanelButtons : MonoBehaviour
 
         ShowInfo("Режим практики. Управление персонажем: WASD. Подойдите к двери и нажмите E.");
         cameraController.StartPracticeMode();
+
+        if (closeButton != null)
+            closeButton.gameObject.SetActive(true);
+    }
+
+    public void OnMainMenuClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
