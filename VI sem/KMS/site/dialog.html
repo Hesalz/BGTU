@@ -1,23 +1,29 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Эвакуатор - Теория моделирования</title>
-  <style type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/active_dialog.js"></script>
+  <title>Диалог с базой знаний – Эвакуатор</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, Verdana, sans-serif;
+      font-family: 'Segoe UI', Arial, Verdana, sans-serif;
       background-color: #ecf0f1;
     }
 
     .container {
       width: 90%;
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 20px 30px;
+      padding: 20px 25px;
     }
 
     .menu-bar {
@@ -28,7 +34,6 @@
       border-radius: 8px;
       background-color: #34495e;
       padding: 12px 0;
-      transition: background-color 0.3s;
     }
 
     .burger-wrapper {
@@ -46,22 +51,25 @@
       text-decoration: none;
       padding: 12px 25px;
       margin: 0 5px;
-      display: inline-block;
       font-weight: bold;
       font-size: 1.1em;
       transition: background-color 0.3s;
+      border-radius: 5px;
     }
 
     .nav-links a:hover {
       background-color: #2c3e50;
-      border-radius: 5px;
     }
 
     @media screen and (max-width: 768px) {
+      .container {
+        padding: 10px 15px;
+        width: 100%;
+      }
+
       .menu-bar {
         background-color: transparent !important;
         padding: 0;
-        border-radius: 0;
         margin-bottom: 15px;
       }
 
@@ -77,11 +85,10 @@
         font-size: 2.5em;
         line-height: 1;
         display: inline-block;
-        background-color: #34495e; 
+        background-color: #34495e;
         padding: 10px 20px;
         border-radius: 8px;
         user-select: none;
-        transition: background-color 0.3s;
       }
 
       .burger:hover {
@@ -105,71 +112,151 @@
         width: 100%;
         padding: 15px 20px;
         margin: 0;
-        border-top: 1px solid #2c3e50;
         text-align: center;
-        box-sizing: border-box;
-        color: white;
-      }
-
-      .nav-links a:first-of-type {
-        border-top: none;
-      }
-
-      .nav-links a:hover {
-        background-color: #2c3e50;
         border-radius: 0;
       }
     }
 
     h1 {
       color: #2c3e50;
-      font-size: 2.5em;
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 10px;
+      font-size: 2em;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 8px;
     }
 
-    h2 {
-      color: black;
+    .dialog-box {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      margin: 25px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .question-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .question-area input {
+      flex: 3;
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      border: 2px solid #bdc3c7;
+      border-radius: 40px;
+      font-family: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .question-area input:focus {
+      border-color: #3498db;
+    }
+
+    .question-area button {
+      flex: 1;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .question-area button:hover {
+      background-color: #2c3e50;
+    }
+
+    .answer-area {
+      background: #f0f7fb;
+      border-radius: 20px;
+      padding: 20px;
+      border-left: 6px solid #3498db;
+    }
+
+    .answer-label {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .answer-text {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #1a2632;
+      word-break: break-word;
+    }
+
+    .info-hint {
+      font-size: 0.9rem;
+      color: #5d6e7e;
+      background: #e9f0f5;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #7f8c8d;
       margin-top: 30px;
     }
 
-    p {
-      font-size: 1.2em;
-      line-height: 1.6;
-      text-align: justify;
+    details {
+      margin-top: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
     }
 
-    .image-block {
-      text-align: center;
-      margin: 30px 0;
-    }
-
-    .image-block img {
-      max-width: 100%;
-      height: auto;
-      border: 2px solid #bdc3c7;
-      border-radius: 8px;
-    }
-
-    .figcaption {
-      font-style: italic;
-      color: #7f8c8d;
-      margin-top: 8px;
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      color: #3498db;
     }
 
     ul {
-      font-size: 1.2em;
-      line-height: 1.8;
+      columns: 2;
+      column-gap: 30px;
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      ul {
+        columns: 1;
+      }
+    }
+
+    .voice-btn {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+
+    .voice-btn:hover {
+      background: #219150;
+      transform: scale(1.05);
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="menu-bar">
       <div class="burger-wrapper">
         <span class="burger" onclick="toggleMenu()">☰</span>
       </div>
-      
       <div class="nav-links" id="navLinks">
         <a href="index.html">Главная</a>
         <a href="teoriya.html">Теория</a>
@@ -180,10 +267,63 @@
       </div>
     </div>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('active');
-    }
-  </script>
+    <h1>Диалог с базой знаний</h1>
+    <div class="dialog-box">
+      <div class="question-area">
+
+        <input
+          type="text"
+          id="userQuestion"
+          placeholder="Задайте вопрос.."
+          autocomplete="off"
+        >
+      
+        <button onclick="askQuestion()">
+          Задать вопрос
+        </button>
+      
+        <button
+          class="voice-btn"
+          onclick="startVoiceInput()"
+          title="Голосовой ввод"
+        >
+          🎤
+        </button>
+      
+      </div>
+      <div class="answer-area">
+        <div class="answer-label">Ответ:</div>
+        <div id="answerOutput" class="answer-text">Здесь появится ответ на ваш вопрос...</div>
+      </div>
+      <div class="info-hint">
+
+      </div>
+    </div>
+
+    <details>
+      <summary>Пример вопросов</summary>
+      <ul>
+        <li>Что такое эвакуатор?</li>
+        <li>Что такое лебёдка?</li>
+        <li>Что такое гидравлическая система?</li>
+        <li>Что такое выдвижная платформа?</li>
+        <li>Что такое проблесковые маячки?</li>
+        <li>Для чего нужен эвакуатор?</li>
+        <li>Для чего нужна лебёдка?</li>
+        <li>Для чего нужны проблесковые маячки?</li>
+        <li>Какие типы эвакуаторов бывают?</li>
+        <li>Чем отличается эвакуатор с частичной погрузкой от эвакуатора с полной погрузкой?</li>
+        <li>Как работает эвакуатор?</li>
+        <li>Как работает лебёдка?</li>
+        <li>Из чего состоит эвакуатор?</li>
+        <li>Кто создал первый эвакуатор?</li>
+        <li>Где используется эвакуатор с манипулятором?</li>
+        <li>Какая грузоподъёмность у тяжёлого эвакуатора?</li>
+      </ul>
+    </details>
+    <div class="footer">
+    </div>
+  </div>
 </body>
+
 </html>
