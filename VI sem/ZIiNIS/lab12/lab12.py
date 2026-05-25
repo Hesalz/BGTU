@@ -30,7 +30,6 @@ class LSBStego:
         return bytes(bytes_list).decode('utf-8', errors='ignore')
     
     def embed_sequential(self, image_path, message, output_path, bits_to_use=2):
-        """Последовательное встраивание (биты по порядку)"""
         img = Image.open(image_path)
         if img.mode != 'RGB':
             img = img.convert('RGB')
