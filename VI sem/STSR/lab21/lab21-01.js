@@ -70,4 +70,4 @@ app.use((req, res) => {
     res.status(404).send('Сообщение со статусом 404');
 });
 
-app.listen(3000, () => console.log('Сервер слушает порт 3000'));
+app.listen(3000, () => console.log('http://localhost:3000'));

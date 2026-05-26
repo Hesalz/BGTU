@@ -4,11 +4,7 @@ const Users = require('./users.json');
 
 const app = express();
 
-// ============================================
-// Собственный middleware для FORMS-аутентификации
-// ============================================
 const formsAuthMiddleware = (req, res, next) => {
-    // Проверяем, есть ли активная сессия с аутентификацией
     if (req.session && req.session.isAuthenticated === true) {
         req.isAuthenticated = true;
         req.user = req.session.username;
@@ -17,52 +13,42 @@ const formsAuthMiddleware = (req, res, next) => {
         req.user = null;
     }
     
-    // Добавляем вспомогательный метод для проверки аутентификации
     req.isAuthenticatedFn = function() {
         return this.isAuthenticated === true;
     };
     
-    // Логируем попытки доступа к защищенным ресурсам
     if (req.url === '/resource' && !req.isAuthenticated) {
         console.log(`[AUTH] Unauthorized access attempt to ${req.url} from ${req.ip}`);
     }
     
     next();
 };
-// ============================================
 
-// Настройка сессий
 app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: '1111',
-    cookie: { maxAge: 60000 } // сессия живет 1 минута
+    cookie: { maxAge: 60000 }
 }));
 
-// Middleware для обработки данных форм
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Подключаем собственный middleware для forms-аутентификации
 app.use(formsAuthMiddleware);
 
-// Главная страница (информационная)
 app.get('/', (req, res) => {
     res.send(`
-        <h1>Forms Authentication Demo</h1>
+        <h1>Forms Authentication</h1>
         <p>Status: ${req.isAuthenticated ? 'Authenticated' : 'Not authenticated'}</p>
         ${req.isAuthenticated ? '<a href="/resource">Go to resource</a> | <a href="/logout">Logout</a>' : '<a href="/login">Login</a>'}
     `);
 });
 
-// GET /login - показывает форму входа
 app.get('/login', (req, res) => {
-    // Если уже аутентифицирован, перенаправляем на ресурс
     if (req.isAuthenticated) {
         return res.redirect('/resource');
     }
     
-    // Показываем форму входа
     res.send(`
         <!DOCTYPE html>
         <html>
@@ -95,25 +81,21 @@ app.get('/login', (req, res) => {
     `);
 });
 
-// POST /login - обрабатывает отправку формы
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     
-    // Ищем пользователя в users.json
     const user = Users.find(u => 
         u.user.toUpperCase() === username.toUpperCase() && 
         u.password === password
     );
     
     if (user) {
-        // Аутентификация успешна
         req.isAuthenticated = true;
         req.session.isAuthenticated = true;
         req.session.username = user.user;
         req.session.loginError = null;
         res.redirect('/resource');
     } else {
-        // Ошибка аутентификации
         req.isAuthenticated = false;
         req.session.isAuthenticated = false;
         req.session.loginError = 'Invalid username or password';
@@ -121,7 +103,6 @@ app.post('/login', (req, res) => {
     }
 });
 
-// GET /logout - выход из системы
 app.get('/logout', (req, res) => {
     console.log('Logout');
     req.isAuthenticated = false;
