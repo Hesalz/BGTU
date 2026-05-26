@@ -1,0 +1,529 @@
+{
+    "info": {
+      "name": "JSON-RPC Calculator API",
+      "description": "Коллекция для тестирования JSON-RPC методов: sum, mul, div, proc",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "sum",
+        "description": "Вычисляет сумму всех параметров (переменное число аргументов)",
+        "item": [
+          {
+            "name": "sum - 2 числа",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [10, 20],\n    \"id\": 1\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "sum - 3 числа",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [10, 20, 30],\n    \"id\": 2\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "sum - 5 чисел с отрицательными",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [5, -10, 15, -20, 25],\n    \"id\": 3\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "sum - 1 число",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [42],\n    \"id\": 4\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "mul",
+        "description": "Вычисляет произведение всех параметров (переменное число аргументов)",
+        "item": [
+          {
+            "name": "mul - 2 числа",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"mul\",\n    \"params\": [5, 6],\n    \"id\": 5\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "mul - 3 числа",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"mul\",\n    \"params\": [2, 3, 4],\n    \"id\": 6\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "mul - 4 числа с отрицательными",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"mul\",\n    \"params\": [-2, 3, -4, 5],\n    \"id\": 7\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "mul - с нулем",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"mul\",\n    \"params\": [10, 0, 5],\n    \"id\": 8\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "div",
+        "description": "Вычисляет деление x/y (принимает ровно 2 параметра)",
+        "item": [
+          {
+            "name": "div - обычное деление",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": [10, 2],\n    \"id\": 9\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "div - дробный результат",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": [7, 3],\n    \"id\": 10\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "div - деление на 1",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": [100, 1],\n    \"id\": 11\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "div - отрицательные числа",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": [-15, 3],\n    \"id\": 12\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "proc",
+        "description": "Вычисляет процент: (x/y)*100 (принимает ровно 2 параметра)",
+        "item": [
+          {
+            "name": "proc - сколько процентов 20 от 100",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"proc\",\n    \"params\": [20, 100],\n    \"id\": 13\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "proc - сколько процентов 3 от 4",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"proc\",\n    \"params\": [3, 4],\n    \"id\": 14\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "proc - больше 100%",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"proc\",\n    \"params\": [150, 100],\n    \"id\": 15\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "proc - отрицательные числа",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"proc\",\n    \"params\": [-10, 50],\n    \"id\": 16\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Error handling",
+        "description": "Тестирование обработки ошибок",
+        "item": [
+          {
+            "name": "Ошибка: неверный метод",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"subtract\",\n    \"params\": [10, 5],\n    \"id\": 17\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "Ошибка: неверное количество параметров для div",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": [10, 20, 30],\n    \"id\": 18\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "Ошибка: деление на ноль",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"div\",\n    \"params\": [10, 0],\n    \"id\": 19\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "Ошибка: неверный формат JSON",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [1, 2] // неверный синтаксис\n    \"id\": 20\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          },
+          {
+            "name": "Ошибка: отсутствует id",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"sum\",\n    \"params\": [10, 20]\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/api",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["api"]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "key": "base_url",
+        "value": "http://localhost:3000",
+        "type": "string"
+      }
+    ]
+  }
