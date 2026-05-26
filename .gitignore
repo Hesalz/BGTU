@@ -69,6 +69,7 @@ II сем/Курсовой проект/course-project/server/token.json
 *.mov
 *.mkv
 *.webm
+!D:/BGTU/VI sem/KMS/site/video/tow_truck.MOV
 
 # Compiled files
 *.exe

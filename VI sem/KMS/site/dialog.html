@@ -271,33 +271,24 @@
     <div class="dialog-box">
       <div class="question-area">
 
-        <input
-          type="text"
-          id="userQuestion"
-          placeholder="Задайте вопрос.."
-          autocomplete="off"
-        >
-      
+        <input type="text" id="userQuestion" placeholder="Задайте вопрос.." autocomplete="off">
+
         <button onclick="askQuestion()">
           Задать вопрос
         </button>
-      
-        <button
-          class="voice-btn"
-          onclick="startVoiceInput()"
-          title="Голосовой ввод"
-        >
+
+        <button class="voice-btn" onclick="startVoiceInput()" title="Голосовой ввод">
           🎤
         </button>
-      
+
       </div>
       <div class="answer-area">
         <div class="answer-label">Ответ:</div>
         <div id="answerOutput" class="answer-text">Здесь появится ответ на ваш вопрос...</div>
       </div>
-      <div class="info-hint">
+      <!-- <div class="info-hint">
 
-      </div>
+      </div> -->
     </div>
 
     <details>

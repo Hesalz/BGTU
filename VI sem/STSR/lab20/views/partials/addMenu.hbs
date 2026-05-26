@@ -1,0 +1,36 @@
+<div>
+    <form method="POST" action="/add" onsubmit="return ValidateForm()">
+        <div class="menu">
+            <input type="text" id="name" name="name" placeholder="Имя">
+            <input type="tel" id="number" name="number" placeholder="Номер">
+        </div>
+         <div class="menu">
+            <button id ="BTNsubm" type="submit" disabled>Добавить</button>
+            <button type="button" onclick="{{exit}}">Отмена</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById('name').addEventListener('input', ValidateForm);
+    document.getElementById('number').addEventListener('input', ValidateForm);
+
+    function ValidateForm(){
+        let name = document.getElementById('name').value;
+        let number = document.getElementById('number').value;
+
+        if(name === "" || number === "" || !isNaN(name) || !validatePhoneNumber(number)){
+            document.getElementById('BTNsubm').disabled = true;
+            document.getElementById('BTNsubm').style.opacity = 0.5;
+        } else {
+            document.getElementById('BTNsubm').disabled = false;
+            document.getElementById('BTNsubm').style.opacity = 1;
+        }
+    }
+
+    function validatePhoneNumber(number) {
+        let belarusPattern = new RegExp("^375[0-9]{9}$");
+        let russiaPattern = new RegExp("^7[0-9]{10}$");
+
+        return belarusPattern.test(number) || russiaPattern.test(number);
+    }
+</script>

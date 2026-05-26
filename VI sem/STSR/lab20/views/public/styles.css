@@ -1,0 +1,95 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    text-decoration:none;
+    color:#333;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.menu {
+    display: flex;
+    padding: 5px 100px;
+    color: #fff;
+}
+
+.menu *{
+    width: 100%;
+}
+
+.elemString{
+    text-align: left;
+    display: flex;
+    border: 1px solid #ccc;
+    margin: 5px 0 5px 0;
+    padding: 10px;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+}
+
+.elemString:hover{
+    border: 1px solid #ccc;
+    margin: 5px 0 5px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.elem{
+    flex:content;
+}
+
+button{
+    border: 1px solid #ccc;
+    margin: 5px 0 5px 0;
+    padding: 10px;
+    background-color: #008CBA; /* Blue */
+    color: white;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+}
+button:hover{
+    border: 1px solid #ccc;
+    margin: 5px 0 5px 0;
+    padding: 10px;
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+#BTNsubm {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+#delBTN {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+button[type="button"] {
+    background-color: #555555; /* Dark Gray */
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+ul {
+    max-height: 300px; /* Ограничение ширины div */
+    overflow-y: auto; /* Включение вертикального скролла, если содержимое не помещается */
+    border: 1px solid #ccc;
+    list-style-type: none;
+    margin: 0px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 15px;
+}

@@ -148,7 +148,35 @@ var knowledge = [
     ["эвакуатор", "включает", "гидравлическую систему"],
     ["эвакуатор", "включает", "выдвижную платформу"],
     ["эвакуатор", "включает", "систему крепления"],
-    ["эвакуатор", "включает", "проблесковые маячки"]
+    ["эвакуатор", "включает", "проблесковые маячки"],
+    ["эвакуатор", "имеет изображение", "img/tow_truck.png"],
+    ["лебедка", "имеет изображение", "img/lebedka.jpeg"],
+    ["гидравлическая система", "имеет изображение", "img/hidravlika.jpg"],
+    ["выдвижная платформа", "имеет изображение", "img/platforma.png"],
+    ["проблесковые маячки", "имеет изображение", "img/migalka.jpg"],
+    ["эвакуатор с манипулятором", "имеет изображение", "img/manipulator.jpg"],
+    ["эвакуатор с частичной погрузкой", "имеет изображение", "img/chastichnaya_pogruzka.png"],
+    ["частичная погрузка", "имеет изображение", "img/chastichnaya_pogruzka.png"],
+    ["эвакуатор с полной погрузкой", "имеет изображение", "img/polnaya_pogruzka.jpg"],
+    ["полная погрузка", "имеет изображение", "img/polnaya_pogruzka.jpg"],
+    ["тяжелый эвакуатор", "имеет изображение", "img/hard_towtruck.jpg"],
+    ["тяжёлый эвакуатор", "имеет изображение", "img/hard_towtruck.jpg"],
+    ["шасси эвакуатора", "имеет изображение", "img/baza_shassi.jpg"],
+    ["шасси", "имеет изображение", "img/baza_shassi.jpg"],
+    ["схема эвакуатора", "имеет изображение", "img/schema_tow_truck.jpg"],
+    ["устройство эвакуатора", "имеет изображение", "img/schema_tow_truck.jpg"],
+    ["из чего состоит эвакуатор", "имеет изображение", "img/schema_tow_truck.jpg"],
+    ["первый эвакуатор", "имеет изображение", "img/first_tow_truck.jpg"],
+    ["создатель эвакуатора", "имеет изображение", "img/Ernest.jpeg"],
+    ["эрнест холмс", "имеет изображение", "img/Ernest.jpeg"],
+    ["ernest holmes", "имеет изображение", "img/Ernest.jpeg"],
+    ["компания holmes", "имеет изображение", "img/Holmes_Company.jpg"],
+    ["holmes company", "имеет изображение", "img/Holmes_Company.jpg"],
+    ["jerr-dan", "имеет изображение", "img/Holmes_Company.jpg"],
+    ["эвакуатор на дороге", "имеет изображение", "img/tow-truck-bg.jpg"],
+    ["эвакуатор в работе", "имеет изображение", "img/tow-truck-bg.jpg"],
+    ["симулятор эвакуатора", "имеет изображение", "img/tow-truck-sim.png"],
+    ["tow truck simulator", "имеет изображение", "img/tow-truck-sim.png"]
 ];
 
 console.log("База знаний загружена, количество триад:", knowledge.length);
@@ -262,10 +290,7 @@ function findByPartialSubject(subject) {
 
         var subj = normalizeText(knowledge[i][0]);
 
-        if (
-            subj.indexOf(subject) >= 0 ||
-            subject.indexOf(subj) >= 0
-        ) {
+        if (subj.indexOf(subject) >= 0 || subject.indexOf(subj) >= 0) {
             return i;
         }
     }
@@ -302,6 +327,97 @@ function findBySubjectAndPredicate(subject, predicateList) {
     }
 
     return -1;
+}
+
+function getImageBySubject(question, subject) {
+
+    question =
+        normalizeText(question);
+
+    subject =
+        normalizeText(subject);
+
+    if (question.includes("частич")) {
+        return "img/chastichnaya_pogruzka.png";
+    }
+
+    if (question.includes("полной погрузк")) {
+        return "img/polnaya_pogruzka.jpg";
+    }
+
+    if (question.includes("манипулятор")) {
+        return "img/manipulator.jpg";
+    }
+
+    if (question.includes("лебед")) {
+        return "img/lebedka.jpeg";
+    }
+
+    if (question.includes("гидравличес")) {
+        return "img/hidravlika.jpg";
+    }
+
+    if (question.includes("маячк")) {
+        return "img/migalka.jpg";
+    }
+
+    if (question.includes("шасси")) {
+        return "img/baza_shassi.jpg";
+    }
+
+    if (question.includes("из чего состоит") || question.includes("устройство")) {
+        return "img/schema_tow_truck.jpg";
+    }
+
+    if (question.includes("перв")) {
+        return "img/first_tow_truck.jpg";
+    }
+
+    if (question.includes("создал") || question.includes("эрнест")) {
+        return "img/Ernest.jpeg";
+    }
+
+    if (question.includes("тяжел") || question.includes("тяжёл")) {
+        return "img/hard_towtruck.jpg";
+    }
+
+    if (subject.includes("эвакуатор")) {
+        return "img/tow_truck.png";
+    }
+
+    for (
+        var i = 0;
+        i < knowledge.length;
+        i++
+    ) {
+
+        var subj =
+            normalizeText(
+                knowledge[i][0]
+            );
+
+        var pred =
+            normalizeText(
+                knowledge[i][1]
+            );
+
+        if (
+            pred === "имеет изображение"
+        ) {
+
+            if (
+                subj.indexOf(subject)
+                >= 0 ||
+                subject.indexOf(subj)
+                >= 0
+            ) {
+
+                return knowledge[i][2];
+            }
+        }
+    }
+
+    return null;
 }
 
 function containsMainWords(text, sample) {
@@ -401,11 +517,7 @@ function getAnswer(question) {
 
             var subj = knowledge[i][0].toLowerCase();
 
-            if (
-                subj.indexOf("отличие") >= 0 &&
-                q.indexOf("частичной погрузкой") >= 0 &&
-                q.indexOf("полной погрузкой") >= 0
-            ) {
+            if (subj.indexOf("отличие") >= 0 && q.indexOf("частичной погрузкой") >= 0 && q.indexOf("полной погрузкой") >= 0 ) {
 
                 var triad = knowledge[i];
 
@@ -462,20 +574,11 @@ function getAnswer(question) {
             var subj = normalizeText(knowledge[i][0]);
             var pred = normalizeText(knowledge[i][1]);
 
-            var isCapacityTriad =
-                pred.indexOf("грузоподъемность") >= 0 ||
-                pred.indexOf("грузоподъёмность") >= 0;
+            var isCapacityTriad = pred.indexOf("грузоподъемность") >= 0 || pred.indexOf("грузоподъёмность") >= 0;
 
             if (!isCapacityTriad) continue;
 
-            if (
-                (q.indexOf("легкого") >= 0 ||
-                    q.indexOf("лёгкого") >= 0 ||
-                    q.indexOf("легкий") >= 0 ||
-                    q.indexOf("лёгкий") >= 0)
-                &&
-                subj.indexOf("легк") >= 0
-            ) {
+            if ((q.indexOf("легкого") >= 0 || q.indexOf("лёгкого") >= 0 || q.indexOf("легкий") >= 0 || q.indexOf("лёгкий") >= 0) && subj.indexOf("легк") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -486,10 +589,7 @@ function getAnswer(question) {
                     triad[2] + ".";
             }
 
-            if (
-                q.indexOf("средн") >= 0 &&
-                subj.indexOf("средн") >= 0
-            ) {
+            if (q.indexOf("средн") >= 0 && subj.indexOf("средн") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -500,12 +600,7 @@ function getAnswer(question) {
                     triad[2] + ".";
             }
 
-            if (
-                (q.indexOf("тяжел") >= 0 ||
-                    q.indexOf("тяжёл") >= 0)
-                &&
-                subj.indexOf("тяж") >= 0
-            ) {
+            if ((q.indexOf("тяжел") >= 0 || q.indexOf("тяжёл") >= 0) && subj.indexOf("тяж") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -516,10 +611,7 @@ function getAnswer(question) {
                     triad[2] + ".";
             }
 
-            if (
-                q.indexOf("сверх") >= 0 &&
-                subj.indexOf("сверх") >= 0
-            ) {
+            if (q.indexOf("сверх") >= 0 && subj.indexOf("сверх") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -615,8 +707,7 @@ function getAnswer(question) {
 
         if (q.indexOf("маячк") >= 0) {
 
-            idx = findBySubjectAndPredicate(
-                "проблесковые маячки",
+            idx = findBySubjectAndPredicate("проблесковые маячки",
                 [
                     "повышают",
                     "нужны для",
@@ -652,9 +743,7 @@ function getAnswer(question) {
 
         if (q.indexOf("полной погрузк") >= 0) {
 
-            idx = findByPartialSubject(
-                "эвакуатор с полной погрузкой"
-            );
+            idx = findByPartialSubject("эвакуатор с полной погрузкой");
 
             if (idx >= 0) {
 
@@ -679,10 +768,7 @@ function getAnswer(question) {
                 subject.indexOf(subj) >= 0
             ) {
 
-                if (
-                    subj.indexOf("отлич") >= 0 ||
-                    knowledge[i][1].toLowerCase().indexOf("отлич") >= 0
-                ) {
+                if (subj.indexOf("отлич") >= 0 || knowledge[i][1].toLowerCase().indexOf("отлич") >= 0) {
 
                     var triad = knowledge[i];
 
@@ -699,10 +785,7 @@ function getAnswer(question) {
 
             var subj = normalizeText(knowledge[i][0]);
 
-            if (
-                q.indexOf("манипулятор") >= 0 &&
-                subj.indexOf("манипулятор") >= 0
-            ) {
+            if (q.indexOf("манипулятор") >= 0 && subj.indexOf("манипулятор") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -713,10 +796,7 @@ function getAnswer(question) {
                     triad[2] + ".";
             }
 
-            if (
-                q.indexOf("тяж") >= 0 &&
-                subj.indexOf("тяж") >= 0
-            ) {
+            if (q.indexOf("тяж") >= 0 && subj.indexOf("тяж") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -727,11 +807,7 @@ function getAnswer(question) {
                     triad[2] + ".";
             }
 
-            if (
-                q.indexOf("легк") >= 0 &&
-                q.indexOf("средн") >= 0 &&
-                subj.indexOf("легк") >= 0
-            ) {
+            if (q.indexOf("легк") >= 0 && q.indexOf("средн") >= 0 && subj.indexOf("легк") >= 0) {
 
                 var triad = knowledge[i];
 
@@ -754,15 +830,9 @@ function getAnswer(question) {
             var pred =
                 normalizeText(knowledge[i][1]);
 
-            if (
-                pred.indexOf("преимуществ") >= 0 ||
-                pred.indexOf("преимущество") >= 0
-            ) {
+            if (pred.indexOf("преимуществ") >= 0 || pred.indexOf("преимущество") >= 0) {
 
-                if (
-                    q.indexOf("полной погрузк") >= 0 &&
-                    subj.indexOf("полной погрузк") >= 0
-                ) {
+                if (q.indexOf("полной погрузк") >= 0 && subj.indexOf("полной погрузк") >= 0) {
 
                     var triad = knowledge[i];
 
@@ -786,14 +856,9 @@ function getAnswer(question) {
             var pred =
                 normalizeText(knowledge[i][1]);
 
-            if (
-                pred.indexOf("недостат") >= 0
-            ) {
+            if (pred.indexOf("недостат") >= 0) {
 
-                if (
-                    q.indexOf("частичной погрузк") >= 0 &&
-                    subj.indexOf("частичной погрузк") >= 0
-                ) {
+                if (q.indexOf("частичной погрузк") >= 0 && subj.indexOf("частичной погрузк") >= 0) {
 
                     var triad = knowledge[i];
 
@@ -832,7 +897,38 @@ function askQuestion() {
         return;
     }
     var answer = getAnswer(question);
-    document.getElementById('answerOutput').innerHTML = answer;
+    var subject =
+        extractSubject(
+            cleanQuestion(question)
+        );
+
+    var imagePath =
+        getImageBySubject(
+            question,
+            subject
+        );
+
+    var html =
+        answer;
+
+    if (imagePath) {
+
+        html +=
+            '<br><br>' +
+
+            '<img src="' +
+            imagePath +
+            '" ' +
+
+            'style="max-width:350px;' +
+            'border-radius:12px;' +
+            'margin-top:10px;">';
+    }
+
+    document.getElementById(
+        "answerOutput"
+    ).innerHTML =
+        html;
 
     var utterance =
         new SpeechSynthesisUtterance(
@@ -862,19 +958,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var dialogOn = false;
 
@@ -1001,16 +1084,46 @@ function ask() {
     var answer =
         getAnswer(question);
 
+    var subject =
+        extractSubject(
+            cleanQuestion(question)
+        );
+
+    var imagePath =
+        getImageBySubject(
+            question,
+            subject
+        )
     var answerDiv =
         document.createElement("div");
 
     answerDiv.className =
         "answer";
 
-    answerDiv.innerHTML =
+    var html =
         answer;
 
-    history.appendChild(answerDiv);
+    if (imagePath) {
+
+        html +=
+            '<br><br>' +
+
+            '<img src="' +
+            imagePath +
+            '" ' +
+
+            'style="' +
+            'max-width:250px;' +
+            'border-radius:12px;' +
+            'margin-top:10px;">';
+    }
+
+    answerDiv.innerHTML =
+        html;
+
+    history.appendChild(
+        answerDiv
+    );
 
     var utterance =
         new SpeechSynthesisUtterance(
@@ -1031,17 +1144,9 @@ function ask() {
 
 function startVoiceInput() {
 
-    if (
-        !(
-            'webkitSpeechRecognition'
-            in window
-        )
-    ) {
+    if (!('webkitSpeechRecognition' in window)) {
 
-        alert(
-            "Голосовой ввод не поддерживается браузером"
-        );
-
+        alert("Голосовой ввод не поддерживается браузером");
         return;
     }
 

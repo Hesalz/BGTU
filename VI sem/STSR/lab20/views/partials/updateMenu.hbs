@@ -1,0 +1,78 @@
+<div>
+    <form action="/update" method="POST">
+
+        <div class="menu">
+            <input type="hidden" name="id" value="{{user.id}}">
+            <input id="inpName" value="{{user.name}}" name="name" type="name" onchange="BlockRemove()" onclick="BlockRemove()" placeholder="Имя" >
+            <input id ='inpName2' value="{{user.number}}" name="number" type="number" onchange="BlockRemove2()" onclick="BlockRemove2()" placeholder="Номер" >
+       </div>
+
+        <div class="menu">
+            <button id="BTNsubm" type="Submit" onmouseenter="ValidateForm()" >Изменить</button>
+            <button id ='delBTN' type="button" onmouseenter="ValidateForm()" onclick="deleteUser('{{user.id}}')">Удалить</button>
+            <button type="button" onclick="{{exit}}">Отказаться</button>
+        </div>
+
+    </form>
+</div>
+<script>
+    let name = null;
+    let number = null;
+
+    function deleteUser(userId) {
+        fetch(`/delete/${userId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location='/'
+            console.log(data);
+        })
+        .catch(error => {
+            window.location='/'
+            console.error('Error:', error);
+        });
+    }
+    function BlockRemove(){
+        if(name == null)
+            name =  document.getElementById('inpName').value;
+        if(document.getElementById('inpName').value != name)
+            document.getElementById('delBTN').disabled = true;
+        if(document.getElementById('inpName').value == name)
+            document.getElementById('delBTN').disabled = false;
+    }
+    function BlockRemove2(){
+        if(number == null)
+            number =  document.getElementById('inpName2').value;
+        if(document.getElementById('inpName2').value != number)
+            document.getElementById('delBTN').disabled = true;
+        if(document.getElementById('inpName2').value == number)
+            document.getElementById('delBTN').disabled = false;
+    }
+
+    function ValidateForm() {
+        let name = document.getElementById('inpName').value;
+        let number = document.getElementById('inpName2').value;
+
+        if(name === "" || number === "" || !isNaN(name) || !validatePhoneNumber(number) || !validateName(name)){
+            document.getElementById('BTNsubm').disabled = true;
+            document.getElementById('BTNsubm').classList.add('disabled-button');
+        } else {
+            document.getElementById('BTNsubm').disabled = false;
+            document.getElementById('BTNsubm').classList.remove('disabled-button');
+    }
+}
+
+
+    function validatePhoneNumber(number) {
+        let belarusPattern = new RegExp("^375[0-9]{9}$");
+        let russiaPattern = new RegExp("^7[0-9]{10}$");
+
+        return belarusPattern.test(number) || russiaPattern.test(number);
+    }
+
+    function validateName(name) {
+        let namePattern = new RegExp("^[a-zA-Zа-яА-ЯёЁ]+$");
+        return namePattern.test(name);
+    }
+</script>
