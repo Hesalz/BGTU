@@ -19,6 +19,7 @@ body {
 
 .menu *{
     width: 100%;
+    text-align: center;
 }
 
 .elemString{
@@ -84,7 +85,7 @@ button:hover {
 }
 
 ul {
-    max-height: 300px; /* Ограничение ширины div */
+    max-height: 800px; /* Ограничение ширины div */
     overflow-y: auto; /* Включение вертикального скролла, если содержимое не помещается */
     border: 1px solid #ccc;
     list-style-type: none;
