@@ -28,6 +28,16 @@ public class VehicleController : MonoBehaviour
     public Flasher vehicleFlasher;
     public KeyCode flashKey = KeyCode.F;
 
+    [Header("Звук двигателя")]
+    public AudioSource engineAudioSource;
+    public AudioClip engineSound;
+    public float minPitch = 0.5f;
+    public float maxPitch = 2f;
+    public float minVolume = 0.2f;
+    public float maxVolume = 1f;
+    public float pitchSmoothSpeed = 5f;
+    public float volumeSmoothSpeed = 5f;
+
     private Rigidbody rb;
     private bool isPlayerDriving = false;
     private float currentSpeed = 0f;
@@ -35,6 +45,8 @@ public class VehicleController : MonoBehaviour
     private float currentTurnInput = 0f;
     private float currentSteeringAngle = 0f;
     private float wheelRotation = 0f;
+    private float currentPitch = 0f;
+    private float currentVolume = 0f;
 
     private Quaternion originalLeftWheelRotation;
     private Quaternion originalRightWheelRotation;
@@ -48,9 +60,9 @@ public class VehicleController : MonoBehaviour
             rb = gameObject.AddComponent<Rigidbody>();
         }
 
-        rb.mass = 1000f;       
-        rb.linearDamping = 0.5f;         
-        rb.angularDamping = 0.5f;  
+        rb.mass = 1000f;
+        rb.linearDamping = 0.5f;
+        rb.angularDamping = 0.5f;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         BoxCollider boxCol = GetComponent<BoxCollider>();
@@ -68,8 +80,29 @@ public class VehicleController : MonoBehaviour
         if (steeringWheel != null)
             originalSteeringWheelRotation = steeringWheel.localRotation;
 
+        SetupEngineSound();
+
         DisableWheelAnimators();
         SetDrivingState(false);
+    }
+
+    void SetupEngineSound()
+    {
+        if (engineAudioSource == null)
+            engineAudioSource = GetComponent<AudioSource>();
+
+        if (engineAudioSource == null && engineSound != null)
+            engineAudioSource = gameObject.AddComponent<AudioSource>();
+
+        if (engineAudioSource != null && engineSound != null)
+        {
+            engineAudioSource.clip = engineSound;
+            engineAudioSource.loop = true;
+            engineAudioSource.playOnAwake = false;
+            engineAudioSource.volume = 0;
+            engineAudioSource.pitch = minPitch;
+            engineAudioSource.Play();
+        }
     }
 
     void Update()
@@ -121,6 +154,28 @@ public class VehicleController : MonoBehaviour
         {
             vehicleFlasher.ToggleFlasher();
         }
+
+        UpdateEngineSound();
+    }
+
+    void UpdateEngineSound()
+    {
+        if (engineAudioSource == null || engineSound == null) return;
+
+        float speedPercent = Mathf.Abs(currentSpeed) / maxSpeed;
+        float targetPitch = Mathf.Lerp(minPitch, maxPitch, speedPercent);
+        float targetVolume = Mathf.Lerp(minVolume, maxVolume, speedPercent);
+
+        if (currentSpeed < 0)
+        {
+            targetPitch *= 0.8f;
+        }
+
+        currentPitch = Mathf.Lerp(currentPitch, targetPitch, pitchSmoothSpeed * Time.deltaTime);
+        currentVolume = Mathf.Lerp(currentVolume, targetVolume, volumeSmoothSpeed * Time.deltaTime);
+
+        engineAudioSource.pitch = currentPitch;
+        engineAudioSource.volume = currentVolume;
     }
 
     void DisableWheelAnimators()
@@ -178,6 +233,14 @@ public class VehicleController : MonoBehaviour
             currentSteeringAngle = 0f;
             rb.linearVelocity = Vector3.zero;
 
+            if (engineAudioSource != null)
+            {
+                currentVolume = 0;
+                currentPitch = minPitch;
+                engineAudioSource.volume = 0;
+                engineAudioSource.pitch = minPitch;
+            }
+
             if (frontLeftWheel != null)
                 frontLeftWheel.localRotation = originalLeftWheelRotation;
             if (frontRightWheel != null)
@@ -188,6 +251,10 @@ public class VehicleController : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector3.zero;
+            if (engineAudioSource != null && !engineAudioSource.isPlaying && engineSound != null)
+            {
+                engineAudioSource.Play();
+            }
         }
     }
 

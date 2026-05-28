@@ -4,6 +4,8 @@ var knowledge = [
     ["эвакуатор", "используется", "для эвакуации повреждённых в ДТП машин и неправильно припаркованных автомобилей"],
     ["эвакуатор", "состоит из", "шасси, выдвижной платформы, гидравлической системы, лебёдки, системы крепления и световой сигнализации"],
     ["эвакуатор", "работает", "с помощью гидравлической системы, которая выдвигает и наклоняет платформу, и лебёдки, которая затягивает автомобиль"],
+    ["установка", "работает", "как показано на видеоролике"],
+    ["принцип", "работы", "эвакуатора можно понять из видеоролика"],
     ["эвакуатор", "выглядит", "как грузовой автомобиль с гидравлической платформой, лебёдкой и проблесковыми маячками"],
     ["эвакуатор", "оснащается", "проблесковыми маячками для безопасности на дороге"],
     ["эвакуатор", "называется", "также эвакуационной машиной или tow truck"],
@@ -173,10 +175,8 @@ var knowledge = [
     ["компания holmes", "имеет изображение", "img/Holmes_Company.jpg"],
     ["holmes company", "имеет изображение", "img/Holmes_Company.jpg"],
     ["jerr-dan", "имеет изображение", "img/Holmes_Company.jpg"],
-    ["эвакуатор на дороге", "имеет изображение", "img/tow-truck-bg.jpg"],
-    ["эвакуатор в работе", "имеет изображение", "img/tow-truck-bg.jpg"],
     ["симулятор эвакуатора", "имеет изображение", "img/tow-truck-sim.png"],
-    ["tow truck simulator", "имеет изображение", "img/tow-truck-sim.png"]
+    ["tow truck simulator", "имеет изображение", "img/tow-truck-sim.png"],
 ];
 
 console.log("База знаний загружена, количество триад:", knowledge.length);
@@ -329,7 +329,38 @@ function findBySubjectAndPredicate(subject, predicateList) {
     return -1;
 }
 
+function isVideoRequest(question) {
+    var q = cleanQuestion(question);
+    if (q === "как работает эвакуатор") {
+        return true;
+    }
+    if (q === "как работает установка") {
+        return true;
+    }
+    if (q === "видео работы эвакуатора") {
+        return true;
+    }
+    if (q === "принцип работы эвакуатора") {
+        return true;
+    }
+    if (q === "принцип работы установки") {
+        return true;
+    }
+    return false;
+}
+
+function getVideoPath(question) {
+    if (isVideoRequest(question)) {
+        return "video/tow_truck.MOV";
+    }
+    return null;
+}
+
 function getImageBySubject(question, subject) {
+
+    if (isVideoRequest(question)) {
+        return null;
+    }
 
     question =
         normalizeText(question);
@@ -452,6 +483,23 @@ function getAnswer(question) {
     var subject = extractSubject(q);
     if (!subject) {
         return "Не удалось определить ключевое понятие в вопросе.";
+    }
+
+    var q = cleanQuestion(qRaw);
+    if (q.indexOf("какая сегодня дата") >= 0 || 
+        q.indexOf("какое сегодня число") >= 0 ||
+        q.indexOf("сегодняшняя дата") >= 0 ||
+        q.indexOf("какой сегодня день") >= 0) {
+        
+        var today = new Date();
+        var day = today.getDate();
+        var month = today.getMonth() + 1;
+        var year = today.getFullYear();
+        
+        var months = ["января", "февраля", "марта", "апреля", "мая", "июня", 
+                      "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+        
+        return "Сегодня " + day + " " + months[today.getMonth()] + " " + year + " года.";
     }
 
     var isForWhat = (q.indexOf("для чего") >= 0 || q.indexOf("зачем") >= 0);
@@ -897,6 +945,10 @@ function askQuestion() {
         return;
     }
     var answer = getAnswer(question);
+    
+    // Проверяем, нужно ли показать видео
+    var videoPath = getVideoPath(question);
+    
     var subject =
         extractSubject(
             cleanQuestion(question)
@@ -908,27 +960,28 @@ function askQuestion() {
             subject
         );
 
-    var html =
-        answer;
+    var html = answer;
 
-    if (imagePath) {
-
-        html +=
-            '<br><br>' +
-
-            '<img src="' +
-            imagePath +
-            '" ' +
-
-            'style="max-width:350px;' +
-            'border-radius:12px;' +
-            'margin-top:10px;">';
+    // Если нужно показать видео
+    if (videoPath) {
+        html += '<br><br>' +
+                '<video width="100%" max-width="350px" controls style="max-width:350px; border-radius:12px; margin-top:10px;">' +
+                '<source src="' + videoPath + '" type="video/mp4">' +
+                'Ваш браузер не поддерживает видео. <a href="' + videoPath + '">Скачайте видео</a>' +
+                '</video>';
+    }
+    // Иначе показываем изображение, если есть
+    else if (imagePath) {
+        html += '<br><br>' +
+                '<img src="' + imagePath + '" ' +
+                'style="max-width:350px;' +
+                'border-radius:12px;' +
+                'margin-top:10px;">';
     }
 
     document.getElementById(
         "answerOutput"
-    ).innerHTML =
-        html;
+    ).innerHTML = html;
 
     var utterance =
         new SpeechSynthesisUtterance(
@@ -1089,33 +1142,39 @@ function ask() {
             cleanQuestion(question)
         );
 
+    // Проверяем, нужно ли показать видео
+    var videoPath = getVideoPath(question);
+    
     var imagePath =
         getImageBySubject(
             question,
             subject
-        )
+        );
+        
     var answerDiv =
         document.createElement("div");
 
     answerDiv.className =
         "answer";
 
-    var html =
-        answer;
+    var html = answer;
 
-    if (imagePath) {
-
-        html +=
-            '<br><br>' +
-
-            '<img src="' +
-            imagePath +
-            '" ' +
-
-            'style="' +
-            'max-width:250px;' +
-            'border-radius:12px;' +
-            'margin-top:10px;">';
+    // Если нужно показать видео
+    if (videoPath) {
+        html += '<br><br>' +
+                '<video width="100%" max-width="250px" controls style="max-width:250px; border-radius:12px; margin-top:10px;">' +
+                '<source src="' + videoPath + '" type="video/mp4">' +
+                'Ваш браузер не поддерживает видео' +
+                '</video>';
+    }
+    // Иначе показываем изображение, если есть
+    else if (imagePath) {
+        html += '<br><br>' +
+                '<img src="' + imagePath + '" ' +
+                'style="' +
+                'max-width:250px;' +
+                'border-radius:12px;' +
+                'margin-top:10px;">';
     }
 
     answerDiv.innerHTML =

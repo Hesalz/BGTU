@@ -22,9 +22,17 @@ public class WinchSystem : MonoBehaviour
     public float towForce = 30000f;
     public float upwardForce = 60000f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip reelInSound;
+    public AudioClip reelOutSound;
+    public bool loopSound = true;
+
     private bool isDraggingHook;
     private bool hookAttached;
     private bool vehicleLocked;
+    private bool isReelingIn;
+    private bool isReelingOut;
 
     private Rigidbody attachedVehicleRb;
     private Transform attachedTowPoint;
@@ -37,6 +45,15 @@ public class WinchSystem : MonoBehaviour
     void Start()
     {
         hookCollider = hookRb.GetComponent<Collider>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource != null)
+        {
+            audioSource.loop = loopSound;
+            audioSource.playOnAwake = false;
+        }
 
         ResetHookToWinch();
     }
@@ -132,17 +149,78 @@ public class WinchSystem : MonoBehaviour
 
     void HandleCableInput()
     {
-        if (Input.GetKey(KeyCode.R))
-            cableLength -= reelSpeed * Time.deltaTime;
+        bool wasReelingIn = isReelingIn;
+        bool wasReelingOut = isReelingOut;
 
-        if (Input.GetKey(KeyCode.F))
+        isReelingIn = Input.GetKey(KeyCode.R);
+        isReelingOut = Input.GetKey(KeyCode.F);
+
+        if (isReelingIn && !wasReelingIn)
+        {
+            PlayReelSound(true);
+        }
+
+        if (isReelingOut && !wasReelingOut)
+        {
+            PlayReelSound(false);
+        }
+
+        if (!isReelingIn && wasReelingIn)
+        {
+            StopReelSound();
+        }
+
+        if (!isReelingOut && wasReelingOut)
+        {
+            StopReelSound();
+        }
+
+        if (isReelingIn)
+        {
+            cableLength -= reelSpeed * Time.deltaTime;
+        }
+
+        if (isReelingOut)
+        {
             cableLength += reelSpeed * Time.deltaTime;
+        }
 
         cableLength = Mathf.Clamp(
             cableLength,
             minCableLength,
             maxCableLength
         );
+    }
+
+    void PlayReelSound(bool isReelingInDirection)
+    {
+        if (audioSource == null) return;
+
+        AudioClip clipToPlay = isReelingInDirection ? reelInSound : reelOutSound;
+
+        if (clipToPlay == null)
+        {
+            Debug.LogWarning($"{(isReelingInDirection ? "Reel In" : "Reel Out")} sound is not assigned!");
+            return;
+        }
+
+        if (loopSound)
+        {
+            audioSource.clip = clipToPlay;
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.PlayOneShot(clipToPlay);
+        }
+    }
+
+    void StopReelSound()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 
     void UpdateCableVisual()

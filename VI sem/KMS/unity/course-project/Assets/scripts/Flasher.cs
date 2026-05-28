@@ -20,7 +20,11 @@ public class Flasher : MonoBehaviour
 
     [Header("Управление")]
     public KeyCode nextModeKey = KeyCode.N;
-    public bool showModeInGUI = true;
+
+    [Header("Звук")]
+    public AudioSource audioSource;
+    public AudioClip flashSound;
+    public float soundVolume = 0.7f;
 
     private bool isFlashing = false;
     private Coroutine flashCoroutine;
@@ -32,9 +36,20 @@ public class Flasher : MonoBehaviour
             lights = GetComponentsInChildren<Light>();
         }
 
-        if (lights == null || lights.Length == 0)
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null && flashSound != null)
         {
-            return;
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.volume = soundVolume;
+            audioSource.loop = true;
+            audioSource.clip = flashSound;
         }
 
         foreach (Light light in lights)
@@ -63,8 +78,6 @@ public class Flasher : MonoBehaviour
         else
             currentMode = FlashingMode.Strobe;
 
-        isFlashing = false;
-
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
@@ -78,8 +91,6 @@ public class Flasher : MonoBehaviour
 
         isFlashing = true;
         flashCoroutine = StartCoroutine(FlashRoutine());
-
-        Debug.Log($"Режим: {(currentMode == FlashingMode.Strobe ? "Стробоскоп" : "Бегущий огонёк")}");
     }
 
     IEnumerator StrobeMode()
@@ -149,6 +160,11 @@ public class Flasher : MonoBehaviour
 
         isFlashing = true;
         flashCoroutine = StartCoroutine(FlashRoutine());
+
+        if (audioSource != null && flashSound != null)
+        {
+            audioSource.Play();
+        }
     }
 
     public void DisableFlasher()
@@ -168,8 +184,12 @@ public class Flasher : MonoBehaviour
             if (light != null)
             {
                 light.intensity = 0;
-                light.color = flashColor;
             }
+        }
+
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
     }
 

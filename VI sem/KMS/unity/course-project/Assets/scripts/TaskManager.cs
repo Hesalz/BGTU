@@ -15,6 +15,7 @@ public class TaskManager : MonoBehaviour
     public VehicleController vehicleController;
     public Flasher flasher;
     public LeverController leverController;
+    public ResultTable resultTable; 
 
     [Header("Settings")]
     public float raycastDistance = 5f;
@@ -147,6 +148,7 @@ public class TaskManager : MonoBehaviour
             vehicleEntryController.IsDoorClosed())
         {
             CompleteTask(1);
+            resultTable.StartNewMeasure();
         }
     }
 

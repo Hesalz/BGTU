@@ -3,15 +3,27 @@
 public class LeverController : MonoBehaviour
 {
     [Header("Рычаг")]
-    public Animator leverAnimator;         
+    public Animator leverAnimator;
 
     [Header("Аппарели")]
-    public Animator[] rampsAnimators;         
+    public Animator[] rampsAnimators;
 
     [Header("Настройки")]
-    public KeyCode interactKey = KeyCode.E;   
-    public float interactionRadius = 8f;      
-    public bool showPrompt = true;            
+    public KeyCode interactKey = KeyCode.E;
+    public float interactionRadius = 8f;
+    public bool showPrompt = true;
+
+    [Header("Задержки")]
+    public float leverAnimationDelay = 0.5f;   
+    public float rampsDelay = 0.5f;          
+
+    [Header("Звуки")]
+    public AudioSource audioSource;
+    public AudioClip leverPullSound;  
+    public AudioClip rampsMoveSound;  
+    public float leverSoundVolume = 0.8f;
+    public float rampsSoundVolume = 0.7f;
+    public bool playSoundOnToggle = true;
 
     private bool isOpen = false;
     private bool isBusy = false;
@@ -28,6 +40,18 @@ public class LeverController : MonoBehaviour
 
         if (leverAnimator == null)
             leverAnimator = GetComponent<Animator>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null && (leverPullSound != null || rampsMoveSound != null))
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.volume = 0.7f;
+        }
     }
 
     void Update()
@@ -48,12 +72,18 @@ public class LeverController : MonoBehaviour
 
         isOpen = !isOpen;
 
+        PlayLeverSound();
+
+        yield return new WaitForSeconds(leverAnimationDelay);
+
         if (leverAnimator != null)
         {
             leverAnimator.SetBool("Open", isOpen);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(rampsDelay);
+
+        PlayRampsSound();
 
         if (rampsAnimators != null)
         {
@@ -67,6 +97,27 @@ public class LeverController : MonoBehaviour
         }
 
         isBusy = false;
+    }
+
+    void PlayLeverSound()
+    {
+        if (!playSoundOnToggle) return;
+        if (audioSource == null) return;
+        if (leverPullSound == null)
+        {
+            return;
+        }
+
+        audioSource.PlayOneShot(leverPullSound, leverSoundVolume);
+    }
+
+    void PlayRampsSound()
+    {
+        if (!playSoundOnToggle) return;
+        if (audioSource == null) return;
+        if (rampsMoveSound == null) return;
+
+        audioSource.PlayOneShot(rampsMoveSound, rampsSoundVolume);
     }
 
     void OnDrawGizmosSelected()

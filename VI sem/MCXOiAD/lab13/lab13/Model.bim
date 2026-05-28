@@ -18,8 +18,6 @@
         },
         "credential": {
           "AuthenticationKind": "UsernamePassword",
-          "kind": "SQL",
-          "path": "pc;OrderServiceDW",
           "Username": "cube_user",
           "EncryptConnection": false
         }

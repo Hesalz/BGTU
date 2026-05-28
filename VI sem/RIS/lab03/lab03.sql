@@ -1,4 +1,3 @@
--- 2. Создать пользователя
 CREATE USER Hleb IDENTIFIED BY 1234
 DEFAULT TABLESPACE USERS
 QUOTA UNLIMITED ON USERS
@@ -10,12 +9,12 @@ GRANT UNLIMITED TABLESPACE TO Hleb;
 GRANT CONNECT TO Hleb;
 GRANT CREATE DATABASE LINK TO Hleb;
 
--- drop user Hleb cascade;
+-- drop user Hleb cascade; 
 
 CREATE DATABASE LINK linkr
-CONNECT TO Vi IDENTIFIED BY "1234"
+CONNECT TO Kolya IDENTIFIED BY "1234"
 USING '(DESCRIPTION=
-         (ADDRESS=(PROTOCOL=TCP)(HOST=172.20.10.2)(PORT=1521))
+         (ADDRESS=(PROTOCOL=TCP)(HOST=172.20.10.3)(PORT=1521))
          (CONNECT_DATA=(SERVICE_NAME=ORCLPDB)))'; 
 
 DROP DATABASE LINK linkr;
@@ -41,34 +40,27 @@ SELECT * FROM DUAL@linkr;
 
 select * from local_table;
 select * from remote_table;
+select * from remote_table@linkr;
 
 --6.1
 DELETE FROM local_table;
 COMMIT;
-
 SET TRANSACTION NAME 'txn_insert_insert';
-
 INSERT INTO local_table VALUES (200, 'Start', 'NEW');
 INSERT INTO remote_table@linkr VALUES (200, 'Data from hleb', 'NEW');
-
 COMMIT;
-
-select * from local_table;
-select * from remote_table;
-select * from remote_table@linkr;
 
 --6.2
 begin
 INSERT INTO local_table VALUES (5, 'Fifth row', 'PENDING');
-UPDATE remote_table@linkr SET value='Updated by hleb', processed_flag='Y' WHERE id=100;
-
+UPDATE remote_table@linkr SET value='Updated by hleb', data='Y' WHERE id=200;
 COMMIT;
 end;
 
 --6.3
 begin
 UPDATE local_table SET status='PROCESSED' WHERE id=200;
-INSERT INTO remote_table@linkr VALUES (101, 'New remote row', 'N');
+INSERT INTO remote_table@linkr VALUES (200, 'New remote row', 'N');
 COMMIT;
 end;
 
@@ -79,7 +71,7 @@ COMMIT;
 begin
 -- Этот блок выдаст ошибку (дубликат ключа 100)
 INSERT INTO local_table VALUES (101, 'Will be rolled back', 'ERROR');
-INSERT INTO remote_table@linkr VALUES (100, 'DUPLICATE KEY!', 'X');
+INSERT INTO remote_table@linkr VALUES (200, 'DUPLICATE KEY!', 'X');
 COMMIT;
 end;
 
@@ -90,7 +82,8 @@ end;
 GRANT EXECUTE ON SYS.DBMS_LOCK TO Hleb;
 SET SERVEROUTPUT ON;
 
-DECLARE
+
+DECLARE -- для 1-ого компа
    v_lock_handle VARCHAR2(128);
    v_result NUMBER;
 BEGIN
@@ -111,7 +104,7 @@ BEGIN
    IF v_result = 0 THEN
       -- Обновляем строку
       UPDATE remote_table
-      SET data = 'BLOCKED BY LISA', status = 'Y' 
+      SET data = 'BLOCKED BY KOLYA', status = 'Y' 
       WHERE id = 2;
       
       
@@ -134,27 +127,26 @@ END;
 /
 
 
+------------
 
----
-DECLARE
+
+DECLARE --для 2-ого компа
    v_start DATE := SYSDATE;
 BEGIN
-   DBMS_OUTPUT.PUT_LINE('Время: '  TO_CHAR(SYSDATE, 'HH24:MI:SS'));
+   DBMS_OUTPUT.PUT_LINE('Время: ' || TO_CHAR(SYSDATE, 'HH24:MI:SS'));
    DBMS_OUTPUT.PUT_LINE('TXN A: Пытаемся обновить строку через dblink');
    
    UPDATE remote_table@linkr 
-   SET value = 'UPDATED BY TXN A', processed_flag = 'X' 
-   WHERE id = 1;
+   SET data = 'UPDATED BY TXN A', status = 'X' 
+   WHERE id = 2;
    
-   -- Сюда дойдем только после COMMIT от TXN B
    DBMS_OUTPUT.PUT_LINE('TXN A: Обновление выполнено! Ожидание заняло '  
-                        ROUND((SYSDATE - v_start) * 86400)  ' секунд');
+                        || ROUND((SYSDATE - v_start) * 86400) || ' секунд');
    
-   -- Обновляем локальную таблицу
    UPDATE local_table SET status = 'UPDATED BY TXN A' WHERE id = 1;
    
    COMMIT;
    DBMS_OUTPUT.PUT_LINE('TXN A: COMMIT выполнен');
-   DBMS_OUTPUT.PUT_LINE('Время: '  TO_CHAR(SYSDATE, 'HH24:MI:SS'));
+   DBMS_OUTPUT.PUT_LINE('Время: ' || TO_CHAR(SYSDATE, 'HH24:MI:SS'));
 END;
 /
