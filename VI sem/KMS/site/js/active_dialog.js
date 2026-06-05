@@ -485,12 +485,7 @@ function getAnswer(question) {
         return "Не удалось определить ключевое понятие в вопросе.";
     }
 
-    var q = cleanQuestion(qRaw);
-    if (q.indexOf("какая сегодня дата") >= 0 || 
-        q.indexOf("какое сегодня число") >= 0 ||
-        q.indexOf("сегодняшняя дата") >= 0 ||
-        q.indexOf("какой сегодня день") >= 0) {
-        
+    if (q.indexOf("какая сегодня дата") >= 0 || q.indexOf("какое сегодня число") >= 0 || q.indexOf("сегодняшняя дата") >= 0 || q.indexOf("какой сегодня день") >= 0) {
         var today = new Date();
         var day = today.getDate();
         var month = today.getMonth() + 1;
@@ -937,80 +932,10 @@ function getAnswer(question) {
     return "Ответ не найден. Попробуйте переформулировать вопрос.";
 }
 
-function askQuestion() {
-    var input = document.getElementById('userQuestion');
-    var question = input.value.trim();
-    if (question === "") {
-        document.getElementById('answerOutput').innerHTML = "❓ Введите вопрос.";
-        return;
-    }
-    var answer = getAnswer(question);
-    
-    // Проверяем, нужно ли показать видео
-    var videoPath = getVideoPath(question);
-    
-    var subject =
-        extractSubject(
-            cleanQuestion(question)
-        );
-
-    var imagePath =
-        getImageBySubject(
-            question,
-            subject
-        );
-
-    var html = answer;
-
-    // Если нужно показать видео
-    if (videoPath) {
-        html += '<br><br>' +
-                '<video width="100%" max-width="350px" controls style="max-width:350px; border-radius:12px; margin-top:10px;">' +
-                '<source src="' + videoPath + '" type="video/mp4">' +
-                'Ваш браузер не поддерживает видео. <a href="' + videoPath + '">Скачайте видео</a>' +
-                '</video>';
-    }
-    // Иначе показываем изображение, если есть
-    else if (imagePath) {
-        html += '<br><br>' +
-                '<img src="' + imagePath + '" ' +
-                'style="max-width:350px;' +
-                'border-radius:12px;' +
-                'margin-top:10px;">';
-    }
-
-    document.getElementById(
-        "answerOutput"
-    ).innerHTML = html;
-
-    var utterance =
-        new SpeechSynthesisUtterance(
-            answer
-        );
-
-    utterance.lang =
-        "ru-RU";
-
-    speechSynthesis.cancel();
-
-    speechSynthesis.speak(
-        utterance
-    );
-}
-
 function toggleMenu() {
     var nav = document.getElementById('navLinks');
     if (nav) nav.classList.toggle('active');
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    var input = document.getElementById('userQuestion');
-    if (input) {
-        input.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') askQuestion();
-        });
-    }
-});
 
 var dialogOn = false;
 
@@ -1142,7 +1067,6 @@ function ask() {
             cleanQuestion(question)
         );
 
-    // Проверяем, нужно ли показать видео
     var videoPath = getVideoPath(question);
     
     var imagePath =
@@ -1159,7 +1083,6 @@ function ask() {
 
     var html = answer;
 
-    // Если нужно показать видео
     if (videoPath) {
         html += '<br><br>' +
                 '<video width="100%" max-width="250px" controls style="max-width:250px; border-radius:12px; margin-top:10px;">' +
@@ -1167,7 +1090,6 @@ function ask() {
                 'Ваш браузер не поддерживает видео' +
                 '</video>';
     }
-    // Иначе показываем изображение, если есть
     else if (imagePath) {
         html += '<br><br>' +
                 '<img src="' + imagePath + '" ' +
@@ -1246,14 +1168,6 @@ function startVoiceInput() {
                     text;
 
                 ask();
-            }
-
-            else if (pageInput) {
-
-                pageInput.value =
-                    text;
-
-                askQuestion();
             }
         };
 

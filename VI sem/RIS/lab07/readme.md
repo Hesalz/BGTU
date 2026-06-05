@@ -6,8 +6,8 @@
 	клиент отправляет запросы на посредника 192.168.56.104
 
 
-CMD:
-	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.101 -PrefixLength 24
+PowerShell от админа:
+	New-NetIPAddress -InterfaceAlias "Имя вашего сетевого адаптера" -IPAddress 192.168.56.101 -PrefixLength 24
 	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.102 -PrefixLength 24
 	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.103 -PrefixLength 24
 	New-NetIPAddress -InterfaceAlias "Ethernet 3" -IPAddress 192.168.56.104 -PrefixLength 24
@@ -32,12 +32,6 @@ config.txt:
 
 .\ServerU_Agent.exe 192.168.56.104
 .\ClientU.exe 192.168.56.104
-
-
-192.168.56.101
-192.168.56.102
-192.168.56.104
-
 
 
 
