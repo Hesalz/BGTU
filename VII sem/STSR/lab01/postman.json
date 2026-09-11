@@ -1,0 +1,255 @@
+{
+  "info": {
+    "_postman_id": "8f5f6a9b-6f2d-4a8b-9e1d-tdwa0101",
+    "name": "TDWA01-01 — NGINX лабораторная",
+    "description": "Набор запросов для тестирования Web API TDWA01-01 и прокси NGINX.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "api40000",
+      "value": "http://localhost:40000/NGINX-test"
+    },
+    {
+      "key": "nginx20000",
+      "value": "http://localhost:20000/api/Save-JSON"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 POST — add 3 + 5",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"add\",\n    \"x\": 3,\n    \"y\": 5\n}"
+        },
+        "url": {
+          "raw": "{{api40000}}",
+          "host": [
+            "{{api40000}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "02 POST — duplicate → 409",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"add\",\n    \"x\": 3,\n    \"y\": 5\n}"
+        },
+        "url": {
+          "raw": "{{api40000}}",
+          "host": [
+            "{{api40000}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "03 GET — find add 3 + 5",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api40000}}?op=add&x=3&y=5",
+          "host": [
+            "{{api40000}}"
+          ],
+          "query": [
+            {
+              "key": "op",
+              "value": "add"
+            },
+            {
+              "key": "x",
+              "value": "3"
+            },
+            {
+              "key": "y",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "04 GET — missing → 404",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api40000}}?op=mul&x=100&y=200",
+          "host": [
+            "{{api40000}}"
+          ],
+          "query": [
+            {
+              "key": "op",
+              "value": "mul"
+            },
+            {
+              "key": "x",
+              "value": "100"
+            },
+            {
+              "key": "y",
+              "value": "200"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "05 POST — mul 6 × 5",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"mul\",\n    \"x\": 6,\n    \"y\": 5\n}"
+        },
+        "url": {
+          "raw": "{{api40000}}",
+          "host": [
+            "{{api40000}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "06 PUT — mul 6 × 5",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"mul\",\n    \"x\": 6,\n    \"y\": 5\n}"
+        },
+        "url": {
+          "raw": "{{api40000}}",
+          "host": [
+            "{{api40000}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "07 DELETE — mul 6 × 5",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"mul\",\n    \"x\": 6,\n    \"y\": 5\n}"
+        },
+        "url": {
+          "raw": "{{api40000}}",
+          "host": [
+            "{{api40000}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "08 POST через NGINX — sub 10 − 3",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"sub\",\n    \"x\": 10,\n    \"y\": 3\n}"
+        },
+        "url": {
+          "raw": "{{nginx20000}}",
+          "host": [
+            "{{nginx20000}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "09 GET через NGINX — sub 10 − 3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{nginx20000}}?op=sub&x=10&y=3",
+          "host": [
+            "{{nginx20000}}"
+          ],
+          "query": [
+            {
+              "key": "op",
+              "value": "sub"
+            },
+            {
+              "key": "x",
+              "value": "10"
+            },
+            {
+              "key": "y",
+              "value": "3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "10 POST через NGINX — div 15 ÷ 5",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"op\": \"div\",\n    \"x\": 15,\n    \"y\": 5\n}"
+        },
+        "url": {
+          "raw": "{{nginx20000}}",
+          "host": [
+            "{{nginx20000}}"
+          ]
+        }
+      }
+    }
+  ]
+}
