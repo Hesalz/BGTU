@@ -11,6 +11,7 @@ const DATA_FILE = path.join(__dirname, "requests.json");
 
 app.use(express.json());
 
+// Загружаем единственный запрос (или null, если его нет)
 function loadRequest() {
     if (!fs.existsSync(DATA_FILE)) {
         return null;
@@ -30,6 +31,7 @@ function loadRequest() {
     }
 }
 
+// Сохраняем единственный запрос (или удаляем файл, если null)
 function saveRequest(request) {
     if (request === null) {
         if (fs.existsSync(DATA_FILE)) {
@@ -88,6 +90,7 @@ function requestsEqual(a, b) {
     return a && b && a.op === b.op && a.x === b.x && a.y === b.y;
 }
 
+// GET — 404 если не найден; 200 если найден (вернуть с result)
 app.get("/NGINX-test", (req, res) => {
     const stored = loadRequest();
 
@@ -111,6 +114,7 @@ app.get("/NGINX-test", (req, res) => {
     });
 });
 
+// POST — 409 если ЛЮБОЙ запрос уже есть; 200 если нет (сохранить + result)
 app.post("/NGINX-test", (req, res) => {
     const data = req.body;
 
@@ -128,6 +132,7 @@ app.post("/NGINX-test", (req, res) => {
 
     const stored = loadRequest();
 
+    // Если на сервере уже есть ЛЮБОЙ запрос — 409
     if (stored !== null) {
         return res.status(409).json({
             error: "JSON-запрос уже существует",
@@ -147,6 +152,7 @@ app.post("/NGINX-test", (req, res) => {
     return res.status(200).json(newRequest);
 });
 
+// PUT — 404 если запроса нет; 200 если есть (ПОЛНОСТЬЮ заменить + result)
 app.put("/NGINX-test", (req, res) => {
     const data = req.body;
 
@@ -164,12 +170,14 @@ app.put("/NGINX-test", (req, res) => {
 
     const stored = loadRequest();
 
+    // Если запроса нет вообще — 404
     if (stored === null) {
         return res.status(404).json({
             error: "JSON-запрос не найден"
         });
     }
 
+    // Полностью заменяем существующий запрос новым
     const updatedRequest = {
         op: data.op,
         x: data.x,
@@ -182,6 +190,7 @@ app.put("/NGINX-test", (req, res) => {
     return res.status(200).json(updatedRequest);
 });
 
+// DELETE — 404 если не найден; 200 если найден (удалить)
 app.delete("/NGINX-test", (req, res) => {
     const data = req.body;
 
@@ -229,4 +238,6 @@ app.use((error, req, res, next) => {
 
 app.listen(PORT, HOST, () => {
     console.log(`http://localhost:${PORT}`);
+    console.log(`http://localhost:20000/TDWA02-01/`);
+    console.log(`http://localhost:20000/TDWA02-02/`);
 });

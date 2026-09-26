@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TDWA02-01 — HTTP методы</title>
+    <link rel="stylesheet" href="TDWA02-01.css">
+</head>
+<body>
+    <h1>TDWA02-01</h1>
+
+    <section class="card">
+        <h2>Параметры запроса</h2>
+        <label>op:
+            <select id="op">
+                <option value="add">add</option>
+                <option value="sub">sub</option>
+                <option value="mul">mul</option>
+                <option value="div">div</option>
+            </select>
+        </label>
+        <label>x: <input id="x" type="number" value="10"></label>
+        <label>y: <input id="y" type="number" value="5"></label>
+    </section>
+
+    <section class="buttons">
+        <button id="btn-get">GET</button>
+        <button id="btn-post">POST</button>
+        <button id="btn-put">PUT</button>
+        <button id="btn-delete">DELETE</button>
+    </section>
+
+    <section class="card">
+        <h2>Результат</h2>
+        <pre id="output">—</pre>
+    </section>
+
+    <script src="TDWA02-01.js"></script>
+</body>
+</html>
