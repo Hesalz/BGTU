@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "chartjs-node-canvas": "^5.0.0",
+    "exceljs": "^4.4.0",
+    "fs": "^0.0.1-security",
+    "xlsx": "^0.18.5"
+  }
+}
