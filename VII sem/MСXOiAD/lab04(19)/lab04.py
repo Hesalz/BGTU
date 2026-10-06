@@ -24,12 +24,10 @@ print("Ключи cancer(): \n{}".format(cancer.keys()))
 print("Форма массива data для набора cancer: {}".format(cancer.data.shape))
 print("Количество примеров для каждого класса:\n{}".format(
 {n: v for n, v in zip(cancer.target_names, np.bincount(cancer.target))}))
-print("Количество примеров для каждого класса:\n{}".format(
-{n: v for n, v in zip(cancer.target_names, np.bincount(cancer.target))}))
 
-from sklearn.datasets import load_boston
-boston = load_boston()
-print("форма массива data для набора boston: {}".format(boston.data.shape))
+from sklearn.datasets import fetch_california_housing
+housing = fetch_california_housing()
+print("форма массива data для набора california: {}".format(housing.data.shape))
 X, y = mglearn.datasets.load_extended_boston()
 print("форма массива X: {}".format(X.shape))
 mglearn.plots.plot_knn_classification(n_neighbors=1)

@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Страница-1" id="Qlulyv4fwDFcwvhTRnPK">
+    <mxGraphModel dx="1030" dy="623" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-11" edge="1" parent="1" source="E_wy8gEiEtfOII3gFYcj-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="E_wy8gEiEtfOII3gFYcj-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Главная страница&amp;nbsp;" vertex="1">
+          <mxGeometry height="95" width="160" x="175" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-13" edge="1" parent="1" source="E_wy8gEiEtfOII3gFYcj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="E_wy8gEiEtfOII3gFYcj-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Поиск на карте" vertex="1">
+          <mxGeometry height="95" width="160" x="380" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-9" edge="1" parent="1" source="E_wy8gEiEtfOII3gFYcj-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="E_wy8gEiEtfOII3gFYcj-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-3" parent="1" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.6_point_star;fillColor=light-dark(#FFCD28,#FFFF33);strokeColor=#d79b00;gradientColor=#ffa500;" value="" vertex="1">
+          <mxGeometry height="50" width="60" x="50" y="307.5" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-14" edge="1" parent="1" source="E_wy8gEiEtfOII3gFYcj-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="E_wy8gEiEtfOII3gFYcj-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;align=center;" value="&lt;div style=&quot;&quot;&gt;Выбор района Минска&amp;nbsp;или области&lt;/div&gt;" vertex="1">
+          <mxGeometry height="95" width="160" x="585" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-15" edge="1" parent="1" source="E_wy8gEiEtfOII3gFYcj-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="E_wy8gEiEtfOII3gFYcj-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;align=center;" value="&lt;div style=&quot;&quot;&gt;Просмотр объектов на карте&lt;/div&gt;" vertex="1">
+          <mxGeometry height="95" width="160" x="175" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;align=center;" value="&lt;div style=&quot;&quot;&gt;Страница объекта&lt;/div&gt;" vertex="1">
+          <mxGeometry height="95" width="160" x="380" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-8" parent="1" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.6_point_star;fillColor=light-dark(#FFCD28,#FFFF33);strokeColor=#d79b00;gradientColor=#ffa500;" value="" vertex="1">
+          <mxGeometry height="50" width="60" x="635" y="452.5" as="geometry" />
+        </mxCell>
+        <mxCell id="E_wy8gEiEtfOII3gFYcj-16" edge="1" parent="1" source="E_wy8gEiEtfOII3gFYcj-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="E_wy8gEiEtfOII3gFYcj-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
