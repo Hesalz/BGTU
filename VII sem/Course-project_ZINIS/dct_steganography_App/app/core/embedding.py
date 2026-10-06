@@ -120,7 +120,7 @@ def embed_message(
     image_path: str | Path,
     output_path: str | Path,
     message: str,
-    password: str,
+    password: str | None = None,
     strength: float = 3.0,
 ) -> dict:
     """
@@ -130,7 +130,7 @@ def embed_message(
 
     if strength <= 0:
         raise ValueError(
-            "Embedding strength must be positive."
+            "Сила встраивания должна быть положительным числом."
         )
 
     image, is_color, original_shape = load_luma_channel(image_path)
@@ -155,9 +155,9 @@ def embed_message(
 
     if len(bits) > capacity_bits:
         raise ValueError(
-            f"Message is too large. "
-            f"Required: {len(bits)} bits, "
-            f"available: {capacity_bits} bits."
+            f"Сообщение слишком большое. "
+            f"Требуется: {len(bits)} бит, доступно: "
+            f"{capacity_bits} бит."
         )
 
     result = image.astype(

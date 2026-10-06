@@ -49,7 +49,7 @@ def _read_bits(
 
     if count < 0:
         raise ValueError(
-            "Requested bit count cannot be negative."
+            "Запрошенное количество бит не может быть отрицательным."
         )
 
     height, width = image.shape
@@ -63,8 +63,7 @@ def _read_bits(
 
     if count > capacity_bits:
         raise ValueError(
-            "The requested payload exceeds "
-            "the image capacity."
+            "Запрашиваемые данные превышают вместимость изображения."
         )
 
     bits = []
@@ -126,8 +125,7 @@ def extract_message(
         # полный заголовок.
         if len(header_bits) != HEADER_SIZE * 8:
             raise ValueError(
-                "The hidden message header "
-                "is incomplete."
+                "Заголовок скрытого сообщения неполный."
             )
 
         header = bits_to_bytes(
@@ -136,8 +134,7 @@ def extract_message(
 
         if len(header) != HEADER_SIZE:
             raise ValueError(
-                "The hidden message header "
-                "is incomplete."
+                "Заголовок скрытого сообщения неполный."
             )
 
         (
@@ -157,8 +154,7 @@ def extract_message(
     ) as exc:
 
         raise ValueError(
-            "Unable to read a valid "
-            "DCT message header."
+            "Не удалось прочитать корректный заголовок DCT-сообщения."
         ) from exc
 
     # ==========================================================
@@ -167,19 +163,17 @@ def extract_message(
 
     if magic != b"DCTS":
         raise ValueError(
-            "No compatible DCT message "
-            "was found."
+            "Совместимое DCT-сообщение не найдено."
         )
 
-    if version != 2:
+    if version not in (2, 3):
         raise ValueError(
-            "Unsupported payload version."
+            "Неподдерживаемая версия данных."
         )
 
     if encrypted_length <= 0:
         raise ValueError(
-            "The hidden message has "
-            "an invalid length."
+            "Скрытое сообщение имеет некорректную длину."
         )
 
     # ==========================================================
@@ -206,8 +200,7 @@ def extract_message(
 
         if len(all_bits) != total_bits:
             raise ValueError(
-                "The hidden message "
-                "is incomplete."
+                "Скрытое сообщение неполное."
             )
 
         payload = bits_to_bytes(
@@ -217,8 +210,7 @@ def extract_message(
     except ValueError as exc:
 
         raise ValueError(
-            "The hidden message "
-            "is incomplete."
+            "Скрытое сообщение неполное."
         ) from exc
 
     # ==========================================================

@@ -143,3 +143,50 @@ def test_message_capacity_accounts_for_payload_overhead():
         assert capacity["payload_bytes"] == calculate_capacity(source)
         assert capacity["header_bytes"] == 57
         assert 0 < capacity["message_bytes"] < capacity["payload_bytes"]
+
+
+def test_benchmark_series_returns_matrix():
+    from app.analysis.benchmark import run_benchmark_series
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        source = tmp / "source.png"
+        create_test_image(source, width=512, height=512)
+
+        results = run_benchmark_series(
+            source,
+            tmp / "work",
+            "benchmark-password",
+            strengths=(1, 2, 3, 4, 5),
+            message_sizes=(10, 50),
+        )
+
+        assert len(results) == 10
+        assert {row["strength"] for row in results} == {1.0, 2.0, 3.0, 4.0, 5.0}
+        assert {row["message_bytes"] for row in results} == {10, 50}
+        assert all(row["status"] in {"OK", "FAIL", "SKIP"} for row in results)
+
+
+def test_round_trip_without_password():
+    """A blank password stores the message without encryption, with SHA-256 integrity check."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        source = tmp / "source.png"
+        stego = tmp / "stego.png"
+        create_test_image(source)
+        message = "Сообщение без пароля"
+        embed_message(source, stego, message, password=None, strength=3)
+        assert extract_message(stego, password=None) == message
+
+
+def test_lossless_output_formats_round_trip():
+    """BMP and TIFF preserve the embedded DCT bits when saved losslessly."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        source = tmp / "source.png"
+        create_test_image(source)
+        message = "Проверка формата"
+        for extension in ("bmp", "tiff"):
+            stego = tmp / f"stego.{extension}"
+            embed_message(source, stego, message, "format-test", strength=3)
+            assert extract_message(stego, "format-test") == message

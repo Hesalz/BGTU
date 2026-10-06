@@ -13,7 +13,7 @@ def load_luma_channel(image_path: str | Path) -> tuple[np.ndarray, bool, tuple[i
     """
     image = cv2.imread(str(image_path), cv2.IMREAD_UNCHANGED)
     if image is None:
-        raise ValueError("Unable to open the image.")
+        raise ValueError("Не удалось открыть изображение.")
 
     if image.ndim == 2:
         return image, False, image.shape
@@ -22,7 +22,7 @@ def load_luma_channel(image_path: str | Path) -> tuple[np.ndarray, bool, tuple[i
         ycrcb = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
         return ycrcb[:, :, 0], True, image.shape
 
-    raise ValueError("Unsupported image format. Use grayscale or 24-bit colour images.")
+    raise ValueError("Неподдерживаемый формат изображения. Используйте изображение в градациях серого или цветное 24-битное изображение.")
 
 
 def save_luma_channel(
@@ -33,7 +33,7 @@ def save_luma_channel(
     """Save a processed luminance channel while preserving colour channels."""
     original = cv2.imread(str(original_path), cv2.IMREAD_UNCHANGED)
     if original is None:
-        raise ValueError("Unable to open the source image.")
+        raise ValueError("Не удалось открыть исходное изображение.")
 
     processed_luma = np.clip(np.rint(processed_luma), 0, 255).astype(np.uint8)
 
@@ -44,7 +44,7 @@ def save_luma_channel(
         ycrcb[:, :, 0] = processed_luma
         output = cv2.cvtColor(ycrcb, cv2.COLOR_YCrCb2BGR)
     else:
-        raise ValueError("Unsupported image format. Use grayscale or 24-bit colour images.")
+        raise ValueError("Неподдерживаемый формат изображения. Используйте изображение в градациях серого или цветное 24-битное изображение.")
 
     if not cv2.imwrite(str(output_path), output):
-        raise IOError("Unable to save the stego image.")
+        raise IOError("Не удалось сохранить стего-изображение.")

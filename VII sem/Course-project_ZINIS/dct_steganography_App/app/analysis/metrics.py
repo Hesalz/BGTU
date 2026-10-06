@@ -5,7 +5,7 @@ import numpy as np
 def calculate_mse(original: np.ndarray, processed: np.ndarray) -> float:
     """Calculate mean squared error for grayscale or colour images."""
     if original.shape != processed.shape:
-        raise ValueError("Images must have the same dimensions and channels.")
+        raise ValueError("Изображения должны иметь одинаковые размеры и количество каналов.")
 
     original = original.astype(np.float64)
     processed = processed.astype(np.float64)
@@ -28,7 +28,7 @@ def compare_images(original_path: str, processed_path: str) -> dict:
     processed = cv2.imread(processed_path, cv2.IMREAD_UNCHANGED)
 
     if original is None or processed is None:
-        raise ValueError("Unable to open one of the images.")
+        raise ValueError("Не удалось открыть одно из изображений.")
 
     return {
         "mse": calculate_mse(original, processed),

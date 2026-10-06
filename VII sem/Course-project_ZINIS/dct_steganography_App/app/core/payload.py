@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 
 MAGIC = b"DCTS"
-VERSION = 2
+VERSION = 3
 SALT_SIZE = 16
 
 # magic + version + message length + salt + integrity hash
@@ -18,7 +18,7 @@ HEADER_SIZE = struct.calcsize(HEADER_FORMAT)
 def encrypted_size_for_message_bytes(message_bytes: int) -> int:
     """Return the Fernet token size for a plaintext of the given byte length."""
     if message_bytes < 0:
-        raise ValueError("Message size cannot be negative.")
+        raise ValueError("Размер сообщения не может быть отрицательным.")
 
     # Fernet uses AES-CBC with PKCS7 padding. The token contains:
     # version(1) + timestamp(8) + IV(16) + ciphertext + HMAC(32).
@@ -54,7 +54,7 @@ def max_message_bytes_for_payload_capacity(capacity_bytes: int) -> int:
 def _derive_key(password: str, salt: bytes) -> bytes:
     """Derive a Fernet key from a user password."""
     if not password:
-        raise ValueError("Password must not be empty.")
+        raise ValueError("Пароль не должен быть пустым.")
 
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
@@ -67,69 +67,70 @@ def _derive_key(password: str, salt: bytes) -> bytes:
     )
 
 
-def build_payload(message: str, password: str) -> bytes:
-    """Encrypt a message and build a self-describing payload."""
-    if not password:
-        raise ValueError("Password must not be empty.")
-
+def build_payload(message: str, password: str | None = None) -> bytes:
+    """Build a payload. A blank password stores plaintext with integrity checking only."""
     message_bytes = message.encode("utf-8")
-    salt = __import__("secrets").token_bytes(SALT_SIZE)
-    key = _derive_key(password, salt)
-
-    encrypted = Fernet(key).encrypt(message_bytes)
     integrity = hashlib.sha256(message_bytes).digest()
+
+    if password:
+        salt = __import__("secrets").token_bytes(SALT_SIZE)
+        key = _derive_key(password, salt)
+        stored_data = Fernet(key).encrypt(message_bytes)
+    else:
+        # All-zero salt marks an unencrypted version-3 payload.
+        # SHA-256 detects accidental corruption but is not authentication.
+        salt = bytes(SALT_SIZE)
+        stored_data = message_bytes
 
     header = struct.pack(
         HEADER_FORMAT,
         MAGIC,
         VERSION,
-        len(encrypted),
+        len(stored_data),
         salt,
         integrity,
     )
+    return header + stored_data
 
-    return header + encrypted
 
-
-def parse_payload(payload: bytes, password: str) -> str:
-    """Validate, decrypt and decode a payload."""
+def parse_payload(payload: bytes, password: str | None = None) -> str:
+    """Validate and decode both legacy encrypted and version-3 payloads."""
     if len(payload) < HEADER_SIZE:
-        raise ValueError("The hidden data is incomplete.")
+        raise ValueError("Скрытые данные неполные.")
 
-    magic, version, encrypted_length, salt, integrity = struct.unpack(
-        HEADER_FORMAT,
-        payload[:HEADER_SIZE],
+    magic, version, data_length, salt, integrity = struct.unpack(
+        HEADER_FORMAT, payload[:HEADER_SIZE]
     )
-
     if magic != MAGIC:
-        raise ValueError("No compatible DCT message was found.")
-
-    if version != VERSION:
-        raise ValueError("Unsupported payload version.")
+        raise ValueError("Совместимое DCT-сообщение не найдено.")
+    if version not in (2, 3):
+        raise ValueError("Неподдерживаемая версия данных.")
 
     start = HEADER_SIZE
-    end = start + encrypted_length
+    end = start + data_length
+    if data_length <= 0 or end > len(payload):
+        raise ValueError("Скрытое сообщение неполное.")
 
-    if end > len(payload):
-        raise ValueError("The hidden message is incomplete.")
-
-    encrypted = payload[start:end]
-
+    stored_data = payload[start:end]
     try:
-        key = _derive_key(password, salt)
-        message_bytes = Fernet(key).decrypt(encrypted)
+        if version == 2 or salt != bytes(SALT_SIZE):
+            if not password:
+                raise ValueError("Для извлечения этого сообщения необходимо ввести пароль.")
+            key = _derive_key(password, salt)
+            message_bytes = Fernet(key).decrypt(stored_data)
+        else:
+            message_bytes = stored_data
     except (InvalidToken, ValueError) as exc:
-        raise ValueError(
-            "Invalid password or corrupted hidden data."
-        ) from exc
+        if isinstance(exc, ValueError) and str(exc).startswith("Для извлечения"):
+            raise
+        raise ValueError("Неверный пароль или скрытые данные повреждены.") from exc
 
     if hashlib.sha256(message_bytes).digest() != integrity:
-        raise ValueError("Hidden data integrity check failed.")
-
+        raise ValueError("Проверка целостности скрытых данных не пройдена.")
     try:
         return message_bytes.decode("utf-8")
     except UnicodeDecodeError as exc:
-        raise ValueError("Hidden message is not valid UTF-8.") from exc
+        raise ValueError("Скрытое сообщение не является корректным текстом UTF-8.") from exc
 
 
 def bytes_to_bits(data: bytes) -> list[int]:
@@ -144,7 +145,7 @@ def bytes_to_bits(data: bytes) -> list[int]:
 def bits_to_bytes(bits: list[int]) -> bytes:
     """Convert a sequence of bits back to bytes."""
     if len(bits) % 8 != 0:
-        raise ValueError("Bit sequence length must be divisible by 8.")
+        raise ValueError("Длина последовательности бит должна быть кратна 8.")
 
     result = bytearray()
 
