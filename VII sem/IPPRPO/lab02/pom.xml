@@ -6,8 +6,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>by.ipprpo</groupId>
-    <artifactId>cinema-ticket-sales</artifactId>
+    <groupId>ipprpo</groupId>
+    <artifactId>lab02</artifactId>
     <version>1.0</version>
 
     <properties>
