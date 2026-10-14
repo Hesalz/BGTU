@@ -3,7 +3,6 @@ import numpy as np
 
 
 def calculate_mse(original: np.ndarray, processed: np.ndarray) -> float:
-    """Calculate mean squared error for grayscale or colour images."""
     if original.shape != processed.shape:
         raise ValueError("Изображения должны иметь одинаковые размеры и количество каналов.")
 
@@ -13,7 +12,6 @@ def calculate_mse(original: np.ndarray, processed: np.ndarray) -> float:
 
 
 def calculate_psnr(original: np.ndarray, processed: np.ndarray) -> float:
-    """Calculate PSNR in decibels for grayscale or colour images."""
     mse = calculate_mse(original, processed)
     if mse == 0:
         return float("inf")
@@ -23,7 +21,6 @@ def calculate_psnr(original: np.ndarray, processed: np.ndarray) -> float:
 
 
 def compare_images(original_path: str, processed_path: str) -> dict:
-    """Calculate MSE and PSNR using all available image channels."""
     original = cv2.imread(original_path, cv2.IMREAD_UNCHANGED)
     processed = cv2.imread(processed_path, cv2.IMREAD_UNCHANGED)
 

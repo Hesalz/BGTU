@@ -1,4 +1,3 @@
-import csv
 import time
 from pathlib import Path
 
@@ -13,7 +12,6 @@ DEFAULT_MESSAGE_SIZES = (10, 50, 100, 150, 200, 250)
 
 
 def _make_benchmark_message(size_bytes: int) -> str:
-    """Create a deterministic ASCII message with an exact UTF-8 byte length."""
     if size_bytes < 0:
         raise ValueError("Размер сообщения не может быть отрицательным.")
     return ("DCT benchmark message. " * ((size_bytes // 23) + 1))[:size_bytes]
@@ -26,7 +24,6 @@ def run_single_experiment(
     password: str,
     strength: float,
 ) -> dict:
-    """Run one embedding/extraction experiment and collect metrics."""
     source_image = Path(source_image)
     work_directory = Path(work_directory)
     work_directory.mkdir(parents=True, exist_ok=True)
@@ -78,13 +75,6 @@ def run_benchmark_series(
     strengths=DEFAULT_STRENGTHS,
     message_sizes=DEFAULT_MESSAGE_SIZES,
 ) -> list[dict]:
-    """
-    Run a matrix of experiments: message size × strength.
-
-    Each requested message size is measured at every strength value.
-    Experiments that do not fit into the image are returned as SKIP rows
-    instead of stopping the whole benchmark.
-    """
     source_image = Path(source_image)
     work_directory = Path(work_directory)
     work_directory.mkdir(parents=True, exist_ok=True)
@@ -129,31 +119,3 @@ def run_benchmark_series(
             results.append(base)
 
     return results
-
-
-def save_benchmark_csv(results: list[dict], output_path: str | Path) -> Path:
-    """Save benchmark results as a CSV file."""
-    output_path = Path(output_path)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    fields = [
-        "strength",
-        "message_bytes",
-        "required_payload_bytes",
-        "payload_bytes",
-        "status",
-        "verified",
-        "psnr_db",
-        "mse",
-        "embedding_time_s",
-        "extraction_time_s",
-        "extraction_error",
-        "output_path",
-    ]
-
-    with output_path.open("w", newline="", encoding="utf-8-sig") as file:
-        writer = csv.DictWriter(file, fieldnames=fields)
-        writer.writeheader()
-        writer.writerows({field: row.get(field) for field in fields} for row in results)
-
-    return output_path

@@ -4,7 +4,6 @@ from pathlib import Path
 
 
 class HistoryDatabase:
-    """SQLite storage for application operations."""
 
     def __init__(self, db_path: str | Path | None = None):
         if db_path is None:

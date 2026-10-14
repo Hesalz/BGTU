@@ -5,12 +5,6 @@ import numpy as np
 
 
 def load_luma_channel(image_path: str | Path) -> tuple[np.ndarray, bool, tuple[int, ...]]:
-    """Load an image and return its luminance channel.
-
-    For colour images the DCT is performed only on the Y channel of YCrCb,
-    so the original colour information is preserved. Grayscale images remain
-    grayscale for backwards compatibility.
-    """
     image = cv2.imread(str(image_path), cv2.IMREAD_UNCHANGED)
     if image is None:
         raise ValueError("Не удалось открыть изображение.")
@@ -30,7 +24,6 @@ def save_luma_channel(
     output_path: str | Path,
     processed_luma: np.ndarray,
 ) -> None:
-    """Save a processed luminance channel while preserving colour channels."""
     original = cv2.imread(str(original_path), cv2.IMREAD_UNCHANGED)
     if original is None:
         raise ValueError("Не удалось открыть исходное изображение.")

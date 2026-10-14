@@ -1,13 +1,12 @@
-
 from pathlib import Path
 
 from PySide6.QtCore import Qt, QTimer
-from PySide6.QtGui import QPixmap, QFont
+from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
-    QApplication, QComboBox, QFileDialog, QFormLayout, QFrame, QGridLayout,
+    QApplication, QFileDialog, QFormLayout, QFrame, QGridLayout,
     QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
-    QPlainTextEdit, QProgressBar, QPushButton, QSlider, QSpinBox, QTabWidget,
-    QScrollArea, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
+    QPlainTextEdit, QPushButton, QSlider, QTabWidget, QScrollArea,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
 )
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
@@ -18,7 +17,6 @@ from app.analysis.benchmark import (
 )
 from app.analysis.metrics import compare_images
 from app.core.embedding import (
-    calculate_capacity,
     calculate_message_capacity,
     embed_message,
 )
@@ -31,7 +29,6 @@ DEFAULT_STRENGTH = 3
 
 
 class PlotCanvas(FigureCanvas):
-    """Matplotlib canvas that lets the parent tab handle mouse-wheel scrolling."""
 
     def wheelEvent(self, event):
         parent = self.parentWidget()
@@ -137,7 +134,6 @@ class MainWindow(QMainWindow):
 
     @staticmethod
     def _wrap_tab(content):
-        """Помещает содержимое вкладки в прокручиваемую область."""
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setFrameShape(QFrame.Shape.NoFrame)
@@ -418,7 +414,7 @@ class MainWindow(QMainWindow):
             figure.tight_layout()
             canvas.draw()
 
-        # Total processing time = embedding + extraction; averaged by message size.
+
         grouped_time = {}
         for result in results:
             if result.get("status") != "OK":
@@ -533,7 +529,7 @@ class MainWindow(QMainWindow):
         if not message:
             self._error("Введите сообщение.")
             return
-        # Пустой пароль означает внедрение без шифрования.
+
 
         try:
             result = embed_message(source, output, message, password or None, strength)
@@ -733,7 +729,6 @@ class MainWindow(QMainWindow):
         default_text: str,
         timeout_ms: int = 5000,
     ):
-        """Показывает цветное уведомление об операции на 5 секунд."""
         token_name = f"_status_token_{id(label)}"
         token = getattr(self, token_name, 0) + 1
         setattr(self, token_name, token)

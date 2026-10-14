@@ -10,30 +10,26 @@ MAGIC = b"DCTS"
 VERSION = 3
 SALT_SIZE = 16
 
-# magic + version + message length + salt + integrity hash
+
 HEADER_FORMAT = ">4sBI16s32s"
 HEADER_SIZE = struct.calcsize(HEADER_FORMAT)
 
 
 def encrypted_size_for_message_bytes(message_bytes: int) -> int:
-    """Return the Fernet token size for a plaintext of the given byte length."""
     if message_bytes < 0:
         raise ValueError("Размер сообщения не может быть отрицательным.")
 
-    # Fernet uses AES-CBC with PKCS7 padding. The token contains:
-    # version(1) + timestamp(8) + IV(16) + ciphertext + HMAC(32).
+
     ciphertext_size = ((message_bytes // 16) + 1) * 16
     raw_size = 57 + ciphertext_size
     return 4 * ((raw_size + 2) // 3)
 
 
 def payload_size_for_message_bytes(message_bytes: int) -> int:
-    """Return the exact payload size for a plaintext of the given byte length."""
     return HEADER_SIZE + encrypted_size_for_message_bytes(message_bytes)
 
 
 def max_message_bytes_for_payload_capacity(capacity_bytes: int) -> int:
-    """Return the largest UTF-8 byte length that fits into a payload capacity."""
     if capacity_bytes < HEADER_SIZE:
         return 0
 
@@ -52,7 +48,6 @@ def max_message_bytes_for_payload_capacity(capacity_bytes: int) -> int:
 
 
 def _derive_key(password: str, salt: bytes) -> bytes:
-    """Derive a Fernet key from a user password."""
     if not password:
         raise ValueError("Пароль не должен быть пустым.")
 
@@ -68,7 +63,6 @@ def _derive_key(password: str, salt: bytes) -> bytes:
 
 
 def build_payload(message: str, password: str | None = None) -> bytes:
-    """Build a payload. A blank password stores plaintext with integrity checking only."""
     message_bytes = message.encode("utf-8")
     integrity = hashlib.sha256(message_bytes).digest()
 
@@ -77,8 +71,8 @@ def build_payload(message: str, password: str | None = None) -> bytes:
         key = _derive_key(password, salt)
         stored_data = Fernet(key).encrypt(message_bytes)
     else:
-        # All-zero salt marks an unencrypted version-3 payload.
-        # SHA-256 detects accidental corruption but is not authentication.
+
+
         salt = bytes(SALT_SIZE)
         stored_data = message_bytes
 
@@ -94,7 +88,6 @@ def build_payload(message: str, password: str | None = None) -> bytes:
 
 
 def parse_payload(payload: bytes, password: str | None = None) -> str:
-    """Validate and decode both legacy encrypted and version-3 payloads."""
     if len(payload) < HEADER_SIZE:
         raise ValueError("Скрытые данные неполные.")
 
@@ -134,7 +127,6 @@ def parse_payload(payload: bytes, password: str | None = None) -> str:
 
 
 def bytes_to_bits(data: bytes) -> list[int]:
-    """Convert bytes to a sequence of bits."""
     return [
         (byte >> shift) & 1
         for byte in data
@@ -143,7 +135,6 @@ def bytes_to_bits(data: bytes) -> list[int]:
 
 
 def bits_to_bytes(bits: list[int]) -> bytes:
-    """Convert a sequence of bits back to bytes."""
     if len(bits) % 8 != 0:
         raise ValueError("Длина последовательности бит должна быть кратна 8.")
 
