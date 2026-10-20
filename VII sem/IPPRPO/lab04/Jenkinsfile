@@ -1,0 +1,49 @@
+
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven'
+    }
+
+    stages {
+        stage('Clean') {
+            steps {
+                bat 'mvn clean'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                bat 'mvn validate'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'mvn package -DskipTests'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline lab03 завершён успешно.'
+        }
+        failure {
+            echo 'Pipeline завершился с ошибкой.'
+        }
+    }
+}
