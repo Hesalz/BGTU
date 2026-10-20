@@ -32,14 +32,14 @@ git push -u origin main
 Если origin ещё не настроен, Откройте свой репозиторий на GitHub, нажмите Code → Local → HTTPS и скопируйте ссылку.
 Если `origin` уже настроен, повторно добавлять его не нужно. Для лабораторной необходимо минимум два коммита.
 
-## 4. Настройка Jenkins
+## 4. Настройка Jenkins (http://localhost:8080)
 1. Создайте задание типа **Pipeline** или откройте существующее.
 2. В разделе **Pipeline** выберите `Pipeline script from SCM`.
 3. В поле **SCM** выберите `Git`.
 4. Укажите URL репозитория, ветку `*/main` и путь к файлу `Jenkinsfile`.
 5. Сохраните настройки и нажмите **Build Now** для первой проверки.
 
-Для приватного репозитория добавьте Credentials в Jenkins: **Manage Jenkins → Credentials → Add Credentials**. Выберите `Username with password`, укажите имя пользователя GitHub и Personal Access Token вместо пароля. Затем выберите эти Credentials в настройках Pipeline. Для публичного репозитория доступ на чтение обычно возможен без авторизации.
+Для приватного репозитория добавьте Credentials в Jenkins: **Manage Jenkins → Credentials → Add Credentials**. Выберите `Username with password`, укажите имя пользователя GitHub и Personal Access Token вместо пароля, который можно создать тут https://github.com/settings/tokens. Затем выберите эти Credentials в настройках Pipeline. Для публичного репозитория доступ на чтение обычно возможен без авторизации.
 
 ## 5. Автоматический запуск
 В настройках задания найдите раздел **Triggers** и включите **«Опрашивать SCM об изменениях» (Poll SCM)**.
