@@ -8,6 +8,9 @@ def load_luma_channel(image_path: str | Path) -> tuple[np.ndarray, bool, tuple[i
     image = cv2.imread(str(image_path), cv2.IMREAD_UNCHANGED)
     if image is None:
         raise ValueError("Не удалось открыть изображение.")
+    
+    if image.dtype != np.uint8:
+        raise ValueError("Поддерживаются только 8-битные изображения.")
 
     if image.ndim == 2:
         return image, False, image.shape
