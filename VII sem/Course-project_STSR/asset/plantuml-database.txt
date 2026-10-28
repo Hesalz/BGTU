@@ -1,0 +1,158 @@
+
+@startuml
+
+hide circle
+left to right direction
+skinparam linetype ortho
+skinparam shadowing false
+skinparam entity {
+    BackgroundColor White
+    BorderColor #333333
+}
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+entity "Roles" as Roles {
+    * RoleId : INT <<PK>>
+    --
+    Name : NVARCHAR(30) <<UQ>>
+    Description : NVARCHAR(200)
+}
+
+entity "Users" as Users {
+    * UserId : INT <<PK>>
+    --
+    RoleId : INT <<FK>>
+    Email : NVARCHAR(254) <<UQ>>
+    PasswordHash : NVARCHAR(255)
+    DisplayName : NVARCHAR(100)
+    CreatedAt : DATETIME2
+    IsActive : BIT
+}
+
+entity "ComponentCategories" as Categories {
+    * CategoryId : INT <<PK>>
+    --
+    Name : NVARCHAR(80) <<UQ>>
+    Description : NVARCHAR(300)
+}
+
+entity "Manufacturers" as Manufacturers {
+    * ManufacturerId : INT <<PK>>
+    --
+    Name : NVARCHAR(120) <<UQ>>
+    Website : NVARCHAR(300)
+}
+
+entity "Components" as Components {
+    * ComponentId : INT <<PK>>
+    --
+    CategoryId : INT <<FK>>
+    ManufacturerId : INT <<FK>>
+    Name : NVARCHAR(200)
+    Model : NVARCHAR(120)
+    Description : NVARCHAR(MAX)
+    Price : DECIMAL(12,2)
+    PowerW : DECIMAL(8,2)
+    ImageUrl : NVARCHAR(500)
+    IsActive : BIT
+    CreatedAt : DATETIME2
+    UpdatedAt : DATETIME2
+}
+
+entity "SpecificationDefinitions" as SpecDefinitions {
+    * SpecificationDefinitionId : INT <<PK>>
+    --
+    CategoryId : INT <<FK>>
+    Name : NVARCHAR(100)
+    DataType : NVARCHAR(20)
+    Unit : NVARCHAR(30)
+    IsRequired : BIT
+}
+
+entity "ComponentSpecifications" as Specifications {
+    * ComponentSpecificationId : INT <<PK>>
+    --
+    ComponentId : INT <<FK>>
+    SpecificationDefinitionId : INT <<FK>>
+    ValueText : NVARCHAR(500)
+    ValueNumber : DECIMAL(18,4)
+}
+
+entity "CompatibilityRules" as Rules {
+    * CompatibilityRuleId : INT <<PK>>
+    --
+    Name : NVARCHAR(150)
+    SourceCategoryId : INT <<FK>>
+    TargetCategoryId : INT <<FK>>
+    SpecificationKey : NVARCHAR(100)
+    Operator : NVARCHAR(20)
+    ErrorMessage : NVARCHAR(500)
+    IsActive : BIT
+}
+
+entity "Configurations" as Configurations {
+    * ConfigurationId : INT <<PK>>
+    --
+    UserId : INT <<FK>>
+    Name : NVARCHAR(150)
+    Notes : NVARCHAR(1000)
+    CreatedAt : DATETIME2
+    UpdatedAt : DATETIME2
+}
+
+entity "ConfigurationItems" as Items {
+    * ConfigurationItemId : INT <<PK>>
+    --
+    ConfigurationId : INT <<FK>>
+    ComponentId : INT <<FK>>
+    Quantity : INT
+    AddedAt : DATETIME2
+}
+
+entity "CompatibilityChecks" as Checks {
+    * CompatibilityCheckId : INT <<PK>>
+    --
+    ConfigurationId : INT <<FK>>
+    CheckedAt : DATETIME2
+    IsCompatible : BIT
+    TotalPrice : DECIMAL(12,2)
+    TotalPowerW : DECIMAL(10,2)
+}
+
+entity "CompatibilityIssues" as Issues {
+    * CompatibilityIssueId : INT <<PK>>
+    --
+    CompatibilityCheckId : INT <<FK>>
+    CompatibilityRuleId : INT <<FK>>
+    ComponentAId : INT <<FK>>
+    ComponentBId : INT <<FK>>
+    Message : NVARCHAR(1000)
+    Severity : NVARCHAR(20)
+}
+
+Roles ||--o{ Users 
+Users ||--o{ Configurations 
+
+Categories ||--o{ Components 
+Manufacturers ||--o{ Components 
+
+Categories ||--o{ SpecDefinitions 
+Components ||--o{ Specifications 
+SpecDefinitions ||--o{ Specifications 
+
+Categories ||--o{ Rules 
+Categories ||--o{ Rules 
+
+Configurations ||--o{ Items 
+Components ||--o{ Items 
+
+Configurations ||--o{ Checks 
+Checks ||--o{ Issues 
+
+Rules ||--o{ Issues 
+Components ||--o{ Issues 
+Components ||--o{ Issues 
+
+
+@enduml
