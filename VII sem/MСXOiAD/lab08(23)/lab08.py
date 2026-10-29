@@ -14,8 +14,8 @@ for label in np.unique(y):
     counts[label] = X[y == label].sum(axis=0)
 print("Частоты признаков:\n{}".format(counts))
 clf = BernoulliNB()
-clf.fit(X, y)                          # было Y
-print("clf.predict:\n{}".format(clf.predict(X[2:3])))   # было clf.predict без скобок
+clf.fit(X, y)
+print("clf.predict:\n{}".format(clf.predict(X[2:3])))
 
 # Классификатор MultinomialNB
 rng = np.random.RandomState(1)

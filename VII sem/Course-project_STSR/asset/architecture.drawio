@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="20Q9h25r0KxHi2fz_L6V">
+    <mxGraphModel dx="2091" dy="751" grid="0" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-1" parent="1" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" value="Контейнер 1" vertex="1">
+          <mxGeometry height="170" width="240" x="-230" y="161.05" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-2" parent="1" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" value="Контейнер 2" vertex="1">
+          <mxGeometry height="170" width="240" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-3" parent="1" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" value="Контейнер 3" vertex="1">
+          <mxGeometry height="171.05" width="240" x="470" y="161.05" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="110" width="180" x="150" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="10" width="26.67" x="130" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="10" width="26.67" x="130" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Веб-сервер&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;TypeScript + Node.js&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="165" y="193.95" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="110" width="180" x="-200" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="10" width="26.67" x="-220" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="10" width="26.67" x="-220" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-18" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Веб-клиент&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;TypeScript + React&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="-185" y="193.95" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-19" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="" vertex="1">
+          <mxGeometry height="110" width="130" x="540" y="198.95" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;База данных&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Microsoft SQL Server&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="110" x="550" y="238.95" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-21" edge="1" parent="1" source="qQPOIiW5T89dpUvfFW4i-1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.478;entryY=1.004;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=-5;exitDy=0;exitPerimeter=0;" target="qQPOIiW5T89dpUvfFW4i-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-20" y="271.57" as="sourcePoint" />
+            <mxPoint x="30" y="221.57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-22" edge="1" parent="1" source="qQPOIiW5T89dpUvfFW4i-2" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.467;entryY=1.001;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=-5;exitDy=0;exitPerimeter=0;" target="qQPOIiW5T89dpUvfFW4i-3" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="361.68" y="250.52" as="sourcePoint" />
+            <mxPoint x="436" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-23" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="HTTP / REST API (JSON)" vertex="1">
+          <mxGeometry height="20" width="110" x="10" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="qQPOIiW5T89dpUvfFW4i-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Prisma ORM" vertex="1">
+          <mxGeometry height="20" width="110" x="360" y="210" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
