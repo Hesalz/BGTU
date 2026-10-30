@@ -1,10 +1,15 @@
 dotnet restore .\ApiGateway\ApiGateway.csproj
+
 powershell -ExecutionPolicy Bypass -File .\start-all.ps1
+
 powershell -ExecutionPolicy Bypass -File .\test.ps1
 
 
-# Подробнее
-````
+<details>
+<summary>Подробнее</summary>
+
+[Структура](#структура) · [Запуск](#запуск) · [Маршрутизация](#маршрутизация) · [Проверка](#проверка)
+
 ## Структура
 
 - `TDWA04-01/` — сервер, принимающий параметры `--Nick` и `--Port`;
@@ -73,4 +78,4 @@ curl.exe http://localhost:5002/
 curl.exe http://localhost:5003/
 ```
 
-````
+</details>
