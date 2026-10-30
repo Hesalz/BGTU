@@ -8,7 +8,7 @@ powershell -ExecutionPolicy Bypass -File .\test.ps1
 <details>
 <summary>Подробнее</summary>
 
-[Структура](#структура) · [Запуск](#запуск в Windows) · [Маршрутизация](#маршрутизация) · [Проверка](#проверка CURL)
+[Структура](#структура) · [Запуск](#запуск) · [Маршрутизация](#маршрутизация) · [Проверка](#проверка)
 
 ## Структура
 
@@ -17,7 +17,7 @@ powershell -ExecutionPolicy Bypass -File .\test.ps1
 - `start-all.ps1` — запуск четырёх процессов в Windows PowerShell;
 - `test.ps1` — проверка всех маршрутов.
 
-## Запуск в Windows
+## Запуск
 
 Откройте PowerShell в каталоге проекта и выполните:
 
@@ -51,7 +51,7 @@ dotnet run --project .\ApiGateway\ApiGateway.csproj
 | `PUT /api` | Nick `Z`, порт 5003 | `PUT http://localhost:5003/A` |
 | `DELETE /api` | Nick `Z`, порт 5003 | `DELETE http://localhost:5003/A` |
 
-## Проверка CURL
+## Проверка
 
 После запуска всех процессов откройте отдельный терминал и выполните:
 
