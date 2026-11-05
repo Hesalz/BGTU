@@ -1,9 +1,8 @@
+```powershell
 dotnet restore .\ApiGateway\ApiGateway.csproj
-
 powershell -ExecutionPolicy Bypass -File .\start-all.ps1
-
 powershell -ExecutionPolicy Bypass -File .\test.ps1
-
+```
 
 <details>
 <summary>Подробнее</summary>

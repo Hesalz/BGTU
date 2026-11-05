@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Ocelot" Version="25.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+  <None Update="ocelot.sticky.json"
+        CopyToOutputDirectory="PreserveNewest" />
+  <None Update="ocelot.roundrobin.json"
+        CopyToOutputDirectory="PreserveNewest" />
+</ItemGroup>
+</Project>
