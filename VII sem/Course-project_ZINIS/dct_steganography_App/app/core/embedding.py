@@ -12,11 +12,13 @@ from .payload import (
 from .image_utils import load_luma_channel, save_luma_channel
 
 
+# Позиции двух среднечастотных коэффициентов DCT,
+# отношение которых кодирует один бит
 COEFFICIENT_A = (3, 4)
 COEFFICIENT_B = (4, 3)
 
 
-MIN_SEPARATION = 2.0
+MIN_SEPARATION = 2.0 # Минимальный «зазор» между |A| и |B|, чтобы бит выжил при округлении
 
 
 def _force_bit(
@@ -33,14 +35,14 @@ def _force_bit(
     b = float(coefficients[y2, x2])
 
 
-    separation_scale = 6.0 if colour_mode else 2.0
+    separation_scale = 6.0 if colour_mode else 2.0 # Для цветных картинок зазор больше — компенсируем потери при BGR↔YCrCb
     separation = max(
         MIN_SEPARATION,
         float(strength) * separation_scale,
     )
 
-    if bit == 1:
-        required_a = abs(b) + separation
+    if bit == 1: 
+        required_a = abs(b) + separation # Нужно |A| > |B| + separation; поднимаем A при необходимости
 
         if abs(a) < required_a:
             coefficients[y1, x1] = np.copysign(
@@ -49,7 +51,7 @@ def _force_bit(
             )
 
     else:
-        required_b = abs(a) + separation
+        required_b = abs(a) + separation # Нужно |B| > |A| + separation; поднимаем B при необходимости
 
         if abs(b) < required_b:
             coefficients[y2, x2] = np.copysign(
@@ -61,7 +63,7 @@ def _force_bit(
 def calculate_capacity(
     image_path: str | Path,
 ) -> int:
-
+    """Ёмкость в байтах: один бит на блок 8×8, затем делим на 8."""
     image, _, _ = load_luma_channel(image_path)
 
     height, width = image.shape
@@ -77,6 +79,7 @@ def calculate_capacity(
 def calculate_message_capacity(
     image_path: str | Path,
 ) -> dict:
+    """Сколько всего payload-байт и сколько из них — под само сообщение."""
     payload_capacity = calculate_capacity(image_path)
     max_message_bytes = max_message_bytes_for_payload_capacity(
         payload_capacity
@@ -96,6 +99,7 @@ def embed_message(
     password: str | None = None,
     strength: float = 3.0,
 ) -> dict:
+    """Встраивает сообщение в яркостный канал изображения через DCT."""
 
     if strength <= 0:
         raise ValueError(
@@ -105,7 +109,7 @@ def embed_message(
     image, is_color, original_shape = load_luma_channel(image_path)
 
 
-    payload = build_payload(
+    payload = build_payload( # Формируем payload: заголовок + (опц. зашифрованное) сообщение
         message,
         password,
     )
@@ -118,7 +122,7 @@ def embed_message(
     block_rows = height // BLOCK_SIZE
     block_cols = width // BLOCK_SIZE
 
-    capacity_bits = (
+    capacity_bits = ( # Один блок = один бит
         block_rows * block_cols
     )
 
@@ -151,20 +155,20 @@ def embed_message(
             ]
 
 
-            coefficients = dct_block(
+            coefficients = dct_block( # Пиксели → частоты
                 block
             )
 
 
-            _force_bit(
-                coefficients,
+            _force_bit( # Кодируем один бит в паре коэффициентов
+                coefficients, 
                 bits[bit_index],
                 strength,
                 colour_mode=is_color,
             )
 
 
-            restored = idct_block(
+            restored = idct_block( # Частоты → пиксели
                 coefficients
             )
 
@@ -179,7 +183,7 @@ def embed_message(
             break
 
 
-    save_luma_channel(
+    save_luma_channel( # Записываем изменённый яркостный канал обратно в изображение
         image_path,
         output_path,
         result,

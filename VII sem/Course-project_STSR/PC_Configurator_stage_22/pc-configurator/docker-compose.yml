@@ -1,0 +1,79 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: pc-configurator-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-Change_This_Strong_Password_123!}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$${MSSQL_SA_PASSWORD}\" -C -Q 'SELECT 1' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+    restart: unless-stopped
+
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-Change_This_Strong_Password_123!}
+      MSSQL_DATABASE: ${MSSQL_DATABASE:-PCConfigurator}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - >
+        /opt/mssql-tools18/bin/sqlcmd -S sqlserver -U sa
+        -P "$${MSSQL_SA_PASSWORD}" -C
+        -Q "IF DB_ID(N'$${MSSQL_DATABASE}') IS NULL CREATE DATABASE [$${MSSQL_DATABASE}]"
+    restart: "no"
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: pc-configurator-api
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: sqlserver
+      DB_PORT: 1433
+      DB_USERNAME: sa
+      DB_PASSWORD: ${MSSQL_SA_PASSWORD:-Change_This_Strong_Password_123!}
+      DB_DATABASE: ${MSSQL_DATABASE:-PCConfigurator}
+      DB_SYNCHRONIZE: ${DB_SYNCHRONIZE:-true}
+      JWT_SECRET: ${JWT_SECRET:-development-only-change-this-secret-before-deployment}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@pc-configurator.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Admin_PC_2026!}
+    ports:
+      - "3000:3000"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./apps/api/src:/app/src
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: pc-configurator-web
+    environment:
+      VITE_API_BASE_URL: /api/v1
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    volumes:
+      - ./apps/web/src:/app/src
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:

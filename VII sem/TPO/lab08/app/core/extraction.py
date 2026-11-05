@@ -1,0 +1,187 @@
+import struct
+from pathlib import Path
+
+
+from .dct import BLOCK_SIZE, dct_block
+from .embedding import (
+    COEFFICIENT_A,
+    COEFFICIENT_B,
+)
+from .image_utils import load_luma_channel
+from .payload import (
+    HEADER_FORMAT,
+    HEADER_SIZE,
+    bits_to_bytes,
+    parse_payload,
+)
+
+
+def _read_bit(
+    coefficients,
+) -> int:
+
+    y1, x1 = COEFFICIENT_A
+    y2, x2 = COEFFICIENT_B
+
+    return int(
+        abs(float(coefficients[y1, x1]))
+        >
+        abs(float(coefficients[y2, x2]))
+    )
+
+
+def _read_bits(
+    image,
+    count: int,
+) -> list[int]:
+
+    if count < 0:
+        raise ValueError(
+            "Запрошенное количество бит не может быть отрицательным."
+        )
+
+    height, width = image.shape
+
+    block_rows = height // BLOCK_SIZE
+    block_cols = width // BLOCK_SIZE
+
+    capacity_bits = (
+        block_rows * block_cols
+    )
+
+    if count > capacity_bits:
+        raise ValueError(
+            "Запрашиваемые данные превышают вместимость изображения."
+        )
+
+    bits = []
+
+    for row in range(block_rows):
+
+        for col in range(block_cols):
+
+            if len(bits) >= count:
+                return bits
+
+            y = row * BLOCK_SIZE
+            x = col * BLOCK_SIZE
+
+            block = image[
+                y:y + BLOCK_SIZE,
+                x:x + BLOCK_SIZE,
+            ]
+
+
+            coefficients = dct_block(
+                block
+            )
+
+            bits.append(
+                _read_bit(coefficients)
+            )
+
+    return bits
+
+
+def extract_message(
+    image_path: str | Path,
+    password: str,
+) -> str:
+
+    image, _, _ = load_luma_channel(image_path)
+
+
+    try:
+
+        header_bits = _read_bits(
+            image,
+            HEADER_SIZE * 8,
+        )
+
+
+        if len(header_bits) != HEADER_SIZE * 8:
+            raise ValueError(
+                "Заголовок скрытого сообщения неполный."
+            )
+
+        header = bits_to_bytes(
+            header_bits
+        )
+
+        if len(header) != HEADER_SIZE:
+            raise ValueError(
+                "Заголовок скрытого сообщения неполный."
+            )
+
+        (
+            magic,
+            version,
+            encrypted_length,
+            salt,
+            integrity,
+        ) = struct.unpack(
+            HEADER_FORMAT,
+            header,
+        )
+
+    except (
+        ValueError,
+        struct.error,
+    ) as exc:
+
+        raise ValueError(
+            "Не удалось прочитать корректный заголовок DCT-сообщения."
+        ) from exc
+
+
+    if magic != b"DCTS":
+        raise ValueError(
+            "Совместимое DCT-сообщение не найдено."
+        )
+
+    if version not in (2, 3):
+        raise ValueError(
+            "Неподдерживаемая версия данных."
+        )
+
+    if encrypted_length <= 0:
+        raise ValueError(
+            "Скрытое сообщение имеет некорректную длину."
+        )
+
+
+    total_bytes = (
+        HEADER_SIZE
+        + encrypted_length
+    )
+
+    total_bits = total_bytes * 8
+
+
+    try:
+
+        all_bits = _read_bits(
+            image,
+            total_bits,
+        )
+
+        if len(all_bits) != total_bits:
+            raise ValueError(
+                "Скрытое сообщение неполное."
+            )
+
+        payload = bits_to_bytes(
+            all_bits
+        )
+
+    except ValueError as exc:
+
+        raise ValueError(
+            "Скрытое сообщение неполное."
+        ) from exc
+
+
+    return parse_payload(
+        payload,
+        password,
+    )

@@ -71,7 +71,7 @@ plt.show()
 from IPython.display import display
 display(tree)
 import pandas as pd
-ram_prices = pd.read_csv("D:/Subject/АД/Lab/Lab7/ram_price.csv")
+ram_prices = pd.read_csv("ram_price.csv")
 plt.semilogy(ram_prices.date, ram_prices.price)
 plt.xlabel("Год")
 plt.ylabel("Цена $/Мбайт")
@@ -80,13 +80,13 @@ from sklearn.tree import DecisionTreeRegressor
 data_train = ram_prices[ram_prices.date < 2000]
 data_test = ram_prices[ram_prices.date >= 2000]
 y_train = np.log(data_train.price)
-X_train = data_train.date[:, np.newaxis]
+X_train = data_train.date.to_numpy()[:, np.newaxis]
 print("X:\n{}".format(X_train))
 print("y:\n{}".format(y_train))
 tree = DecisionTreeRegressor().fit(X_train, y_train)
 from sklearn.linear_model import LinearRegression
 linear_reg = LinearRegression().fit(X_train, y_train)
-X_all = ram_prices.date[:, np.newaxis]
+X_all = ram_prices.date.to_numpy()[:, np.newaxis]
 pred_tree = tree.predict(X_all)
 pred_lr = linear_reg.predict(X_all)
 price_tree = np.exp(pred_tree)
