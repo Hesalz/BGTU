@@ -4,8 +4,7 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string mode = Environment.GetEnvironmentVariable("BALANCER_MODE")
-              ?? "RoundRobin";
+string mode = Environment.GetEnvironmentVariable("BALANCER_MODE") ?? "RoundRobin";
 
 if (mode.Equals("Weighted", StringComparison.OrdinalIgnoreCase))
 {
@@ -36,23 +35,18 @@ if (mode.Equals("Weighted", StringComparison.OrdinalIgnoreCase))
             int index = Interlocked.Increment(ref currentIndex);
             string nick = sequence[index % sequence.Length];
 
-            var target = new Uri(
-                servers[nick] + context.Request.Path +
-                context.Request.QueryString);
+            var target = new Uri(servers[nick] + context.Request.Path + context.Request.QueryString);
 
-            using var request = new HttpRequestMessage(
-                new HttpMethod(context.Request.Method), target);
+            using var request = new HttpRequestMessage(new HttpMethod(context.Request.Method), target);
 
-            if (context.Request.ContentLength > 0 ||
-                context.Request.Headers.ContainsKey("Transfer-Encoding"))
+            if (context.Request.ContentLength > 0 || context.Request.Headers.ContainsKey("Transfer-Encoding"))
             {
                 request.Content = new StreamContent(context.Request.Body);
             }
 
             foreach (var header in context.Request.Headers)
             {
-                if (!request.Headers.TryAddWithoutValidation(
-                    header.Key, header.Value.ToArray()))
+                if (!request.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray()))
                 {
                     request.Content?.Headers.TryAddWithoutValidation(
                         header.Key, header.Value.ToArray());

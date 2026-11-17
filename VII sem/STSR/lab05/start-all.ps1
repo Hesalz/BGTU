@@ -1,11 +1,6 @@
 $ErrorActionPreference = "Stop"
 $root = $PSScriptRoot
 
-Write-Host ""
-Write-Host "======================================"
-Write-Host "       LABORATORY WORK 05"
-Write-Host "======================================"
-Write-Host ""
 Write-Host "Select load balancing mode:"
 Write-Host ""
 Write-Host "1 - Round Robin"
