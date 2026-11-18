@@ -24,8 +24,8 @@ from app.core.extraction import extract_message
 from app.database.history import HistoryDatabase
 
 
-APP_TITLE = "DCT Steganography"
-DEFAULT_STRENGTH = 3
+APP_TITLE = "DCT Steganography" # Название приложения, отображаемое в окне.
+DEFAULT_STRENGTH = 3 # Значение силы встраивания, выбранное по умолчанию.
 
 
 class PlotCanvas(FigureCanvas):
@@ -50,7 +50,7 @@ class ImagePreview(QLabel):
     def __init__(self, title: str):
         super().__init__()
         self.title = title
-        self._source_pixmap = QPixmap()
+        self._source_pixmap = QPixmap() # Хранение исходного изображения для повторного масштабирования.
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setMinimumHeight(210)
         self.setFrameShape(QFrame.Shape.StyledPanel)
@@ -59,7 +59,7 @@ class ImagePreview(QLabel):
     def set_image(self, path: str):
         pixmap = QPixmap(path)
         if pixmap.isNull():
-            self._source_pixmap = QPixmap()
+            self._source_pixmap = QPixmap() # Хранение исходного изображения для повторного масштабирования.
             self.clear()
             self.setText("Не удалось загрузить изображение")
             return
@@ -95,20 +95,20 @@ class MainWindow(QMainWindow):
         screen = QApplication.primaryScreen()
         if screen is not None:
             available = screen.availableGeometry()
-            width = min(1180, max(900, available.width() - 40))
-            height = min(760, max(620, available.height() - 40))
+            width = min(1180, max(900, available.width() - 40)) # Подбор ширины окна с учётом доступного пространства экрана.
+            height = min(760, max(620, available.height() - 40)) # Подбор высоты окна с учётом доступного пространства экрана.
             self.resize(width, height)
         else:
             self.resize(1180, 760)
 
-        self.db = HistoryDatabase()
-        self._benchmark_results = []
-        self._build_ui()
-        self._apply_style()
-        self.refresh_history()
+        self.db = HistoryDatabase() # Подключение базы данных истории операций.
+        self._benchmark_results = [] # Хранение результатов последней серии экспериментов.
+        self._build_ui() # Создание элементов интерфейса.
+        self._apply_style() # Применение стилей интерфейса.
+        self.refresh_history() # Загрузка сохранённых операций в таблицу истории.
 
     def _build_ui(self):
-        central = QWidget()
+        central = QWidget() # Центральный контейнер главного окна.
         root_layout = QVBoxLayout(central)
         root_layout.setContentsMargins(22, 18, 22, 18)
         root_layout.setSpacing(14)
@@ -123,7 +123,7 @@ class MainWindow(QMainWindow):
         header.addWidget(subtitle)
         root_layout.addLayout(header)
 
-        self.tabs = QTabWidget()
+        self.tabs = QTabWidget() # Контейнер вкладок основных функций приложения.
         self.tabs.addTab(self._wrap_tab(self._build_embed_tab()), "🔐 Скрыть сообщение")
         self.tabs.addTab(self._wrap_tab(self._build_extract_tab()), "🔓 Извлечь сообщение")
         self.tabs.addTab(self._wrap_tab(self._build_analysis_tab()), "📊 Анализ")
@@ -173,7 +173,7 @@ class MainWindow(QMainWindow):
             "Один блок 8×8 хранит один бит. Для цветных изображений DCT выполняется по каналу яркости Y."
         )
         form.addRow("", self.capacity_label)
-        self.embed_source.textChanged.connect(self._update_capacity)
+        self.embed_source.textChanged.connect(self._update_capacity) # Пересчёт вместимости при изменении пути исходного изображения.
         layout.addWidget(files)
 
         message_box = QGroupBox("Сообщение и параметры")
@@ -191,8 +191,8 @@ class MainWindow(QMainWindow):
 
         strength_row = QHBoxLayout()
         self.strength_slider = QSlider(Qt.Orientation.Horizontal)
-        self.strength_slider.setRange(2, 5)
-        self.strength_slider.setValue(DEFAULT_STRENGTH)
+        self.strength_slider.setRange(2, 5) # Ограничение силы встраивания допустимым диапазоном 2–5.
+        self.strength_slider.setValue(DEFAULT_STRENGTH) # Установка начального значения силы встраивания.
         self.strength_value = QLabel(str(DEFAULT_STRENGTH))
         self.strength_slider.valueChanged.connect(
             lambda value: self.strength_value.setText(str(value))
@@ -207,9 +207,9 @@ class MainWindow(QMainWindow):
         self.embed_status.setObjectName("status")
         layout.addWidget(self.embed_status)
 
-        self.embed_button = QPushButton("Скрыть сообщение")
+        self.embed_button = QPushButton("Скрыть сообщение") # Кнопка запуска внедрения сообщения.
         self.embed_button.setObjectName("primary")
-        self.embed_button.clicked.connect(self.embed)
+        self.embed_button.clicked.connect(self.embed) # Связь кнопки с обработчиком внедрения.
         layout.addWidget(self.embed_button)
 
         previews = QHBoxLayout()
@@ -247,9 +247,9 @@ class MainWindow(QMainWindow):
         self.extract_password.setPlaceholderText("Оставьте пустым, если сообщение без пароля")
         form.addRow("Пароль (если использовался):", self.extract_password)
 
-        self.extract_button = QPushButton("Извлечь сообщение")
+        self.extract_button = QPushButton("Извлечь сообщение") # Кнопка запуска извлечения сообщения.
         self.extract_button.setObjectName("primary")
-        self.extract_button.clicked.connect(self.extract)
+        self.extract_button.clicked.connect(self.extract) # Связь кнопки с обработчиком извлечения.
         layout.addWidget(self.extract_button)
 
         self.extract_status = QLabel("Выберите стего-изображение.")
@@ -320,8 +320,8 @@ class MainWindow(QMainWindow):
         )
         bench_layout.addRow("Размеры серии:", self.bench_series_sizes)
 
-        self.bench_series_button = QPushButton("Запустить серию экспериментов")
-        self.bench_series_button.clicked.connect(self.benchmark_series)
+        self.bench_series_button = QPushButton("Запустить серию экспериментов") # Кнопка запуска пакетного тестирования.
+        self.bench_series_button.clicked.connect(self.benchmark_series) # Связь кнопки с запуском серии экспериментов.
         bench_layout.addRow("", self.bench_series_button)
 
         self.bench_series_status = QLabel(
@@ -330,7 +330,7 @@ class MainWindow(QMainWindow):
         self.bench_series_status.setObjectName("status")
         bench_layout.addRow("", self.bench_series_status)
 
-        self.bench_table = QTableWidget(0, 8)
+        self.bench_table = QTableWidget(0, 8) # Таблица результатов серии экспериментов.
         self.bench_table.setHorizontalHeaderLabels(
             [
                 "Размер, Б", "Сила", "Результат", "PSNR", "MSE",
@@ -369,7 +369,7 @@ class MainWindow(QMainWindow):
 
     @staticmethod
     def _create_plot_canvas():
-        figure = Figure(figsize=(5.2, 3.1), tight_layout=True)
+        figure = Figure(figsize=(5.2, 3.1), tight_layout=True) # Создание фигуры Matplotlib с компактным размещением элементов.
         canvas = PlotCanvas(figure)
         canvas.setMinimumHeight(250)
         return canvas
@@ -388,7 +388,7 @@ class MainWindow(QMainWindow):
         return sorted((x, sum(values) / len(values)) for x, values in grouped.items())
 
     def _plot_results(self, results):
-        self._benchmark_results = list(results)
+        self._benchmark_results = list(results) # Сохранение результатов текущей серии.
 
         plots = [
             (self.psnr_plot, "PSNR в зависимости от силы встраивания", "Сила", "PSNR, дБ", "strength", "psnr_db"),
@@ -398,13 +398,13 @@ class MainWindow(QMainWindow):
 
         for canvas, title, xlabel, ylabel, x_key, y_key in plots:
             figure = canvas.figure
-            figure.clear()
-            axis = figure.add_subplot(111)
-            points = self._group_average(results, x_key, y_key)
+            figure.clear() # Очистка предыдущего графика.
+            axis = figure.add_subplot(111) # Создание области построения графика.
+            points = self._group_average(results, x_key, y_key) # Получение усреднённых значений для отображения на графике.
             if points:
                 x_values = [point[0] for point in points]
                 y_values = [point[1] for point in points]
-                axis.plot(x_values, y_values, marker="o")
+                axis.plot(x_values, y_values, marker="o") # Построение графика по рассчитанным точкам.
                 axis.grid(True, alpha=0.25)
             else:
                 axis.text(0.5, 0.5, "Нет успешных результатов", ha="center", va="center", transform=axis.transAxes)
@@ -412,10 +412,10 @@ class MainWindow(QMainWindow):
             axis.set_xlabel(xlabel)
             axis.set_ylabel(ylabel)
             figure.tight_layout()
-            canvas.draw()
+            canvas.draw() # Обновление отображения графика.
 
 
-        grouped_time = {}
+        grouped_time = {} # Сбор суммарного времени внедрения и извлечения по размерам сообщений.
         for result in results:
             if result.get("status") != "OK":
                 continue
@@ -429,8 +429,8 @@ class MainWindow(QMainWindow):
 
         canvas = self.time_plot
         figure = canvas.figure
-        figure.clear()
-        axis = figure.add_subplot(111)
+        figure.clear() # Очистка предыдущего графика.
+        axis = figure.add_subplot(111) # Создание области построения графика.
         if time_points:
             axis.plot(
                 [point[0] for point in time_points],
@@ -444,11 +444,11 @@ class MainWindow(QMainWindow):
         axis.set_xlabel("Размер сообщения, Б")
         axis.set_ylabel("Время, с")
         figure.tight_layout()
-        canvas.draw()
+        canvas.draw() # Обновление отображения графика.
 
-        ok = sum(result.get("status") == "OK" for result in results)
-        fail = sum(result.get("status") == "FAIL" for result in results)
-        skip = sum(result.get("status") == "SKIP" for result in results)
+        ok = sum(result.get("status") == "OK" for result in results) # Подсчёт успешно завершённых экспериментов.
+        fail = sum(result.get("status") == "FAIL" for result in results) # Подсчёт экспериментов с ошибкой извлечения.
+        skip = sum(result.get("status") == "SKIP" for result in results) # Подсчёт пропущенных экспериментов.
         self.benchmark_plot_status.setText(
             f"Результаты серии: успешно={ok}, ошибки={fail}, пропущено={skip}. "
             "На графиках показаны средние значения по соответствующим группам."
@@ -458,7 +458,7 @@ class MainWindow(QMainWindow):
         tab = QWidget()
         layout = QVBoxLayout(tab)
 
-        self.history_table = QTableWidget(0, 7)
+        self.history_table = QTableWidget(0, 7) # Таблица сохранённых операций.
         self.history_table.setHorizontalHeaderLabels(
             ["Дата", "Операция", "Файл", "Сообщение, байт", "Сила", "PSNR", "Результат"]
         )
@@ -496,12 +496,12 @@ class MainWindow(QMainWindow):
             edit.setText(path)
 
     def _update_capacity(self):
-        path = self.embed_source.text().strip()
+        path = self.embed_source.text().strip() # Получение пути выбранного изображения.
         if not path:
             self.capacity_label.setText("Вместимость: —")
             return
         try:
-            capacity = calculate_message_capacity(path)
+            capacity = calculate_message_capacity(path) # Расчёт доступной вместимости изображения.
             self.capacity_label.setText(
                 "Вместимость: "
                 f"данные {capacity['payload_bytes']:,} байт | "
@@ -514,28 +514,28 @@ class MainWindow(QMainWindow):
             self.capacity_label.setText("Вместимость: не удалось определить")
 
     def embed(self):
-        source = self.embed_source.text().strip()
-        output = self.embed_output.text().strip()
-        message = self.message_edit.toPlainText()
-        password = self.embed_password.text()
-        strength = self.strength_slider.value()
+        source = self.embed_source.text().strip() # Получение пути исходного изображения.
+        output = self.embed_output.text().strip() # Получение пути сохранения результата.
+        message = self.message_edit.toPlainText() # Получение введённого сообщения.
+        password = self.embed_password.text() # Получение пароля шифрования.
+        strength = self.strength_slider.value() # Получение выбранной силы встраивания.
 
         if not source or not Path(source).exists():
             self._error("Выберите существующее исходное изображение.")
             return
-        if not output:
+        if not output: # Проверка указанного пути сохранения.
             self._error("Укажите путь для сохранения стего-изображения.")
             return
-        if not message:
+        if not message: # Проверка наличия текста для внедрения.
             self._error("Введите сообщение.")
             return
 
 
         try:
-            result = embed_message(source, output, message, password or None, strength)
-            extracted = extract_message(output, password or None)
-            metrics = compare_images(source, output)
-            verified = extracted == message
+            result = embed_message(source, output, message, password or None, strength) # Внедрение текста с выбранными параметрами и необязательным паролем.
+            extracted = extract_message(output, password or None) # Контрольное извлечение для проверки корректности внедрения.
+            metrics = compare_images(source, output) # Вычисление метрик качества полученного стего-изображения.
+            verified = extracted == message # Сравнение извлечённого текста с исходным сообщением.
 
             self.source_preview.set_image(source)
             self.stego_preview.set_image(output)
@@ -569,7 +569,7 @@ class MainWindow(QMainWindow):
                 mse=metrics["mse"],
                 success=verified,
             )
-            self.refresh_history()
+            self.refresh_history() # Загрузка сохранённых операций в таблицу истории.
 
             if not verified:
                 self._show_operation_status(
@@ -587,14 +587,14 @@ class MainWindow(QMainWindow):
             )
 
     def extract(self):
-        source = self.extract_source.text().strip()
-        password = self.extract_password.text()
+        source = self.extract_source.text().strip() # Получение пути стего-изображения.
+        password = self.extract_password.text() # Получение пароля для извлечения.
 
         if not source or not Path(source).exists():
             self._error("Выберите стего-изображение.")
             return
         try:
-            message = extract_message(source, password or None)
+            message = extract_message(source, password or None) # Извлечение скрытого текста с учётом введённого пароля.
             self.extracted_message.setPlainText(message)
             self._show_operation_status(
                 self.extract_status,
@@ -611,7 +611,7 @@ class MainWindow(QMainWindow):
                 mse=None,
                 success=True,
             )
-            self.refresh_history()
+            self.refresh_history() # Загрузка сохранённых операций в таблицу истории.
         except Exception as exc:
             self.extracted_message.clear()
             self._show_operation_status(
@@ -622,11 +622,11 @@ class MainWindow(QMainWindow):
             )
 
     def compare(self):
-        original = self.analysis_original.text().strip()
-        stego = self.analysis_stego.text().strip()
+        original = self.analysis_original.text().strip() # Получение пути исходного изображения.
+        stego = self.analysis_stego.text().strip() # Получение пути стего-изображения.
 
         try:
-            metrics = compare_images(original, stego)
+            metrics = compare_images(original, stego) # Расчёт MSE и PSNR выбранных изображений.
             self.analysis_result.setText(
                 f"MSE: {metrics['mse']:.8f}\n"
                 f"PSNR: {metrics['psnr_db']:.2f} дБ"
@@ -635,14 +635,14 @@ class MainWindow(QMainWindow):
             self._error(str(exc))
 
     def benchmark_series(self):
-        image = self.bench_image.text().strip()
-        password = self.bench_password.text()
+        image = self.bench_image.text().strip() # Получение исходного изображения для тестирования.
+        password = self.bench_password.text() # Получение пароля для экспериментальных сообщений.
 
         if not image or not Path(image).exists():
             self._error("Выберите изображение для серии экспериментов.")
             return
         try:
-            sizes = [
+            sizes = [ # Разбор введённых размеров сообщений.
                 int(value.strip())
                 for value in self.bench_series_sizes.text().split(",")
                 if value.strip()
@@ -655,11 +655,11 @@ class MainWindow(QMainWindow):
             self._error(str(exc))
             return
 
-        self.bench_table.setRowCount(0)
+        self.bench_table.setRowCount(0) # Очистка таблицы перед отображением новых результатов.
         self.bench_series_status.setText(
             f"Выполняется серия: {len(sizes) * 5} экспериментов…"
         )
-        self.bench_series_button.setEnabled(False)
+        self.bench_series_button.setEnabled(False) # Блокировка кнопки на время выполнения серии.
 
         try:
             import tempfile
@@ -673,7 +673,7 @@ class MainWindow(QMainWindow):
                 )
 
             for result in results:
-                row = self.bench_table.rowCount()
+                row = self.bench_table.rowCount() # Определение строки для добавления результата.
                 self.bench_table.insertRow(row)
                 values = [
                     str(result["message_bytes"]),
@@ -688,7 +688,7 @@ class MainWindow(QMainWindow):
                 for col, value in enumerate(values):
                     self.bench_table.setItem(row, col, QTableWidgetItem(value))
 
-            self._plot_results(results)
+            self._plot_results(results) # Построение графиков по результатам серии.
 
             ok = sum(r["status"] == "OK" for r in results)
             fail = sum(r["status"] == "FAIL" for r in results)
@@ -701,13 +701,13 @@ class MainWindow(QMainWindow):
             self.bench_series_status.setText("Серия завершилась с ошибкой.")
             self._error(str(exc))
         finally:
-            self.bench_series_button.setEnabled(True)
+            self.bench_series_button.setEnabled(True) # Повторное включение кнопки после завершения серии.
 
     def refresh_history(self):
-        rows = self.db.list_recent(100)
-        self.history_table.setRowCount(0)
+        rows = self.db.list_recent(100) # Получение последних 100 записей из базы данных.
+        self.history_table.setRowCount(0) # Очистка таблицы перед обновлением.
         for record in rows:
-            row = self.history_table.rowCount()
+            row = self.history_table.rowCount() # Выбор следующей строки для записи.
             self.history_table.insertRow(row)
             values = [
                 record["created_at"],
@@ -733,8 +733,8 @@ class MainWindow(QMainWindow):
         token = getattr(self, token_name, 0) + 1
         setattr(self, token_name, token)
 
-        label.setText(message)
-        if success:
+        label.setText(message) # Вывод текста уведомления.
+        if success: # Выбор оформления в зависимости от результата операции.
             label.setStyleSheet(
                 "background:#e9f8ee; border:1px solid #9bd3ae; "
                 "border-radius:8px; padding:10px; color:#18743a; font-weight:600;"
@@ -751,7 +751,7 @@ class MainWindow(QMainWindow):
             label.setText(default_text)
             label.setStyleSheet("")
 
-        QTimer.singleShot(timeout_ms, clear_status)
+        QTimer.singleShot(timeout_ms, clear_status) # Автоматический сброс уведомления по истечении заданного времени.
 
     def _error(self, message: str):
         QMessageBox.critical(self, "Ошибка", message)
@@ -828,8 +828,8 @@ class MainWindow(QMainWindow):
 
 
 def run():
-    app = QApplication.instance() or QApplication([])
+    app = QApplication.instance() or QApplication([]) # Использование существующего экземпляра Qt или создание нового.
     app.setApplicationName(APP_TITLE)
-    window = MainWindow()
-    window.show()
-    return app.exec()
+    window = MainWindow() # Создание главного окна приложения.
+    window.show() # Отображение главного окна.
+    return app.exec() # Запуск событийного цикла Qt.
