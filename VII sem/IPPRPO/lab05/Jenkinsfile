@@ -1,0 +1,47 @@
+
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven'
+    }
+
+    environment {
+            MAVEN_OPTS = '-Duser.language=en -Duser.country=US -Dfile.encoding=UTF-8'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                bat 'chcp 65001 > nul && mvn clean compile'
+            }
+        }
+
+        stage('Static Analysis') {
+            steps {
+                bat 'chcp 65001 > nul && mvn checkstyle:check'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'chcp 65001 > nul && mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'chcp 65001 > nul && mvn verify -DskipTests'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}
