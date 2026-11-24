@@ -47,6 +47,21 @@ export class Component {
   @Column({ type: 'nvarchar', length: 180, nullable: true, name: 'external_id' })
   externalId: string | null;
 
+  @Column({ type: 'nvarchar', length: 180, nullable: true, name: 'manufacturer_part_number' })
+  manufacturerPartNumber: string | null;
+
+  @Column({ type: 'nvarchar', length: 120, nullable: true, name: 'price_source' })
+  priceSource: string | null;
+
+  @Column({ type: 'nvarchar', length: 1000, nullable: true, name: 'price_url' })
+  priceUrl: string | null;
+
+  @Column({ type: 'datetime2', nullable: true, name: 'price_updated_at' })
+  priceUpdatedAt: Date | null;
+
+  @Column({ type: 'nvarchar', length: 120, nullable: true, name: 'image_source' })
+  imageSource: string | null;
+
   @CreateDateColumn({ name: 'created_at', type: 'datetime2' })
   createdAt: Date;
 

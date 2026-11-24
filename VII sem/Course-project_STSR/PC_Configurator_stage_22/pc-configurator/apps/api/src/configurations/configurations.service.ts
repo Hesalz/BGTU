@@ -18,9 +18,10 @@ export class ConfigurationsService {
   }
 
   async create(ownerId: string, dto: CreateConfigurationDto) {
-    const ids = [...new Set(dto.componentIds)];
-    const found = await this.components.find({ where: { id: In(ids) }, relations: { categoryEntity: true } });
-    if (found.length !== ids.length) throw new BadRequestException('Одна или несколько комплектующих больше не существуют');
+    const ids = dto.componentIds;
+    const uniqueIds = [...new Set(ids)];
+    const found = await this.components.find({ where: { id: In(uniqueIds) }, relations: { categoryEntity: true } });
+    if (found.length !== uniqueIds.length) throw new BadRequestException('Одна или несколько комплектующих больше не существуют');
     const row = this.configurations.create({ ownerId, name: dto.name.trim(), componentIds: JSON.stringify(ids) });
     return this.toResponse(await this.configurations.save(row));
   }
@@ -28,9 +29,10 @@ export class ConfigurationsService {
   async update(ownerId: string, id: string, dto: CreateConfigurationDto) {
     const row = await this.configurations.findOne({ where: { id, ownerId } });
     if (!row) throw new NotFoundException('Конфигурация не найдена');
-    const ids = [...new Set(dto.componentIds)];
-    const found = await this.components.find({ where: { id: In(ids) }, relations: { categoryEntity: true } });
-    if (found.length !== ids.length) throw new BadRequestException('Одна или несколько комплектующих больше не существуют');
+    const ids = dto.componentIds;
+    const uniqueIds = [...new Set(ids)];
+    const found = await this.components.find({ where: { id: In(uniqueIds) }, relations: { categoryEntity: true } });
+    if (found.length !== uniqueIds.length) throw new BadRequestException('Одна или несколько комплектующих больше не существуют');
     row.name = dto.name.trim();
     row.componentIds = JSON.stringify(ids);
     return this.toResponse(await this.configurations.save(row));

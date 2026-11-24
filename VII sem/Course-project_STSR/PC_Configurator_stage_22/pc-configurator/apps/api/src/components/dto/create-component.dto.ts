@@ -49,4 +49,24 @@ export class CreateComponentDto {
   @IsString()
   @MaxLength(180)
   externalId?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(180)
+  manufacturerPartNumber?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  priceSource?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(1000)
+  priceUrl?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  imageSource?: string | null;
 }

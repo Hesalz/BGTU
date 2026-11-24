@@ -3,16 +3,38 @@ import { ComponentsService } from './components.service';
 import { CreateComponentDto } from './dto/create-component.dto';
 import { UpdateComponentDto } from './dto/update-component.dto';
 import { QueryComponentsDto } from './dto/query-components.dto';
+import { CheckCompatibilityDto } from './dto/check-compatibility.dto';
+import { CompatibilityService } from './compatibility.service';
+import { CatalogDataImportService } from './catalog-data-import.service';
+import { ImportCatalogDataDto } from './dto/import-catalog-data.dto';
+import { OnlinerCatalogService } from './onliner-catalog.service';
 import { JwtAuthGuard } from '../auth/auth.guard';
 import { AdminGuard } from '../auth/roles.guard';
 
 @Controller('components')
 export class ComponentsController {
-  constructor(private readonly componentsService: ComponentsService) {}
+  constructor(private readonly componentsService: ComponentsService, private readonly compatibilityService: CompatibilityService, private readonly catalogDataImport: CatalogDataImportService, private readonly onlinerCatalog: OnlinerCatalogService) {}
 
   @Get()
   findAll(@Query() filters: QueryComponentsDto) {
     return this.componentsService.findAll(filters);
+  }
+
+  @Post('compatibility')
+  checkCompatibility(@Body() dto: CheckCompatibilityDto) {
+    return this.compatibilityService.check(dto.componentIds);
+  }
+
+  @Post('import/catalog-data')
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  importCatalogData(@Body() dto: ImportCatalogDataDto) {
+    return this.catalogDataImport.import(dto);
+  }
+
+  @Post('import/onliner')
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  importOnliner() {
+    return this.onlinerCatalog.enrichCatalog();
   }
 
   @Get(':id')

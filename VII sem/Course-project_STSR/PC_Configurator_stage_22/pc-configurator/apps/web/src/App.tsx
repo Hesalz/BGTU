@@ -1,7 +1,7 @@
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import {
   Activity, ArrowRight, Box, CircuitBoard, Cpu, Fan, HardDrive, MemoryStick,
-  Plus, Search, ShieldCheck, SlidersHorizontal, Zap, X, Pencil, Trash2, LogIn, LogOut, Save, Bookmark, Minus,
+  Plus, Search, ShieldCheck, SlidersHorizontal, Zap, X, Pencil, Trash2, LogIn, LogOut, Save, Bookmark, Minus, AlertTriangle, CheckCircle2, Info,
 } from 'lucide-react';
 
 type HealthResponse = { status: string; service: string; timestamp: string };
@@ -10,6 +10,7 @@ type ComponentItem = {
   id: string; category: string; categoryId: string | null; categoryEntity?: Category | null;
   manufacturer: string; model: string; description: string | null; price: number | null;
   powerW: number | null; specifications: string | null; imageUrl: string | null;
+  manufacturerPartNumber?: string | null; priceSource?: string | null; priceUrl?: string | null; priceUpdatedAt?: string | null; imageSource?: string | null;
 };
 type AuthUser = { id: string; email: string; displayName: string | null; role: 'USER' | 'ADMIN' };
 type SavedConfiguration = { id: string; name: string; createdAt: string; updatedAt?: string; components: ComponentItem[]; totalPrice: number; totalPowerW: number };
@@ -17,6 +18,22 @@ type SpecEntry = { label: string; value: string };
 type ComponentForm = {
   categoryId: string; manufacturer: string; model: string; description: string;
   price: string; powerW: string; specifications: string; imageUrl: string;
+};
+type CompatibilityFinding = { level: 'error' | 'warning' | 'info'; rule: string; message: string };
+type CompatibilityResult = { status: 'compatible' | 'incompatible' | 'needs-data'; findings: CompatibilityFinding[] };
+type CatalogImportRow = { partNumber: string; manufacturer?: string; price?: number; productUrl?: string; imageUrl?: string };
+type CharacteristicFilter = { label: string; unit: string; labels: RegExp; fromPower?: boolean };
+
+const characteristicFilters: Record<string, CharacteristicFilter> = {
+  cpu: { label: 'Частота от', unit: 'ГГц', labels: /базов.*частот/i },
+  // OpenDB stores GPU VRAM under `memory`, which is rendered as «Объём памяти».
+  gpu: { label: 'Видеопамять от', unit: 'ГБ', labels: /^(память видеокарты|объём памяти)$/i },
+  motherboard: { label: 'Слотов памяти от', unit: 'шт.', labels: /слот.*памят/i },
+  ram: { label: 'Объём памяти от', unit: 'ГБ', labels: /объём|ёмкост|capacity/i },
+  storage: { label: 'Ёмкость от', unit: 'ГБ', labels: /ёмкост|capacity/i },
+  cooling: { label: 'Высота до', unit: 'мм', labels: /^высота$/i },
+  psu: { label: 'Мощность от', unit: 'Вт', labels: /мощност|wattage/i, fromPower: true },
+  case: { label: 'Место для GPU от', unit: 'мм', labels: /максимальн.*длин.*видеокарт/i },
 };
 
 const specificationLabels: Record<string, string> = {
@@ -138,6 +155,7 @@ const categoryIcons: Record<string, typeof Cpu> = {
   cpu: Cpu, gpu: CircuitBoard, motherboard: SlidersHorizontal, ram: MemoryStick,
   storage: HardDrive, cooling: Fan, psu: Zap, case: Box,
 };
+const multiQuantityCategories = new Set(['ram', 'cooling', 'storage']);
 
 function getComponentIcon(item: ComponentItem): typeof Cpu {
   const category = (item.categoryEntity?.slug ?? item.category ?? '').toLowerCase();
@@ -160,6 +178,7 @@ function App() {
   const [detailsItem, setDetailsItem] = useState<ComponentItem | null>(null);
   const [search, setSearch] = useState('');
   const [categoryId, setCategoryId] = useState('');
+  const [characteristicMin, setCharacteristicMin] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [loading, setLoading] = useState(true);
@@ -177,6 +196,8 @@ function App() {
   const [authDisplayName, setAuthDisplayName] = useState('');
   const [authError, setAuthError] = useState('');
   const [selectedComponents, setSelectedComponents] = useState<ComponentItem[]>([]);
+  const [compatibility, setCompatibility] = useState<CompatibilityResult | null>(null);
+  const [compatibilityError, setCompatibilityError] = useState('');
   const [configurationName, setConfigurationName] = useState('Моя сборка');
   const [savedConfigurations, setSavedConfigurations] = useState<SavedConfiguration[]>([]);
   const [pendingConfigurationConfirmation, setPendingConfigurationConfirmation] = useState<{ action: 'delete' | 'replace'; configuration: SavedConfiguration } | null>(null);
@@ -184,10 +205,29 @@ function App() {
   const [configurationBusy, setConfigurationBusy] = useState(false);
   const [importBusy, setImportBusy] = useState(false);
   const [importMessage, setImportMessage] = useState('');
+  const [catalogDataImportOpen, setCatalogDataImportOpen] = useState(false);
+  const [catalogDataSource, setCatalogDataSource] = useState('');
+  const [catalogDataFile, setCatalogDataFile] = useState<File | null>(null);
+  const [catalogDataBusy, setCatalogDataBusy] = useState(false);
+  const [catalogDataError, setCatalogDataError] = useState('');
   const [activeNav, setActiveNav] = useState<'catalog' | 'builder' | 'saved-configurations'>('catalog');
   const navigationLockRef = useRef(false);
   const navigationTimerRef = useRef<number | null>(null);
   const isAdmin = authUser?.role === 'ADMIN';
+  const activeCategory = categories.find((category) => category.id === categoryId);
+  const activeCharacteristicFilter = activeCategory ? characteristicFilters[activeCategory.slug] : undefined;
+  const filteredComponents = (() => {
+    const filter = activeCharacteristicFilter;
+    if (!filter || characteristicMin === '') return components;
+    return components.filter((item) => {
+      const entries = getSpecificationEntries(item);
+      const raw = filter.fromPower && item.powerW != null
+        ? String(item.powerW)
+        : entries.find((entry) => filter.labels.test(entry.label))?.value;
+      const numeric = Number(raw?.replace(',', '.').match(/\d+(?:\.\d+)?/)?.[0]);
+      return Number.isFinite(numeric) && numeric >= Number(characteristicMin);
+    });
+  })();
 
   useEffect(() => {
     const updateActiveSection = () => {
@@ -279,10 +319,37 @@ function App() {
     return () => window.clearTimeout(timeoutId);
   }, [importMessage]);
 
+  useEffect(() => { setCharacteristicMin(''); }, [categoryId]);
+
+  useEffect(() => {
+    if (!selectedComponents.length) { setCompatibility(null); setCompatibilityError(''); return; }
+    let active = true;
+    const check = async () => {
+      try {
+        setCompatibilityError('');
+        const response = await fetch('/api/v1/components/compatibility', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ componentIds: selectedComponents.map((item) => item.id) }) });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) throw new Error(Array.isArray(body?.message) ? body.message.join(', ') : body?.message || 'Не удалось проверить совместимость.');
+        if (active) setCompatibility(body as CompatibilityResult);
+      } catch (e) { if (active) { setCompatibility(null); setCompatibilityError(e instanceof Error ? e.message : 'Не удалось проверить совместимость.'); } }
+    };
+    void check();
+    return () => { active = false; };
+  }, [selectedComponents]);
+
   function toggleSelectedComponent(item: ComponentItem) {
     setSelectedComponents((current) => current.some((component) => component.id === item.id)
       ? current.filter((component) => component.id !== item.id)
       : [...current, item]);
+    setConfigurationMessage('');
+  }
+
+  function setComponentQuantity(item: ComponentItem, quantity: number) {
+    const nextQuantity = Math.max(0, Math.min(10, Math.floor(quantity)));
+    setSelectedComponents((current) => {
+      const withoutItem = current.filter((component) => component.id !== item.id);
+      return nextQuantity ? [...withoutItem, ...Array.from({ length: nextQuantity }, () => item)] : withoutItem;
+    });
     setConfigurationMessage('');
   }
 
@@ -364,6 +431,54 @@ function App() {
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Не удалось импортировать каталог');
     } finally { setImportBusy(false); }
+  }
+
+  async function enrichFromOnliner() {
+    if (!authToken || !isAdmin) return;
+    if (!window.confirm('Автоматически обновить цены и изображения из каталога Onliner? Будут изменены только позиции с точным совпадением модели.')) return;
+    setImportBusy(true); setError(''); setImportMessage('');
+    try {
+      const response = await fetch('/api/v1/components/import/onliner', { method: 'POST', headers: authHeaders(true) });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(Array.isArray(body?.message) ? body.message.join(', ') : body?.message || 'Не удалось обновить цены и изображения.');
+      await loadComponents();
+      setImportMessage(`Автообновление Onliner завершено: обновлено ${body.updated}, пропущено ${body.skipped}, ошибок ${body.failed}.`);
+    } catch (e) { setError(e instanceof Error ? e.message : 'Не удалось обновить цены и изображения.'); }
+    finally { setImportBusy(false); }
+  }
+
+  function parseCatalogDataCsv(text: string): CatalogImportRow[] {
+    const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/).filter((line) => line.trim());
+    if (lines.length < 2) throw new Error('Файл должен содержать заголовок и хотя бы одну позицию.');
+    const separator = lines[0].includes(';') ? ';' : ',';
+    const headers = lines[0].split(separator).map((value) => value.trim().toLowerCase());
+    const indexOf = (...names: string[]) => headers.findIndex((header) => names.includes(header));
+    const partIndex = indexOf('partnumber', 'part_number', 'mpn', 'артикул');
+    if (partIndex < 0) throw new Error('Нужен столбец partNumber, part_number, mpn или «артикул».');
+    const manufacturerIndex = indexOf('manufacturer', 'brand', 'производитель'); const priceIndex = indexOf('price', 'цена'); const productUrlIndex = indexOf('producturl', 'product_url', 'url', 'ссылка'); const imageUrlIndex = indexOf('imageurl', 'image_url', 'image', 'изображение');
+    return lines.slice(1).map((line) => {
+      const cells = line.split(separator).map((value) => value.trim().replace(/^"|"$/g, ''));
+      const price = priceIndex >= 0 && cells[priceIndex] ? Number(cells[priceIndex].replace(',', '.')) : undefined;
+      return { partNumber: cells[partIndex] ?? '', ...(manufacturerIndex >= 0 && cells[manufacturerIndex] ? { manufacturer: cells[manufacturerIndex] } : {}), ...(price !== undefined && Number.isFinite(price) ? { price } : {}), ...(productUrlIndex >= 0 && cells[productUrlIndex] ? { productUrl: cells[productUrlIndex] } : {}), ...(imageUrlIndex >= 0 && cells[imageUrlIndex] ? { imageUrl: cells[imageUrlIndex] } : {}) };
+    }).filter((row) => row.partNumber);
+  }
+
+  async function importCatalogData(event: FormEvent) {
+    event.preventDefault();
+    if (!catalogDataFile) { setCatalogDataError('Выберите CSV-файл.'); return; }
+    if (!catalogDataSource.trim()) { setCatalogDataError('Укажите источник прайс-листа.'); return; }
+    setCatalogDataBusy(true); setCatalogDataError('');
+    try {
+      const rows = parseCatalogDataCsv(await catalogDataFile.text());
+      if (!rows.length) throw new Error('В файле нет строк с артикулом.');
+      const response = await fetch('/api/v1/components/import/catalog-data', { method: 'POST', headers: authHeaders(true), body: JSON.stringify({ source: catalogDataSource.trim(), rows }) });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(Array.isArray(body?.message) ? body.message.join(', ') : body?.message || 'Не удалось импортировать прайс-лист.');
+      await loadComponents(); await refreshCategoryCounts();
+      setImportMessage(`Прайс-лист обработан: обновлено ${body.updated}, не сопоставлено ${body.unmatched}, некорректных строк ${body.invalid}.`);
+      setCatalogDataImportOpen(false); setCatalogDataFile(null); setCatalogDataSource('');
+    } catch (e) { setCatalogDataError(e instanceof Error ? e.message : 'Не удалось обработать CSV-файл.'); }
+    finally { setCatalogDataBusy(false); }
   }
 
   async function refreshCategoryCounts() {
@@ -510,7 +625,7 @@ function App() {
         </section>
 
         <section className="section" id="catalog">
-          <div className="section-heading"><div><div className="eyebrow">COMPONENT SELECTOR</div><h2>Каталог комплектующих</h2><p>Выбирай категорию, сравнивай основные параметры и открывай карточку комплектующей, чтобы изучить подробные характеристики перед добавлением в сборку.</p></div>{isAdmin && <div className="catalog-admin-actions"><button className="outline-button" type="button" onClick={() => void importOpenDb()} disabled={importBusy}><ArrowRight size={15} />{importBusy ? 'Импорт…' : 'Импортировать OpenDB'}</button><button className="primary-button catalog-add" type="button" onClick={openCreate}><Plus size={17} /> Добавить компонент</button></div>}</div>
+          <div className="section-heading"><div><div className="eyebrow">COMPONENT SELECTOR</div><h2>Каталог комплектующих</h2><p>Выбирай категорию, сравнивай основные параметры и открывай карточку комплектующей, чтобы изучить подробные характеристики перед добавлением в сборку.</p></div>{isAdmin && <div className="catalog-admin-actions"><button className="outline-button" type="button" onClick={() => void importOpenDb()} disabled={importBusy}><ArrowRight size={15} />{importBusy ? 'Импорт…' : 'Импортировать OpenDB'}</button><button className="outline-button" type="button" onClick={() => void enrichFromOnliner()} disabled={importBusy}>Обновить цены и фото</button><button className="primary-button catalog-add" type="button" onClick={openCreate}><Plus size={17} /> Добавить компонент</button></div>}</div>
           <div className="category-grid">
             {categories.map((category, index) => {
               const Icon = categoryIcons[category.slug] ?? Cpu;
@@ -522,24 +637,24 @@ function App() {
 
           <div className="catalog-toolbar">
             <label className="catalog-search"><Search size={18} /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Поиск по модели, производителю..." /></label>
-            <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} aria-label="Категория"><option value="">Все категории</option>{categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
+            {activeCharacteristicFilter ? <input aria-label={activeCharacteristicFilter.label} type="number" min="0" step="0.1" placeholder={`${activeCharacteristicFilter.label}, ${activeCharacteristicFilter.unit}`} value={characteristicMin} onChange={(e) => setCharacteristicMin(e.target.value)} /> : <div className="catalog-filter-hint">Выберите категорию выше, чтобы фильтровать по характеристике.</div>}
             <input aria-label="Минимальная цена" type="number" min="0" placeholder="Цена от" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
             <input aria-label="Максимальная цена" type="number" min="0" placeholder="Цена до" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
           </div>
           {error && <div className="catalog-error" role="alert">{error}</div>}
           {importMessage && <div className="import-success" role="status">{importMessage}</div>}
-          <div className="catalog-results-heading"><strong>Найдено компонентов: {components.length}</strong><button className="text-button" type="button" onClick={() => { setSearch(''); setCategoryId(''); setMinPrice(''); setMaxPrice(''); }}>Сбросить фильтры <X size={15} /></button></div>
-          {loading ? <div className="catalog-empty">Загружаем каталог…</div> : components.length === 0 ? <div className="catalog-empty"><Cpu size={30} /><strong>Комплектующие не найдены</strong><span>{isAdmin ? 'Измени параметры поиска или добавь первый компонент.' : 'Измени параметры поиска или загляни позже — каталог будет пополняться.'}</span>{isAdmin && <button className="outline-button" type="button" onClick={openCreate}><Plus size={16} /> Добавить компонент</button>}</div> : <div className="component-list">
-            {components.map((item) => <article className="component-row" key={item.id}>
+          <div className="catalog-results-heading"><strong>Найдено компонентов: {filteredComponents.length}</strong><button className="text-button" type="button" onClick={() => { setSearch(''); setCategoryId(''); setCharacteristicMin(''); setMinPrice(''); setMaxPrice(''); }}>Сбросить фильтры <X size={15} /></button></div>
+          {loading ? <div className="catalog-empty">Загружаем каталог…</div> : filteredComponents.length === 0 ? <div className="catalog-empty"><Cpu size={30} /><strong>Комплектующие не найдены</strong><span>{isAdmin ? 'Измени параметры поиска или добавь первый компонент.' : 'Измени параметры поиска или загляни позже — каталог будет пополняться.'}</span>{isAdmin && <button className="outline-button" type="button" onClick={openCreate}><Plus size={16} /> Добавить компонент</button>}</div> : <div className="component-list">
+            {filteredComponents.map((item) => <article className="component-row" key={item.id}>
               <div className="component-image">{item.imageUrl ? <img src={item.imageUrl} alt={`${item.manufacturer} ${item.model}`} /> : (() => { const Icon = getComponentIcon(item); return <Icon size={30} strokeWidth={1.5} />; })()}</div>
-              <div className="component-main"><span className="component-category">{item.categoryEntity?.name ?? categories.find((c) => c.id === item.categoryId)?.name ?? item.category}</span><h3>{item.manufacturer} {item.model}</h3>{getSpecificationEntries(item).length > 0 && <div className="component-key-specs">{getSpecificationEntries(item).slice(0, 5).map((entry, index) => <span key={`${entry.label}-${index}`}><b>{entry.label}:</b> {entry.value}</span>)}</div>}{getSpecificationEntries(item).length === 0 && descriptionText(item.description) && <p>{descriptionText(item.description)}</p>}{item.category === 'psu' && item.powerW != null && <small>Мощность блока питания: {item.powerW} Вт</small>}</div>
+              <div className="component-main"><span className="component-category">{item.categoryEntity?.name ?? categories.find((c) => c.id === item.categoryId)?.name ?? item.category}</span><h3>{item.manufacturer} {item.model}</h3>{getSpecificationEntries(item).length > 0 && <div className="component-key-specs">{getSpecificationEntries(item).slice(0, 5).map((entry, index) => <span key={`${entry.label}-${index}`}><b>{entry.label}:</b> {entry.value}</span>)}</div>}{getSpecificationEntries(item).length === 0 && descriptionText(item.description) && <p>{descriptionText(item.description)}</p>}{item.category === 'psu' && item.powerW != null && <small>Мощность блока питания: {item.powerW} Вт</small>}{item.priceSource && <small>Цена: {item.priceSource}{item.priceUpdatedAt ? ` · ${new Date(item.priceUpdatedAt).toLocaleDateString('ru-RU')}` : ''}</small>}</div>
               <div className="component-price">{item.price != null ? <><strong>{Number(item.price).toLocaleString('ru-RU', { maximumFractionDigits: 2 })}</strong><span>BYN</span></> : <span>Цена не указана</span>}</div>
               <div className="component-actions"><button type="button" aria-label="Подробные характеристики" title="Подробные характеристики" onClick={() => setDetailsItem(item)}><Search size={16} /></button><button type="button" className={selectedComponents.some((selected) => selected.id === item.id) ? 'component-selected' : ''} aria-label={selectedComponents.some((selected) => selected.id === item.id) ? 'Убрать из сборки' : 'Добавить в сборку'} title={selectedComponents.some((selected) => selected.id === item.id) ? 'Убрать из сборки' : 'Добавить в сборку'} onClick={() => toggleSelectedComponent(item)}>{selectedComponents.some((selected) => selected.id === item.id) ? <Minus size={16} /> : <Plus size={16} />}</button>{isAdmin && <><button type="button" aria-label="Редактировать" title="Редактировать" onClick={() => openEdit(item)}><Pencil size={16} /></button><button type="button" aria-label="Удалить" title="Удалить" onClick={() => void deleteComponent(item)}><Trash2 size={16} /></button></>}</div>
             </article>)}
           </div>}
         </section>
 
-        <section className="builder-panel" id="builder"><div className="builder-panel-copy"><div className="eyebrow">YOUR PC BUILD</div><h2>Твоя конфигурация<br /><em>начинается здесь.</em></h2><p>Добавляй комплектующие из каталога, оценивай общую стоимость и сохраняй сборки в своём аккаунте.</p><label className="configuration-name-label">Название сборки<input value={configurationName} maxLength={100} onChange={(event) => setConfigurationName(event.target.value)} placeholder="Например, игровой ПК" /></label><button className="primary-button save-configuration-button" type="button" onClick={() => void saveConfiguration()} disabled={configurationBusy}><Save size={16} />{configurationBusy ? 'Сохранение…' : 'Сохранить конфигурацию'}</button>{!authUser && <p className="configuration-hint">Собирать компьютер можно без регистрации. Вход нужен только для сохранения.</p>}{configurationMessage && <div className={`configuration-message ${configurationMessage.startsWith('Конфигурация сохранена') || configurationMessage.startsWith('Сборка «') || configurationMessage.startsWith('Загружена сборка') ? 'configuration-message-success' : 'configuration-message-error'}`} role="status" aria-live="polite">{configurationMessage}</div>}</div><div className="build-summary"><div className="summary-header"><span>ТЕКУЩАЯ СБОРКА</span><span className="draft-label">{selectedComponents.length} шт.</span></div><div className="build-category-slots" id="compatibility"><div className="build-slots-heading">ВЫБРАННЫЕ КОМПЛЕКТУЮЩИЕ ПО КАТЕГОРИЯМ</div>{categories.map((category) => { const matches = selectedComponents.filter((item) => (item.categoryId ?? item.categoryEntity?.id) === category.id || item.category === category.slug); return <div className="build-category-slot" key={category.id}><span className="build-category-name">{category.name}</span><div className="build-category-items">{matches.length ? matches.map((item) => <div className="build-slot-item" key={item.id}><button type="button" className="selected-component-name" onClick={() => setDetailsItem(item)} title="Посмотреть характеристики">{item.manufacturer} {item.model}</button><strong>{item.price == null ? '—' : `${Number(item.price).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} BYN`}</strong><button type="button" aria-label={`Убрать ${item.model}`} onClick={() => toggleSelectedComponent(item)}><X size={14} /></button></div>) : <span className="build-slot-empty">Не выбрано</span>}</div></div>})}</div><div className="summary-footer"><span>ОБЩАЯ СТОИМОСТЬ</span><strong>{selectedComponents.reduce((sum, item) => sum + Number(item.price ?? 0), 0).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} <small>BYN</small></strong></div></div></section>
+        <section className="builder-panel" id="builder"><div className="builder-panel-copy"><div className="eyebrow">YOUR PC BUILD</div><h2>Твоя конфигурация<br /><em>начинается здесь.</em></h2><p>Добавляй комплектующие из каталога, оценивай общую стоимость и сохраняй сборки в своём аккаунте.</p><label className="configuration-name-label">Название сборки<input value={configurationName} maxLength={100} onChange={(event) => setConfigurationName(event.target.value)} placeholder="Например, игровой ПК" /></label><button className="primary-button save-configuration-button" type="button" onClick={() => void saveConfiguration()} disabled={configurationBusy}><Save size={16} />{configurationBusy ? 'Сохранение…' : 'Сохранить конфигурацию'}</button>{!authUser && <p className="configuration-hint">Собирать компьютер можно без регистрации. Вход нужен только для сохранения.</p>}{configurationMessage && <div className={`configuration-message ${configurationMessage.startsWith('Конфигурация сохранена') || configurationMessage.startsWith('Сборка «') || configurationMessage.startsWith('Загружена сборка') ? 'configuration-message-success' : 'configuration-message-error'}`} role="status" aria-live="polite">{configurationMessage}</div>}</div><div className="build-summary"><div className="summary-header"><span>ТЕКУЩАЯ СБОРКА</span><span className="draft-label">{selectedComponents.length} шт.</span></div>{compatibilityError && <div className="compatibility-panel compatibility-error" role="alert"><AlertTriangle size={15} />{compatibilityError}</div>}{compatibility && <div className={`compatibility-panel compatibility-${compatibility.status}`} role="status" aria-live="polite">{compatibility.findings.map((finding, index) => <div className="compatibility-finding" key={`${finding.rule}-${index}`}>{finding.level === 'error' ? <AlertTriangle size={15} /> : finding.level === 'info' ? <CheckCircle2 size={15} /> : <Info size={15} />}<span>{finding.message}</span></div>)}</div>}<div className="build-category-slots" id="compatibility"><div className="build-slots-heading">ВЫБРАННЫЕ КОМПЛЕКТУЮЩИЕ ПО КАТЕГОРИЯМ</div>{categories.map((category) => { const matches = selectedComponents.filter((item) => (item.categoryId ?? item.categoryEntity?.id) === category.id || item.category === category.slug); const uniqueMatches = matches.filter((item, index) => matches.findIndex((candidate) => candidate.id === item.id) === index); return <div className="build-category-slot" key={category.id}><span className="build-category-name">{category.name}</span><div className="build-category-items">{matches.length ? uniqueMatches.map((item) => { const quantity = matches.filter((selected) => selected.id === item.id).length; const canSetQuantity = multiQuantityCategories.has(item.category); return <div className="build-slot-item" key={item.id}><button type="button" className="selected-component-name" onClick={() => setDetailsItem(item)} title="Посмотреть характеристики">{item.manufacturer} {item.model}</button>{canSetQuantity && <span className="component-quantity"><button type="button" aria-label={`Уменьшить количество ${item.model}`} disabled={quantity <= 1} onClick={() => setComponentQuantity(item, quantity - 1)}><Minus size={12} /></button><output>×{quantity}</output><button type="button" aria-label={`Увеличить количество ${item.model}`} disabled={quantity >= 10} onClick={() => setComponentQuantity(item, quantity + 1)}><Plus size={12} /></button></span>}<strong>{item.price == null ? '—' : `${(Number(item.price) * quantity).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} BYN`}</strong><button type="button" aria-label={`Убрать ${item.model}`} onClick={() => setComponentQuantity(item, 0)}><X size={14} /></button></div>; }) : <span className="build-slot-empty">Не выбрано</span>}</div></div>})}</div><div className="summary-footer"><span>ОБЩАЯ СТОИМОСТЬ</span><strong>{selectedComponents.reduce((sum, item) => sum + Number(item.price ?? 0), 0).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} <small>BYN</small></strong></div></div></section>
         <section className="section saved-configurations" id="saved-configurations"><div className="section-heading"><div><div className="eyebrow">YOUR SAVED BUILDS</div><h2>Сохранённые конфигурации</h2><p>Твои сборки доступны после повторного входа в аккаунт.</p></div></div>{!authUser ? <div className="catalog-empty"><Bookmark size={26} /><strong>Войди, чтобы увидеть сохранённые сборки</strong><button className="outline-button" type="button" onClick={() => { setAuthMode('login'); setAuthModalOpen(true); }}>Войти в аккаунт</button></div> : savedConfigurations.length === 0 ? <div className="catalog-empty"><Bookmark size={26} /><strong>Сохранённых сборок пока нет</strong><span>Добавь комплектующие и сохрани первую конфигурацию.</span></div> : <div className="saved-config-list">{savedConfigurations.map((configuration) => <article className="saved-config-card" key={configuration.id}><div><strong>{configuration.name}</strong><span>{configuration.components.length} комплектующих · {Number(configuration.totalPrice).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} BYN · {configuration.totalPowerW} Вт</span><small>{new Date(configuration.updatedAt || configuration.createdAt).toLocaleDateString('ru-RU')}</small></div><div className="saved-config-actions"><button className="outline-button" type="button" onClick={() => loadConfigurationIntoBuilder(configuration)}>Открыть</button><button className="text-button" type="button" onClick={() => setPendingConfigurationConfirmation({ action: 'delete', configuration })}>Удалить</button></div></article>)}</div>}</section>
         <footer className="footer"><span>PC<span className="red">.</span> CONFIGURATOR</span><span>BUILT FOR YOUR NEXT BUILD <Activity size={13} /></span><span>2026</span></footer>
       </main>
@@ -555,9 +670,18 @@ function App() {
         <div className="modal-actions"><button className="text-button" type="button" onClick={() => { setAuthMode(authMode === 'login' ? 'register' : 'login'); setAuthError(''); }}>{authMode === 'login' ? 'Создать аккаунт' : 'Уже есть аккаунт? Войти'}</button><button className="primary-button" type="submit">{authMode === 'login' ? 'Войти' : 'Зарегистрироваться'}</button></div>
       </form></div>}
 
+      {catalogDataImportOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget && !catalogDataBusy) setCatalogDataImportOpen(false); }}><form className="component-modal catalog-import-modal" onSubmit={importCatalogData}>
+        <div className="modal-heading"><div><div className="eyebrow">CATALOG DATA IMPORT</div><h2>Цены и изображения</h2></div><button type="button" className="modal-close" aria-label="Закрыть" disabled={catalogDataBusy} onClick={() => setCatalogDataImportOpen(false)}><X size={20} /></button></div>
+        <p className="details-description">Импорт сопоставляет позиции только по артикулу производителя (MPN), поэтому не подменяет цену или фото у похожей, но другой модели.</p>
+        <label>Название источника<input required maxLength={120} value={catalogDataSource} placeholder="Например, OnLife / Open Icecat" onChange={(e) => setCatalogDataSource(e.target.value)} /></label>
+        <label>CSV-файл<input required type="file" accept=".csv,text/csv" onChange={(e) => setCatalogDataFile(e.target.files?.[0] ?? null)} /><small className="field-hint">Столбцы: partNumber (или mpn/артикул), manufacturer, price, productUrl, imageUrl. Цена — в BYN; поля manufacturer, price, productUrl и imageUrl необязательны.</small></label>
+        {catalogDataError && <div className="catalog-error" role="alert">{catalogDataError}</div>}
+        <div className="modal-actions"><button className="text-button" type="button" disabled={catalogDataBusy} onClick={() => setCatalogDataImportOpen(false)}>Отмена</button><button className="primary-button" type="submit" disabled={catalogDataBusy}>{catalogDataBusy ? 'Импорт…' : 'Загрузить CSV'}</button></div>
+      </form></div>}
+
       {detailsItem && <div className="modal-backdrop" role="presentation" onMouseDown={(e) => { if (e.target === e.currentTarget) setDetailsItem(null); }}><div className="component-modal details-modal" role="dialog" aria-modal="true" aria-label="Характеристики комплектующей">
         <div className="modal-heading"><div><div className="eyebrow">COMPONENT DETAILS</div><h2>{detailsItem.manufacturer} {detailsItem.model}</h2></div><button type="button" className="modal-close" aria-label="Закрыть" onClick={() => setDetailsItem(null)}><X size={20} /></button></div>
-        <div className="details-meta"><span>{detailsItem.categoryEntity?.name ?? categories.find((c) => c.id === detailsItem.categoryId)?.name ?? detailsItem.category}</span><strong>{detailsItem.price == null ? 'Цена не указана' : `${Number(detailsItem.price).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} BYN`}</strong></div>
+        <div className="details-meta"><span>{detailsItem.categoryEntity?.name ?? categories.find((c) => c.id === detailsItem.categoryId)?.name ?? detailsItem.category}</span><strong>{detailsItem.price == null ? 'Цена не указана' : `${Number(detailsItem.price).toLocaleString('ru-RU', { maximumFractionDigits: 2 })} BYN`}</strong></div>{detailsItem.manufacturerPartNumber && <p className="details-source">Артикул производителя: {detailsItem.manufacturerPartNumber}</p>}{detailsItem.priceSource && <p className="details-source">Источник цены: {detailsItem.priceUrl ? <a href={detailsItem.priceUrl} target="_blank" rel="noreferrer">{detailsItem.priceSource}</a> : detailsItem.priceSource}{detailsItem.priceUpdatedAt ? ` · обновлено ${new Date(detailsItem.priceUpdatedAt).toLocaleDateString('ru-RU')}` : ''}</p>}{detailsItem.imageSource && <p className="details-source">Источник изображения: {detailsItem.imageSource}</p>}
         {getSpecificationEntries(detailsItem).length === 0 && descriptionText(detailsItem.description) && <p className="details-description">{descriptionText(detailsItem.description)}</p>}
         {getSpecificationEntries(detailsItem).length ? <div className="specification-groups">{groupSpecifications(getSpecificationEntries(detailsItem)).map((group) => <section className="specification-group" key={group.title}><h3>{group.title}</h3><div className="specification-grid">{group.entries.map((entry, index) => <div className="specification-item" key={`${entry.label}-${index}`}><span>{entry.label}</span><strong>{entry.value}</strong></div>)}</div></section>)}</div> : <div className="catalog-empty details-empty">Для этой комплектующей подробные характеристики пока не загружены.</div>}
         <div className="modal-actions"><button className="outline-button" type="button" onClick={() => { toggleSelectedComponent(detailsItem); setDetailsItem(null); }}><Plus size={15} /> Добавить в сборку</button>{isAdmin && <button className="primary-button" type="button" onClick={() => { const item = detailsItem; setDetailsItem(null); openEdit(item); }}>Редактировать</button>}</div>

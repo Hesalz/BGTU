@@ -9,11 +9,14 @@ import { CategoriesService } from './categories.service';
 import { AuthModule } from '../auth/auth.module';
 import { OpenDbImportController } from './opendb/opendb-import.controller';
 import { OpenDbImportService } from './opendb/opendb-import.service';
+import { CompatibilityService } from './compatibility.service';
+import { CatalogDataImportService } from './catalog-data-import.service';
+import { OnlinerCatalogService } from './onliner-catalog.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Component, Category]), AuthModule],
   controllers: [ComponentsController, CategoriesController, OpenDbImportController],
-  providers: [ComponentsService, CategoriesService, OpenDbImportService],
+  providers: [ComponentsService, CategoriesService, OpenDbImportService, CompatibilityService, CatalogDataImportService, OnlinerCatalogService],
   exports: [ComponentsService, CategoriesService],
 })
 export class ComponentsModule {}

@@ -62,17 +62,18 @@ export class OpenDbImportService {
         continue;
       }
 
-      const listingResponse = await fetch(`${API_ROOT}/${mapping.folder}?ref=main`, {
-        headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'PC-Configurator-OpenDB-Importer' },
-        signal: AbortSignal.timeout(20000),
-      }).catch((error: unknown) => {
-        throw new BadGatewayException(`Не удалось связаться с GitHub при получении категории ${mapping.folder}: ${this.errorText(error)}`);
-      });
-      if (!listingResponse.ok) {
-        throw new BadGatewayException(`GitHub вернул HTTP ${listingResponse.status} для категории ${mapping.folder}`);
+      let files: Array<{ name?: string; type?: string }>;
+      try {
+        files = await this.fetchJson<Array<{ name?: string; type?: string }>>(`${API_ROOT}/${mapping.folder}?ref=main`, {
+          Accept: 'application/vnd.github+json', 'User-Agent': 'PC-Configurator-OpenDB-Importer',
+        });
+      } catch (error) {
+        // A temporary unavailable category must not cancel components imported
+        // from the previous categories during the same run.
+        this.logger.warn(`Не удалось получить категорию ${mapping.folder}: ${this.errorText(error)}`);
+        skipped += 1;
+        continue;
       }
-
-      const files = await listingResponse.json() as Array<{ name?: string; type?: string }>;
       const selected = files
         .filter((file) => file.type === 'file' && /^[0-9a-f-]{36}\.json$/i.test(file.name ?? ''))
         .slice(0, RECORDS_PER_CATEGORY);
@@ -80,12 +81,9 @@ export class OpenDbImportService {
       for (const file of selected) {
         try {
           const externalId = (file.name as string).replace(/\.json$/i, '');
-          const dataResponse = await fetch(`${RAW_ROOT}/${mapping.folder}/${file.name}`, {
-            headers: { 'User-Agent': 'PC-Configurator-OpenDB-Importer' },
-            signal: AbortSignal.timeout(15000),
+          const data = await this.fetchJson<OpenDbRecord>(`${RAW_ROOT}/${mapping.folder}/${file.name}`, {
+            'User-Agent': 'PC-Configurator-OpenDB-Importer',
           });
-          if (!dataResponse.ok) { skipped += 1; continue; }
-          const data = await dataResponse.json() as OpenDbRecord;
           const name = data.metadata?.name?.trim();
           const manufacturer = (data.metadata?.manufacturer ?? data.manufacturer ?? data.chipset_manufacturer ?? '').trim();
           if (!name || !manufacturer) { skipped += 1; continue; }
@@ -123,6 +121,7 @@ export class OpenDbImportService {
             imageUrl: null,
             sourceName: SOURCE_NAME,
             externalId: sourceId.slice(0, 180),
+            manufacturerPartNumber: data.metadata?.part_numbers?.[0]?.trim().slice(0, 180) || null,
           });
           await this.components.save(record);
           if (existing) updated += 1; else inserted += 1;
@@ -213,5 +212,21 @@ export class OpenDbImportService {
 
   private errorText(error: unknown): string {
     return error instanceof Error ? error.message : String(error);
+  }
+
+  /** Includes parsing the body in the timeout and retries transient GitHub delays. */
+  private async fetchJson<T>(url: string, headers: Record<string, string>): Promise<T> {
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      try {
+        const response = await fetch(url, { headers, signal: AbortSignal.timeout(45000) });
+        if (!response.ok) throw new Error(`GitHub вернул HTTP ${response.status}`);
+        return await response.json() as T;
+      } catch (error) {
+        lastError = error;
+        if (attempt < 3) await new Promise<void>((resolve) => setTimeout(resolve, attempt * 800));
+      }
+    }
+    throw lastError instanceof Error ? lastError : new BadGatewayException('Не удалось получить ответ GitHub.');
   }
 }

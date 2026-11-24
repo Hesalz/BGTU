@@ -115,6 +115,12 @@ h1 em, h2 em { color: var(--red); font-style: normal; }
 .summary-footer > span { font-size: 8px; color: #777; }
 .summary-footer strong { font-size: 19px; }
 .summary-footer small { color: #888; font: 9px 'DM Mono', monospace; }
+.compatibility-panel { margin: 13px 0 4px; padding: 10px; border: 1px solid #555; border-radius: 6px; font-size: 10px; }
+.compatibility-finding { display: flex; align-items: flex-start; gap: 8px; line-height: 1.45; }
+.compatibility-finding + .compatibility-finding { margin-top: 8px; }
+.compatibility-incompatible, .compatibility-error { border-color: #9b3c43; background: #321f22; color: #ffb7bc; }
+.compatibility-needs-data { border-color: #806a38; background: #302a1e; color: #e8cd8d; }
+.compatibility-compatible { border-color: #3d7656; background: #1d3025; color: #b4e1c4; }
 .footer { border-top: 1px solid var(--line); min-height: 65px; display: flex; justify-content: space-between; align-items: center; color: #777; font-size: 8px; }
 .footer > span:nth-child(2) { display: flex; align-items: center; gap: 8px; }
 .footer svg { color: var(--red); }
@@ -152,6 +158,7 @@ h1 em, h2 em { color: var(--red); font-style: normal; }
 .catalog-toolbar input, .catalog-toolbar select, .component-modal input, .component-modal select, .component-modal textarea { width: 100%; min-width: 0; border: 1px solid #454545; border-radius: 8px; background: #202020; color: #fff; padding: 12px 13px; font: inherit; outline: none; }
 .catalog-toolbar input:focus, .catalog-toolbar select:focus, .component-modal input:focus, .component-modal select:focus, .component-modal textarea:focus { border-color: #D52B35; }
 .catalog-search { display: flex; align-items: center; gap: 10px; border: 1px solid #454545; border-radius: 8px; background: #202020; padding-left: 12px; color: #aaa; }
+.catalog-filter-hint { display: flex; align-items: center; border: 1px dashed #454545; border-radius: 8px; color: #888; padding: 0 13px; font-size: 11px; }
 .catalog-search input { border: 0; background: transparent; }
 .catalog-results-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #ddd; margin: 20px 0 12px; }
 .catalog-results-heading .text-button { display: inline-flex; align-items: center; gap: 7px; }
@@ -364,6 +371,9 @@ html { scroll-padding-top: 22px; }
 .build-slot-item strong { color: #ccc; font-size: 10px; white-space: nowrap; }
 .build-slot-item > button:last-child { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid #414141; border-radius: 4px; background: transparent; color: #aaa; cursor: pointer; }
 .build-slot-item > button:last-child:hover { border-color: var(--red); color: white; }
+.component-quantity { display: inline-flex; align-items: center; gap: 4px; color: #d7a34b; font-size: 10px; white-space: nowrap; }
+.component-quantity button { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; padding: 0; border: 1px solid #4c4c4c; border-radius: 3px; background: transparent; color: #ddd; cursor: pointer; }
+.component-quantity button:disabled { opacity: .4; cursor: default; }
 .build-slot-empty { display: block; color: #686868; font-size: 11px; font-style: italic; line-height: 1.5; overflow-wrap: anywhere; }
 @media (max-width: 520px) {
   .build-category-slot { grid-template-columns: minmax(90px, .42fr) minmax(0, 1fr); gap: 8px; }
