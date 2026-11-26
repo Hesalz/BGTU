@@ -1,0 +1,138 @@
+{
+  "uid": "cinema-monitoring",
+  "title": "Cinema Application Monitoring",
+  "tags": [
+    "cinema",
+    "monitoring"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "All purchase attempts",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "cinema_ticket_operations_total",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Successful purchases",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "cinema_ticket_operations_success_total",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Purchase errors",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "cinema_ticket_operations_error_total",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Tickets sold",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "cinema_tickets_sold_total",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Purchase operations over time",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(cinema_ticket_operations_total[1m])",
+          "legendFormat": "Attempts/sec",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(cinema_ticket_operations_success_total[1m])",
+          "legendFormat": "Successful/sec",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(cinema_ticket_operations_error_total[1m])",
+          "legendFormat": "Errors/sec",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Average purchase duration (seconds)",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(cinema_ticket_purchase_duration_seconds_sum[5m]) / rate(cinema_ticket_purchase_duration_seconds_count[5m])",
+          "legendFormat": "Average duration",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
+  "links": []
+}

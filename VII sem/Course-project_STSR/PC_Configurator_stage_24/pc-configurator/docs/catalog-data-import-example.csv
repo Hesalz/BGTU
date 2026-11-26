@@ -1,0 +1,4 @@
+partNumber;manufacturer;price;productUrl;imageUrl;imageUrls;shop;offerUrl
+BX8071514400K;Intel;1349.00;https://example.by/intel-bx8071514400k;https://example.com/images/bx8071514400k.jpg;https://example.com/images/bx8071514400k-side.jpg;Магазин Пример;https://example.by/intel-bx8071514400k
+BX8071514400K;Intel;1329.90;https://example.by/intel-bx8071514400k;https://example.com/images/bx8071514400k.jpg;;Другой магазин;https://shop.example.by/intel-bx8071514400k
+KF560C36BBEK2-32;Kingston;429.90;https://example.by/kingston-kf560c36bbek2-32;https://example.com/images/kf560c36bbek2-32.jpg;https://example.com/images/kf560c36bbek2-32-side.jpg;Магазин Пример;https://example.by/kingston-kf560c36bbek2-32
